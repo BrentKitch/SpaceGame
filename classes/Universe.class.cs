@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpaceGame.classes
+namespace SpaceGame
 {
-    class Universe
+    public class Universe
     {
         public Objective[] Objectives;
         public Character Character;
