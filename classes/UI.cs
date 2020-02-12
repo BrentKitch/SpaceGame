@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace SpaceGame
 {
-    class UI
+    public class UI
     {
         [DllImport("kernel32.dll", ExactSpelling = true)]
 
@@ -57,7 +57,7 @@ namespace SpaceGame
                 
                 for(int a = 0; a < 120; a++, starCounter++) // writes width
                 {
-                    if ((i != 0 || i != 29) && (a == 0 || a == 119))
+                    if ((i != 0 || i != 29) && (a == 0 || a == 119))        // makes box for map
                     {
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                         Console.Write(" ");
@@ -121,7 +121,7 @@ namespace SpaceGame
             {
                 for(int a = 0; a < 120; a++)
                 {
-                    if((i != 0 || i != 19) && (a == 0 || a == 119))
+                    if((i != 0 || i != 19) && (a == 0 || a == 119))  // makes box for menu
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.Write(" ");
