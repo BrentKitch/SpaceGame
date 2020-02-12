@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SpaceGame
 {
-    class Character
+    public class Character
     {
         public string Name { get; set; }
         public int Age { get; set; }

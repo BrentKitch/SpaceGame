@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SpaceGame.classes
+﻿namespace SpaceGame
 {
-    class Objective
+    public class Objective
     {
-        string Mission { get; set; }
-        bool Optional { get; set; }
-        bool Story { get; set; }
-        bool Completed { get; set; }
+        public string Mission { get; set; }
+        public bool Optional { get; set; }
+        public bool Story { get; set; }
+        public bool Completed { get; set; }
 
         public Objective(string mission, bool optional, bool story)
         { 
