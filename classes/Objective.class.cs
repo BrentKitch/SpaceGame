@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpaceGame.classes
+namespace SpaceGame
 {
-    class Objective
+    public class Objective
     {
         string Mission { get; set; }
         bool Optional { get; set; }
