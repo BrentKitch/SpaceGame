@@ -36,10 +36,10 @@ namespace SpaceGame
         //    Console.ReadLine();
 
         //}
-        public static void Main(string[] args)
-        {
-            new UI().RenderGame();
-        }
+        //public static void Main(string[] args)
+        //{
+        //    new UI().RenderGame();
+        //}
         void RenderGame()
         {
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);

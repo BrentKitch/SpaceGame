@@ -15,13 +15,14 @@ namespace SpaceGame
         public Coordinates Position { get; set; }
         public Gender Gender{ get; set; }
 
-        public Character(string name, int age, Gender gender)
+        public Character(string name, Gender gender)
         {
             this.Name = name;
             this.Age = 18;
             this.Currency = 0;
             this.Health = 100;
             this.Gender = gender;
+            this.Position = new Coordinates(0, 0);
         }
 
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SpaceGame
 {
-    class Coordinates
+    public class Coordinates
     {
         public int X { get; set; }
         public int Y { get; set; }

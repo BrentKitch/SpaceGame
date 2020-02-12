@@ -4,6 +4,6 @@
     {
         Male = 1,
         Female = 2,
-        Alien = 3
+        Alien = 3,
     }
 }
