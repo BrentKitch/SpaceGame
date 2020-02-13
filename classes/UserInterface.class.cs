@@ -26,7 +26,7 @@ namespace SpaceGame
 
         private const int RESTORE = 9;
         List<(int, int)> xyPair = new List<(int, int)> { };
-        void RenderGame(Universe u, Menu menu)
+        public void RenderGame(Universe u, Menu menu)
         {
             foreach(CelestialBody cb in u.CelestialBodies)
             {
@@ -46,15 +46,23 @@ namespace SpaceGame
             {
                 
                 for(int a = 0; a < 120; a++, starCounter++) // writes width
-                {
+                {  
+                    if(u.Character.Coordinates.X == i && u.Character.Coordinates.Y == a)
+                    {
+
+                    }
                     if (xyPair.Contains((i, a)))
                     {
-                        Console.BackgroundColor =   u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
+                        Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
+                        Console.Write(" ");
+                        Console.Write(" ");
+                        a++;
                     }
                     else if ((i != 0 || i != 29) && (a == 0 || a == 119))        // makes box for map
                     {
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                         Console.Write(" ");
+                        Console.ResetColor();
                     }
                     else if (i == 0 || i == 29)
                     {
