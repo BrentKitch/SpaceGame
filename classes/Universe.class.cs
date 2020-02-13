@@ -1,20 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SpaceGame
 {
-    public class Universe
-    {
-        public Objective[] Objectives;
-        public Character Character;
-        public CelestialBody CelestialBody;
+	public class Universe
+	{
+		public List<Objective> Objectives
+		{
+			get; set;
+		}
 
-        public Universe(Objective[] objectives, Character character, CelestialBody celestialBody)
-        {
-            this.Objectives = objectives;
-            this.Character = character;
-            this.CelestialBody = celestialBody;
-        }
-    }
+		public Character Character
+		{
+			get; set;
+		}
+
+		public List<CelestialBody> CelestialBodies
+		{
+			get; set;
+		}
+
+		public Universe()
+		{
+			this.CelestialBodies = new List<CelestialBody>();
+			this.Objectives = new List<Objective>();
+		}
+
+		public void Add(Character character)
+		{
+			this.Character = character;
+		}
+
+		public void Add(Objective objective)
+		{
+			this.Objectives.Add(objective);
+		}
+
+		public void Add(CelestialBody celestialBody)
+		{
+			this.CelestialBodies.Add(celestialBody);
+		}
+	}
 }

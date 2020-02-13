@@ -7,7 +7,6 @@ namespace SpaceGame
 {
     public class UI
     {
-        private 
         [DllImport("kernel32.dll", ExactSpelling = true)]
 
         private static extern IntPtr GetConsoleWindow();
