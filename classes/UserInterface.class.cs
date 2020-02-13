@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace SpaceGame
 {
-    public class UI
+    public class UserInterface
     {
         [DllImport("kernel32.dll", ExactSpelling = true)]
 
@@ -26,11 +26,6 @@ namespace SpaceGame
 
         private const int RESTORE = 9;
         List<(int, int)> xyPair = new List<(int, int)> { };
-
-        public static void Main(string[] args)
-        {
-            new UI().RenderGame();
-        }
         void RenderGame(Universe u, Menu menu)
         {
             foreach(CelestialBody cb in u.CelestialBodies)
@@ -54,7 +49,7 @@ namespace SpaceGame
                 {
                     if (xyPair.Contains((i, a)))
                     {
-                        Console.BackgroundColor =   (System.ConsoleColor)u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
+                        Console.BackgroundColor =   u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
                     }
                     else if ((i != 0 || i != 29) && (a == 0 || a == 119))        // makes box for map
                     {

@@ -8,8 +8,8 @@ namespace SpaceGame
 		// TODO: Item multiplier(s).
 		// TODO: ItemCategory multiplier(s).
 
-		public Planet(string name, string description, ConsoleColor color)
-			: base(name, description, color)
+		public Planet(string name, string description, ConsoleColor color, Coordinates coordinates)
+			: base(name, description, color, coordinates)
 		{
 		}
 	}
