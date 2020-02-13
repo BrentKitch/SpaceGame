@@ -13,7 +13,8 @@ namespace SpaceGame
         public int Health { get; set; }
         public int Currency { get; set; }
         public Coordinates Coordinates { get; set; }
-        public Gender Gender{ get; set; }
+        public Gender Gender{ get; set; } 
+        public Direction Direction { get; set; }
 
         public Character(string name, Gender gender)
         {
@@ -22,7 +23,8 @@ namespace SpaceGame
             this.Currency = 0;
             this.Health = 100;
             this.Gender = gender;
-            this.Coordinates = new Coordinates(0, 0);
+            this.Coordinates = new Coordinates(14, 58);
+            this.Direction = Direction.Up;
         }
 
     }
