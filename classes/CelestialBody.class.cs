@@ -14,21 +14,16 @@ namespace SpaceGame
 			get; set;
 		}
 
-		public Color Color
-		{
-			get; set;
-		}
-		public Coordinates Coordinates
+		public ConsoleColor Color
 		{
 			get; set;
 		}
 
-		public CelestialBody(string name, string description, Color color, Coordinates Coordinates)
+		public CelestialBody(string name, string description, ConsoleColor color)
 		{
 			this.Name = name;
 			this.Description = description;
 			this.Color = color;
-			this.Coordinates = Coordinates;
 		}
 	}
 }

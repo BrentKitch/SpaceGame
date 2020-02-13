@@ -5,7 +5,7 @@ namespace SpaceGame
 {
 	public class Menu
 	{
-		public Universe U;
+		private Universe U;
 
 		public List<MenuItem> MenuItems
 		{
@@ -34,25 +34,29 @@ namespace SpaceGame
 			this.Add(new MenuItem
 				(
 				"Move Up",
-				new Action("MoveUp", this.U)
+				new Action("MoveUp", this.U),
+				ConsoleKey.UpArrow
 				)
 			);
 			this.Add(new MenuItem
 				(
 				"Move Right",
-				new Action("MoveRight", this.U)
+				new Action("MoveRight", this.U),
+				ConsoleKey.RightArrow
 				)
 			);
 			this.Add(new MenuItem
 				(
 				"Move Left",
-				new Action("MoveLeft", this.U)
+				new Action("MoveLeft", this.U),
+				ConsoleKey.LeftArrow
 				)
 			);
 			this.Add(new MenuItem
 				(
 				"Move Down",
-				new Action("MoveDown", this.U)
+				new Action("MoveDown", this.U),
+				ConsoleKey.DownArrow
 				)
 			);
 		}
