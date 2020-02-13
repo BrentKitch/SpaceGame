@@ -7,6 +7,7 @@ namespace SpaceGame
 {
     public class UI
     {
+        private 
         [DllImport("kernel32.dll", ExactSpelling = true)]
 
         private static extern IntPtr GetConsoleWindow();
@@ -25,17 +26,6 @@ namespace SpaceGame
 
         private const int RESTORE = 9;
 
-        //static void Main(string[] args)
-
-        //{
-
-        //    Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
-
-        //    ShowWindow(ThisConsole, MAXIMIZE);
-
-        //    Console.ReadLine();
-
-        //}
         public static void Main(string[] args)
         {
             new UI().RenderGame();
