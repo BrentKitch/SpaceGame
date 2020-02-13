@@ -18,12 +18,17 @@ namespace SpaceGame
 		{
 			get; set;
 		}
+		public Coordinates Coordinates
+		{
+			get; set;
+		}
 
-		public CelestialBody(string name, string description, Color color)
+		public CelestialBody(string name, string description, Color color, Coordinates Coordinates)
 		{
 			this.Name = name;
 			this.Description = description;
 			this.Color = color;
+			this.Coordinates = Coordinates;
 		}
 	}
 }

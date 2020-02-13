@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace SpaceGame
 {
@@ -24,21 +25,26 @@ namespace SpaceGame
         private const int MINIMIZE = 6;
 
         private const int RESTORE = 9;
+        List<(int, int)> xyPair = new List<(int, int)> { };
 
         public static void Main(string[] args)
         {
             new UI().RenderGame();
         }
-        void RenderGame()
+        void RenderGame(Universe u, Menu menu)
         {
+            foreach(CelestialBody cb in u.CelestialBodies)
+            {
+                xyPair.Add((cb.Coordinates.X,cb.Coordinates.Y));
+            }
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 
             ShowWindow(ThisConsole, MAXIMIZE);
-            RenderMap();
-            RenderMenu();
+            RenderMap(u);
+            RenderMenu(u, menu);
             Console.ReadLine();
         }
-        void RenderMap()  
+        void RenderMap(Universe u)  
         {   
             int starCounter = 0; // counts through the following for loop to give a star distribution
             for(int i = 0; i < 30; i++)  //writes height
@@ -46,7 +52,11 @@ namespace SpaceGame
                 
                 for(int a = 0; a < 120; a++, starCounter++) // writes width
                 {
-                    if ((i != 0 || i != 29) && (a == 0 || a == 119))        // makes box for map
+                    if (xyPair.Contains((i, a)))
+                    {
+                        Console.BackgroundColor =   (System.ConsoleColor)u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
+                    }
+                    else if ((i != 0 || i != 29) && (a == 0 || a == 119))        // makes box for map
                     {
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                         Console.Write(" ");
@@ -91,10 +101,6 @@ namespace SpaceGame
                         Console.Write(" ");  //space
                         }
                     }
-                    //if ((a * (i +1)) % 24 == 0) 
-                    //{
-                    //    Console.Write(".");
-                    //}
                    
                      if (a == 119)   //returns to the next line when it reaches the set map width. 
                     {
@@ -104,7 +110,7 @@ namespace SpaceGame
                 }
             }
         }
-        void RenderMenu(/*Menu menuUI*/)
+        void RenderMenu(Universe u, Menu menu)
         {
             for(int i = 0; i < 20; i++)
             {
