@@ -14,12 +14,12 @@ namespace SpaceGame
 			get; set;
 		}
 
-		public Color Color
+		public ConsoleColor Color
 		{
 			get; set;
 		}
 
-		public CelestialBody(string name, string description, Color color)
+		public CelestialBody(string name, string description, ConsoleColor color)
 		{
 			this.Name = name;
 			this.Description = description;

@@ -14,7 +14,7 @@ namespace SpaceGame
 			u.Add(character);
 
 			// Add a planet to the universe.
-			CelestialBody mars = new Planet("Mars", "The big red boi.", Color.Red);
+			CelestialBody mars = new Planet("Mars", "The big red boi.", ConsoleColor.Red);
 			u.Add(mars);
 
 			// Create a menu.
@@ -31,7 +31,10 @@ namespace SpaceGame
 			Console.WriteLine();
 			
 			// Execute the 4th item on the list.
+			Console.WriteLine($"{u.Character.Coordinates.X}, {u.Character.Coordinates.Y}");
 			menu.MenuItems[3].Execute();
+			Console.WriteLine($"{u.Character.Coordinates.X}, {u.Character.Coordinates.Y}");
+
 		}
 	}
 }
