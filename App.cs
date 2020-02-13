@@ -7,7 +7,7 @@ namespace SpaceGame
 		public void Run()
 		{
 			// Start the game.
-			Console.WriteLine("Welcome to SPACE MARIO 2209");
+			Console.WriteLine("Welcome to SPACE MARIO 2209 with some science");
 		}
 	}
 }
