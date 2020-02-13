@@ -25,21 +25,10 @@ namespace SpaceGame
 
         private const int RESTORE = 9;
 
-        //static void Main(string[] args)
-
-        //{
-
-        //    Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
-
-        //    ShowWindow(ThisConsole, MAXIMIZE);
-
-        //    Console.ReadLine();
-
-        //}
-        //public static void Main(string[] args)
-        //{
-        //    new UI().RenderGame();
-        //}
+        public static void Main(string[] args)
+        {
+            new UI().RenderGame();
+        }
         void RenderGame()
         {
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
