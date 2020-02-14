@@ -37,7 +37,7 @@ namespace SpaceGame
             if (areWeLoading == "Y" && game.U != null)
             {
                 Console.WriteLine("Welcome back " + game.U.Character.Name);
-                Console.WriteLine("Your current Coordinates are (" + game.U.Character.Position.X + "," + game.U.Character.Position.Y + ")");
+                Console.WriteLine("Your current Coordinates are (" + game.U.Character.Coordinates.X + "," + game.U.Character.Coordinates.Y + ")");
                 Console.WriteLine("Your current health is " + game.U.Character.Health);
                 Console.WriteLine("Your have " + game.U.Character.Currency + " starbucks");
             }
@@ -53,7 +53,7 @@ namespace SpaceGame
                 game.U.Add(character);
 
                 // add a planet to the universe.
-                CelestialBody mars = new Planet("mars", "the big red boi.", Color.Red);
+                CelestialBody mars = new Planet("mars", "the big red boi.", ConsoleColor.Red, new Coordinates(0,0));
                 game.U.Add(mars);
 
             }
