@@ -5,17 +5,17 @@ namespace SpaceGame
 {
 	public class Action
 	{
+		private Universe U;
+
 		public string Name
 		{
 			get; set;
 		}
 
-		private Universe Universe;
-
 		public Action(string name, Universe universe)
 		{
 			this.Name = name;
-			this.Universe = universe;
+			this.U = universe;
 		}
 
 		public void Execute()
@@ -39,25 +39,22 @@ namespace SpaceGame
 
 		private void MoveUp()
 		{
-			this.Universe.Character.Position.Y -= 1;
+			this.U.Character.Coordinates.Y -= 1;
 		}
 
 		private void MoveRight()
 		{
-			this.Universe.Character.Position.X += 1;
-			Console.WriteLine("YOU MOVED RIGHT!!!!");
+			this.U.Character.Coordinates.X += 1;
 		}
 
 		private void MoveLeft()
 		{
-			this.Universe.Character.Position.X -= 1;
+			this.U.Character.Coordinates.X -= 1;
 		}
 
 		private void MoveDown()
 		{
-			this.Universe.Character.Position.Y += 1;
-			Console.WriteLine("YOU MOVED DOWN!!!!");
-			Console.WriteLine($"PS. Your name is {Universe.Character.Name}");
+			this.U.Character.Coordinates.Y += 1;
 		}
 	}
 }

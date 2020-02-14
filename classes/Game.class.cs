@@ -11,7 +11,7 @@ namespace SpaceGame
 
         void Step()
         {
-
+            
         }
 
         void Start()
