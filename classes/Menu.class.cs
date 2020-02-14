@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace SpaceGame
 {
 	public class Menu
 	{
-		private Universe U;
+		public Universe U;
 
 		public List<MenuItem> MenuItems
 		{
@@ -67,7 +68,6 @@ namespace SpaceGame
 		public Menu ShowShopBuyMenu(CelestialBody celestialBody)
 		{
 			int i = 1;
-
 			foreach (Item item in celestialBody.Items)
 			{
 				this.Add(new MenuItem
@@ -84,6 +84,7 @@ namespace SpaceGame
 
 			return this;
 		}
+
 		public Menu ShowShopSellMenu(CelestialBody celestialBody)
 		{
 			int i = 1;
