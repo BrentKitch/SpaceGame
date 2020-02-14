@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace SpaceGame
 {
@@ -12,6 +13,7 @@ namespace SpaceGame
 			// Create the game.
 			Game g = new Game(u);
 			u.Game = g;
+			g.Run();
 
 			// Add a character to the universe.
 			Character character = new Character("Johnnyboi", Gender.Male);

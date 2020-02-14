@@ -8,7 +8,7 @@ namespace SpaceGame
 {
     public class UserInterface
     {
-        [DllImport("kernel32.dll", ExactSpelling = true)]
+        [DllImport("kernel32.dll", ExactSpelling = true)] //For Full Screen
 
         private static extern IntPtr GetConsoleWindow();
 
@@ -26,15 +26,16 @@ namespace SpaceGame
 
         private const int RESTORE = 9;
         List<(int, int)> xyPair = new List<(int, int)> { };
-        void RenderGame(Universe u, Menu menu)
+        public void RenderGame(Universe u, Menu menu)
         {
             foreach(CelestialBody cb in u.CelestialBodies)
             {
                 xyPair.Add((cb.Coordinates.X,cb.Coordinates.Y));
             }
-            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
-
-            ShowWindow(ThisConsole, MAXIMIZE);
+           
+            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight); //For Full Screen
+             ShowWindow(ThisConsole, MAXIMIZE);
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
             RenderMap(u);
             RenderMenu(u, menu);
             Console.ReadLine();
@@ -46,15 +47,65 @@ namespace SpaceGame
             {
                 
                 for(int a = 0; a < 120; a++, starCounter++) // writes width
-                {
-                    if (xyPair.Contains((i, a)))
+                {  
+                    if(u.Character.Coordinates.X == i && u.Character.Coordinates.Y == a)
                     {
-                        Console.BackgroundColor =   u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        if (xyPair.Contains((i, a)))
+                        {
+                            Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
+                            
+                            switch (u.Character.Direction)
+                            {
+                                case Direction.Up:
+                                    Console.Write("▲");
+                                    break;
+                                case Direction.Down:
+                                    Console.Write("▼");
+                                    break;
+                                case Direction.Left:
+                                    Console.Write("◄");
+                                    break;
+                                case Direction.Right:
+                                    Console.Write("►");
+                                    break;
+                            }
+                            Console.Write(" ");
+                            a++;
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            switch (u.Character.Direction)
+                            {
+                                case Direction.Up:
+                                    Console.Write("▲");
+                                    break;
+                                case Direction.Down:
+                                    Console.Write("▼");
+                                    break;
+                                case Direction.Left:
+                                    Console.Write("◄");
+                                    break;
+                                case Direction.Right:
+                                    Console.Write("►");
+                                    break;
+                            }
+                            Console.ResetColor();
+                        }
+                    }
+                    else if (xyPair.Contains((i, a)))
+                    {
+                        Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
+                        Console.Write(" ");
+                        Console.Write(" ");
+                        a++;
                     }
                     else if ((i != 0 || i != 29) && (a == 0 || a == 119))        // makes box for map
                     {
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                         Console.Write(" ");
+                        Console.ResetColor();
                     }
                     else if (i == 0 || i == 29)
                     {

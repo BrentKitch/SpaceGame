@@ -33,15 +33,16 @@ namespace SpaceGame
 			get; set;
 		}
 
-		public Character(string name, Gender gender)
-		{
-			this.Name = name;
-			this.Age = 18;
-			this.Currency = 0;
-			this.Health = 100;
-			this.Gender = gender;
-			this.Coordinates = new Coordinates(0, 0);
-		}
+        public Character(string name, Gender gender)
+        {
+            this.Name = name;
+            this.Age = 18;
+            this.Currency = 0;
+            this.Health = 100;
+            this.Gender = gender;
+            this.Coordinates = new Coordinates(14, 58);
+            this.Direction = Direction.Up;
+        }
 
 		public bool InCollision(Coordinates coordinates)
 		{
