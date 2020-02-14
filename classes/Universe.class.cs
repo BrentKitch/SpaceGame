@@ -5,6 +5,11 @@ namespace SpaceGame
 {
 	public class Universe
 	{
+		public Game Game
+		{
+			get; set;
+		}
+
 		public List<Objective> Objectives
 		{
 			get; set;

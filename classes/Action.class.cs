@@ -7,21 +7,49 @@ namespace SpaceGame
 	{
 		private Universe U;
 
+		// Parameters.
+		private List<Item> Items
+		{
+			get; set;
+		}
+
+		private Menu NewMenu
+		{
+			get; set;
+		}
+
 		public string Name
 		{
 			get; set;
 		}
 
-		public Action(string name, Universe universe)
+		public Action(Universe u, string name)
 		{
+			this.U = u;
 			this.Name = name;
-			this.U = universe;
+		}
+
+		public Action(Universe u, string name, List<Item> items)
+		{
+			this.U = u;
+			this.Name = name;
+			this.Items = items;
+		}
+
+		public Action(Universe u, string name, Menu newMenu)
+		{
+			this.U = u;
+			this.Name = name;
+			this.NewMenu = newMenu;
 		}
 
 		public void Execute()
 		{
 			switch (this.Name)
 			{
+				case "ChangeMenu":
+					this.ChangeMenu(this.NewMenu);
+					break;
 				case "MoveUp":
 					this.MoveUp();
 					break;
@@ -35,6 +63,11 @@ namespace SpaceGame
 					this.MoveDown();
 					break;
 			}
+		}
+
+		private void ChangeMenu(Menu newMenu)
+		{
+			this.U.Game.Menu = newMenu;
 		}
 
 		private void MoveUp()

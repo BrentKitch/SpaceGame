@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SpaceGame
 {
@@ -22,12 +23,23 @@ namespace SpaceGame
 		{
 			get; set;
 		}
+
+		public List<Item> Items
+		{
+			get; set;
+		}
+
 		public CelestialBody(string name, string description, ConsoleColor color, Coordinates coordinates)
 		{
 			this.Name = name;
 			this.Description = description;
 			this.Color = color;
 			this.Coordinates = coordinates;
+			this.Items = new List<Item>();
+		}
+
+		virtual public void AddItem(Item item)
+		{
 		}
 	}
 }
