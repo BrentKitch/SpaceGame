@@ -209,15 +209,6 @@ namespace SpaceGame
             Console.SetCursorPosition(55, 32);
             Console.Write($"¤{u.Character.Starbucks} Starbucks");
         }
-    }
-					if (a == 119)   //returns to the next line when it reaches the set menu width. 
-					{
-						Console.Write("\n");
-					}
-				}
-			}
-		}
-
 		public void ShowStory(Universe u)
 		{
 			// Clear the input buffer.

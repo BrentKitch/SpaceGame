@@ -39,7 +39,6 @@ namespace SpaceGame
 					Console.WriteLine(menuItem.Label);
 					if (menuItem.Key == keyInput)
 					{
-						Console.WriteLine($"You Presed {keyInput}");
 						menuItem.Execute();
 					}
 				}
