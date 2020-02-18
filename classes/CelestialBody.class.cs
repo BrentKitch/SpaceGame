@@ -29,13 +29,19 @@ namespace SpaceGame
 			get; set;
 		}
 
-		public CelestialBody(string name, string description, ConsoleColor color, Coordinates coordinates)
+		public List<ItemCategory> FavoredItemCategories
+		{
+			get; set;
+		}
+
+		public CelestialBody(string name, string description, ConsoleColor color, Coordinates coordinates, List<ItemCategory> favoredItemCategories)
 		{
 			this.Name = name;
 			this.Description = description;
 			this.Color = color;
 			this.Coordinates = coordinates;
 			this.Items = new List<Item>();
+			this.FavoredItemCategories = favoredItemCategories;
 		}
 
 		virtual public void AddItem(Item item)
