@@ -16,7 +16,7 @@ namespace SpaceGame
 			get; set;
 		}
 
-		List<ItemCategory> ItemCategories
+		public List<ItemCategory> ItemCategories
 		{
 			get; set;
 		}
@@ -32,12 +32,13 @@ namespace SpaceGame
 		}
 
 
-		public Item(string name, string description, int baseCost, int weight)
+		public Item(string name, string description, int baseCost, int weight, List<ItemCategory> itemCategories)
 		{
 			this.Name = name;
 			this.Description = description;
 			this.BaseCost = baseCost;
 			this.Weight = weight;
+			this.ItemCategories = itemCategories;
 		}
 	}
 }

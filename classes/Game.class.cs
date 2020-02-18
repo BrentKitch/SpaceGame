@@ -12,24 +12,15 @@ namespace SpaceGame
 			get; set;
 		}
 
-		private Menu _menu;
-		
 		public Menu Menu
 		{
-			get
-			{
-				return this.BuildMenu();
-			}
-
-			set
-			{
-				this._menu = value;
-			}
+			get; set;
 		}
 
 		public Game(Universe u)
 		{
 			this.U = u;
+			this.Menu = new Menu(u);
 		}
 
 		// TODO: Game loop.
@@ -57,7 +48,7 @@ namespace SpaceGame
 				Console.WriteLine("Welcome back " + this.U.Character.Name);
 				Console.WriteLine("Your current Coordinates are (" + this.U.Character.Coordinates.X + "," + this.U.Character.Coordinates.Y + ")");
 				Console.WriteLine("Your current health is " + this.U.Character.Health);
-				Console.WriteLine("Your have *" + this.U.Character.Currency + " StarBucks");
+				Console.WriteLine("Your have *" + this.U.Character.Starbucks + " Starbucks");
 			}
 			else
 			{
@@ -68,22 +59,73 @@ namespace SpaceGame
 				Character character = new Character(name, Gender.Male, new Coordinates(6, 12));
 				this.U.Add(character);
 
-				// Create the solar system.
-				CelestialBody mars = new Planet("Mars", "The big red boi.", ConsoleColor.Red, new Coordinates(15, 50));
-				mars.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1));
-				mars.AddItem(new Item("Chocolate Tree", "It's like a tree, but delicious.", 15, 1));
+				//////////////////////////////////////////////////////////////////////////
+				//
+				// MARS
+				//
+				//////////////////////////////////////////////////////////////////////////
+
+				// Planet
+				CelestialBody mars = new Planet("Mars", "The big red boi.", ConsoleColor.Red,
+					new Coordinates(15, 50),
+					new List<ItemCategory> { ItemCategory.Medical });
+
+				// Shop
+				mars.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+				mars.AddItem(new Item("Chocolate Tree", "It's like a tree, but delicious.", 15, 1,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+
+				// Create it!
 				this.U.Add(mars);
 
-				CelestialBody neptune = new Planet("Neptune", "Holy Neptune!", ConsoleColor.Blue, new Coordinates(5, 12));
-				neptune.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1));
-				neptune.AddItem(new Item("Holy Water", "Don't drink this!", 100, 1));
+				//////////////////////////////////////////////////////////////////////////
+
+				//////////////////////////////////////////////////////////////////////////
+				//
+				// NEPTUNE
+				//
+				//////////////////////////////////////////////////////////////////////////
+
+				// Planet
+				CelestialBody neptune = new Planet("Neptune", "Holy Neptune!", ConsoleColor.Blue,
+					new Coordinates(5, 12),
+					new List<ItemCategory> { ItemCategory.Military });
+
+				// Shop
+				neptune.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+				neptune.AddItem(new Item("Holy Water", "Don't drink this!", 100, 1,
+					new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Medical }));
+
+				// Create it!
 				this.U.Add(neptune);
 
-				CelestialBody uranus = new Planet("Uranus", "No, not that one!", ConsoleColor.Yellow, new Coordinates(40, 22));
-				uranus.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1));
-				uranus.AddItem(new Item("Space Gunk", "You don't want to know what this is.", 2, 1));
-				uranus.AddItem(new Item("Flux Capacitor", "Keeps you young. Or old, depending on your perspective.", 500, 5));
+				//////////////////////////////////////////////////////////////////////////
+
+				//////////////////////////////////////////////////////////////////////////
+				//
+				// URANUS
+				//
+				//////////////////////////////////////////////////////////////////////////
+
+				// Planet
+				CelestialBody uranus = new Planet("Uranus", "No, not that one!", ConsoleColor.Yellow,
+					new Coordinates(40, 22),
+					new List<ItemCategory> { ItemCategory.Alcohol });
+
+				// Shop
+				uranus.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+				uranus.AddItem(new Item("Space Gunk", "You don't want to know what this is.", 2, 1,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+				uranus.AddItem(new Item("Flux Capacitor", "Keeps you young. Or old, depending on your perspective.", 500, 5,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+
+				// Create it!
 				this.U.Add(uranus);
+
+				//////////////////////////////////////////////////////////////////////////
 			}
 
 			this.Save();
@@ -160,55 +202,67 @@ namespace SpaceGame
 
 		// Checks for conditions which would result in various menu items, and then
 		// builds and returns the corresponding menu.
-		private Menu BuildMenu()
+		public void BuildMenu()
 		{
-			if (this._menu == null)
+			bool collision = false;
+			Menu menu = new Menu(this.U);
+
+			// Is the character in a planet?
+			foreach (CelestialBody celestialBody in this.U.CelestialBodies)
 			{
-				bool collision = false;
-				Menu menu = new Menu(this.U);
-
-				// Is the character in a planet?
-				foreach (CelestialBody celestialBody in this.U.CelestialBodies)
+				if (this.U.Character.InCollision(celestialBody.Coordinates))
 				{
-					if (this.U.Character.InCollision(celestialBody.Coordinates))
-					{
-						collision = true;
+					collision = true;
 
-						menu.Add(
-							new MenuItem("Buy",
-							new Action(
-								this.U,
-								"ChangeMenu",
-								new Menu(this.U).ShowShopBuyMenu(celestialBody)
-							),
-							ConsoleKey.D1)
-						);
-						menu.Add(
-							new MenuItem("Sell",
-							new Action(
-								this.U,
-								"ChangeMenu",
-								new Menu(this.U).ShowShopSellMenu(celestialBody)
-							),
-							ConsoleKey.D2)
-						);
+					menu.Add(
+						new MenuItem($"Leave {celestialBody.Name} (-10 FUEL)",
+						new Action(
+							this.U,
+							"ChangeMenu",
+							new Menu(this.U).ShowShopBuyMenu(celestialBody)
+						),
+						ConsoleKey.D1)
+					);
 
-						break;
-					}
+					menu.Add(
+						new MenuItem("Buy",
+						new Action(
+							this.U,
+							"ChangeMenu",
+							new Menu(this.U).ShowShopBuyMenu(celestialBody)
+						),
+						ConsoleKey.D1)
+					);
+
+					menu.Add(
+						new MenuItem("Buy",
+						new Action(
+							this.U,
+							"ChangeMenu",
+							new Menu(this.U).ShowShopBuyMenu(celestialBody)
+						),
+						ConsoleKey.D1)
+					);
+					menu.Add(
+						new MenuItem("Sell",
+						new Action(
+							this.U,
+							"ChangeMenu",
+							new Menu(this.U).ShowShopSellMenu(celestialBody)
+						),
+						ConsoleKey.D2)
+					);
+
+					break;
 				}
-
-				if (!collision)
-				{
-					menu.StartMovement();
-				}
-
-				this._menu = null;
-				return menu;
 			}
-			else
+
+			if (!collision)
 			{
-				return this._menu;
+				menu.StartMovement();
 			}
+
+			this.Menu = menu;
 		}
 	}
 }

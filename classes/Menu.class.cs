@@ -67,15 +67,42 @@ namespace SpaceGame
 
 		public Menu ShowShopBuyMenu(CelestialBody celestialBody)
 		{
-			int i = 1;
+			int i = 0;
+
+			this.Add(new MenuItem
+				(
+				"Go Back",
+				new Action(
+					this.U,
+					"ResetMenu"
+					),
+				(ConsoleKey)(ConsoleKey.D0)
+				)
+			);
+
 			foreach (Item item in celestialBody.Items)
 			{
+				int cost = item.BaseCost;
+
+				// Let's check if the celestial body favors this item.
+				foreach (ItemCategory favoredItemCategory in celestialBody.FavoredItemCategories)
+				{
+					// If this item has a category that matches this celestial body's favored item categories,
+					// then we can buy and sell this item for a higher cost.
+					if (item.ItemCategories.Contains(favoredItemCategory))
+					{
+						cost = (int)Math.Ceiling((double)cost * 2);
+					}
+				}
+
 				this.Add(new MenuItem
 					(
-					item.Name,
+					$"{item.Name} (COST: {cost})",
 					new Action(
 						this.U,
-						"Buy"
+						"Buy",
+						item,
+						cost
 						),
 					(ConsoleKey)(i + 48)
 					)
@@ -87,16 +114,42 @@ namespace SpaceGame
 
 		public Menu ShowShopSellMenu(CelestialBody celestialBody)
 		{
-			int i = 1;
+			int i = 0;
 
-			foreach (Item item in celestialBody.Items)
+			this.Add(new MenuItem
+				(
+				"Go Back",
+				new Action(
+					this.U,
+					"ResetMenu"
+					),
+				(ConsoleKey)(ConsoleKey.D0)
+				)
+			);
+
+			foreach (Item item in this.U.Character.Inventory)
 			{
+				int cost = (int)(item.BaseCost * .9);
+
+				// Let's check if the celestial body favors this item.
+				foreach (ItemCategory favoredItemCategory in celestialBody.FavoredItemCategories)
+				{
+					// If this item has a category that matches this celestial body's favored item categories,
+					// then we can buy and sell this item for a higher cost.
+					if (item.ItemCategories.Contains(favoredItemCategory))
+					{
+						cost = (int)Math.Ceiling((double)cost * 2);
+					}
+				}
+
 				this.Add(new MenuItem
 					(
-					item.Name,
+					$"{item.Name} (VALUE: {cost})",
 					new Action(
 						this.U,
-						"Sell"
+						"Sell",
+						item,
+						cost
 						),
 					(ConsoleKey)(i + 48)
 					)
