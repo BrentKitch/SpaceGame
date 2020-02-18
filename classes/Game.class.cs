@@ -13,7 +13,7 @@ namespace SpaceGame
 		}
 
 		private Menu _menu;
-		
+		private UserInterface UI = new UserInterface();
 		public Menu Menu
 		{
 			get; set;
@@ -28,12 +28,11 @@ namespace SpaceGame
 		// TODO: Game loop.
 		void Step()
 		{
-			this.Menu.StartMovement();
 			do
 			{
 				Console.Clear();
-				new UserInterface().RenderGame(this.U, this.Menu);
-				
+				UI.RenderGame(this.U, this.Menu);
+				this.Save();
 				ConsoleKey keyInput = Console.ReadKey().Key;
 				foreach (MenuItem menuItem in this.Menu.MenuItems)
 				{
@@ -41,12 +40,10 @@ namespace SpaceGame
 					if (menuItem.Key == keyInput)
 					{
 						Console.WriteLine($"You Presed {keyInput}");
-						Console.ReadLine();
-						//menuItem.Execute();
+						menuItem.Execute();
 					}
 				}
-				Console.ReadLine();
-				//this.Save();
+				
 			} while (true);
 		}
 

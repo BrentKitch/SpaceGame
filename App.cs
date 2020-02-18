@@ -29,35 +29,36 @@ namespace SpaceGame
 			Game g = new Game(u);
 			u.Game = g;
 			// Start the game.
+			g.BuildMenu();
 			g.Initialize();
 
-			// Display the menu.
-			g.BuildMenu();
-			foreach (MenuItem item in g.Menu.MenuItems)
-			{
-				Console.WriteLine(item.Label);
-			}
-			Console.WriteLine();
+			//// Display the menu.
+			
+			//foreach (MenuItem item in g.Menu.MenuItems)
+			//{
+			//	Console.WriteLine(item.Label);
+			//}
+			//Console.WriteLine();
 
-			//// Do the first thing on the menu.
+			////// Do the first thing on the menu.
+			////g.Menu.MenuItems[0].Execute();
+
+			//// Display the menu.
+			//foreach (MenuItem item in g.Menu.MenuItems)
+			//{
+			//	Console.WriteLine(item.Label);
+			//}
+			//Console.WriteLine();
+
+			//// Go Back.
 			//g.Menu.MenuItems[0].Execute();
 
-			// Display the menu.
-			foreach (MenuItem item in g.Menu.MenuItems)
-			{
-				Console.WriteLine(item.Label);
-			}
-			Console.WriteLine();
-
-			// Go Back.
-			g.Menu.MenuItems[0].Execute();
-
-			// Display the menu.
-			foreach (MenuItem item in g.Menu.MenuItems)
-			{
-				Console.WriteLine(item.Label);
-			}
-			Console.WriteLine();
+			//// Display the menu.
+			//foreach (MenuItem item in g.Menu.MenuItems)
+			//{
+			//	Console.WriteLine(item.Label);
+			//}
+			//Console.WriteLine();
 		}
 	}
 }

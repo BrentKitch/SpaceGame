@@ -32,12 +32,12 @@ namespace SpaceGame
         void RenderMap()  
         {   
             int starCounter = 0; // counts through the following for loop to give a star distribution
-            for(int i = 0; i < 30; i++)  //writes height
+            for(int i = 0; i < 30; i++)  //writes height(y)
             {
                 
-                for(int a = 0; a < 120; a++, starCounter++) // writes width
+                for(int a = 0; a < 120; a++, starCounter++) // writes width(x)
                 {  
-                    if(u.Character.Coordinates.X == i && u.Character.Coordinates.Y == a)
+                    if(u.Character.Coordinates.X == a && u.Character.Coordinates.Y == i)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         if (xyPair.Contains((i, a)))
@@ -153,7 +153,28 @@ namespace SpaceGame
             {
                 for(int a = 0; a < 120; a++)
                 {
-                    if((i != 0 || i != 19) && (a == 0 || a == 119))  // makes box for menu
+                    //if(i == 2)
+                    //{
+                    //    if(a == 2)
+                    //    {
+                    //        Console.ResetColor();
+                    //        Console.Write(u.Character.Name);
+                    //        a += u.Character.Name.Length;
+                    //    }else if( a == 55)
+                    //    {
+                    //        Console.WriteLine($"${u.Character.Starbucks}");
+                    //        a += (u.Character.Starbucks.ToString().Length + 1);
+                    //    }
+                        
+                    //}
+                    
+                    if(i == 4)
+                    {
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Console.Write(" ");
+                       
+                    }
+                    else if((i != 0 || i != 19) && (a == 0 || a == 119))  // makes box for menu
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.Write(" ");
@@ -177,6 +198,16 @@ namespace SpaceGame
                 }
             }
             Console.ResetColor();
+            DisplayInformation();
+            
+        }
+
+        private void DisplayInformation()
+        {
+            Console.SetCursorPosition(2, 32);
+            Console.Write(u.Character.Name);
+            Console.SetCursorPosition(55, 32);
+            Console.Write($"¤{u.Character.Starbucks} Starbucks");
         }
     }
 }
