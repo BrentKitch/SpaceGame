@@ -30,6 +30,11 @@ namespace SpaceGame
 			get; set;
 		}
 
+		private CelestialBody CelestialBody
+		{
+			get; set;
+		}
+
 		public string Name
 		{
 			get; set;
@@ -61,33 +66,66 @@ namespace SpaceGame
 			this.Name = name;
 			this.NewMenu = newMenu;
 		}
+		public Action(Universe u, string name, CelestialBody celestialBody)
+		{
+			this.U = u;
+			this.Name = name;
+			this.CelestialBody = celestialBody;
+		}
 
 		public void Execute()
 		{
 			switch (this.Name)
 			{
+				case "LeaveCelestialBody":
+					this.LeaveCelestialBody();
+					this.U.Game.BuildMenu();
+					break;
 				case "Buy":
 					this.Buy();
+					this.U.Game.BuildMenu();
+					this.U.Game.Menu.MenuItems[1].Execute(); // Select Buy again.
+					break;
+				case "Sell":
+					this.Sell();
+					this.U.Game.BuildMenu();
+					this.U.Game.Menu.MenuItems[2].Execute(); // Select Sell again.
+					break;
+				case "Refuel":
+					this.Refuel();
+					this.U.Game.BuildMenu();
 					break;
 				case "ChangeMenu":
 					this.ChangeMenu(this.NewMenu);
 					break;
 				case "ResetMenu":
 					this.ResetMenu();
+					this.U.Game.BuildMenu();
 					break;
 				case "MoveUp":
 					this.MoveUp();
+					this.U.Game.BuildMenu();
 					break;
 				case "MoveRight":
 					this.MoveRight();
+					this.U.Game.BuildMenu();
 					break;
 				case "MoveLeft":
 					this.MoveLeft();
+					this.U.Game.BuildMenu();
 					break;
 				case "MoveDown":
 					this.MoveDown();
+					this.U.Game.BuildMenu();
 					break;
 			}
+		}
+
+		private void LeaveCelestialBody()
+		{
+			this.U.Character.Spaceship.Fuel -= 10;
+			this.U.Character.Coordinates.X = this.CelestialBody.Coordinates.X;
+			this.U.Character.Coordinates.Y = this.CelestialBody.Coordinates.Y - 1;
 		}
 
 		private void Buy()
@@ -98,10 +136,21 @@ namespace SpaceGame
 				this.U.Character.Inventory.Add(this.Item);
 			}
 		}
+
 		private void Sell()
 		{
 			this.U.Character.Starbucks += this.ItemCost;
 			this.U.Character.Inventory.Remove(this.Item);
+		}
+
+		private void Refuel()
+		{
+			if (this.U.Character.Starbucks >= 20)
+			{
+				this.U.Character.Starbucks -= 20;
+			}
+			
+			this.U.Character.Spaceship.Fuel = this.U.Character.Spaceship.FuelCapacity;
 		}
 
 		private void ChangeMenu(Menu newMenu)
@@ -111,33 +160,68 @@ namespace SpaceGame
 
 		private void ResetMenu()
 		{
-			this.U.Game.BuildMenu();
 		}
 
 		private void MoveUp()
 		{
-			this.U.Character.Age += this.U.Character.AgeMultiplier;
+			if (this.U.Character.Direction != Direction.Up)
+			{
+				this.U.Character.Spaceship.Fuel -= this.U.Character.Spaceship.FuelLossRate;
+				if (this.U.Character.Spaceship.Fuel < 0)
+				{
+					this.U.Character.Spaceship.Fuel = 0;
+				}
+			}
+
+			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.Y -= 1;
 			this.U.Character.Direction = Direction.Up;
 		}
 
 		private void MoveRight()
 		{
-			this.U.Character.Age += this.U.Character.AgeMultiplier;
+			if (this.U.Character.Direction != Direction.Right)
+			{
+				this.U.Character.Spaceship.Fuel -= this.U.Character.Spaceship.FuelLossRate;
+				if (this.U.Character.Spaceship.Fuel < 0)
+				{
+					this.U.Character.Spaceship.Fuel = 0;
+				}
+			}
+
+			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.X += 1;
 			this.U.Character.Direction = Direction.Right;
 		}
 
 		private void MoveLeft()
 		{
-			this.U.Character.Age += this.U.Character.AgeMultiplier;
+			if (this.U.Character.Direction != Direction.Left)
+			{
+				this.U.Character.Spaceship.Fuel -= this.U.Character.Spaceship.FuelLossRate;
+				if (this.U.Character.Spaceship.Fuel < 0)
+				{
+					this.U.Character.Spaceship.Fuel = 0;
+				}
+			}
+
+			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.X -= 1;
 			this.U.Character.Direction = Direction.Left;
 		}
 
 		private void MoveDown()
 		{
-			this.U.Character.Age += this.U.Character.AgeMultiplier;
+			if (this.U.Character.Direction != Direction.Down)
+			{
+				this.U.Character.Spaceship.Fuel -= this.U.Character.Spaceship.FuelLossRate;
+				if (this.U.Character.Spaceship.Fuel < 0)
+				{
+					this.U.Character.Spaceship.Fuel = 0;
+				}
+			}
+
+			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.Y += 1;
 			this.U.Character.Direction = Direction.Down;
 		}

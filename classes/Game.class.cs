@@ -57,6 +57,7 @@ namespace SpaceGame
 				string name = Console.ReadLine();
 
 				Character character = new Character(name, Gender.Male, new Coordinates(6, 12));
+				character.Spaceship.Fuel = 30; // Low fuel!
 				this.U.Add(character);
 
 				//////////////////////////////////////////////////////////////////////////
@@ -218,20 +219,10 @@ namespace SpaceGame
 						new MenuItem($"Leave {celestialBody.Name} (-10 FUEL)",
 						new Action(
 							this.U,
-							"ChangeMenu",
-							new Menu(this.U).ShowShopBuyMenu(celestialBody)
+							"LeaveCelestialBody",
+							celestialBody
 						),
-						ConsoleKey.D1)
-					);
-
-					menu.Add(
-						new MenuItem("Buy",
-						new Action(
-							this.U,
-							"ChangeMenu",
-							new Menu(this.U).ShowShopBuyMenu(celestialBody)
-						),
-						ConsoleKey.D1)
+						ConsoleKey.D0)
 					);
 
 					menu.Add(
@@ -252,6 +243,18 @@ namespace SpaceGame
 						),
 						ConsoleKey.D2)
 					);
+
+					if (this.U.Character.Spaceship.Fuel < this.U.Character.Spaceship.FuelCapacity)
+					{
+						menu.Add(
+							new MenuItem($"Refuel (-20 Starbucks)",
+							new Action(
+								this.U,
+								"Refuel"
+							),
+							ConsoleKey.D3)
+						);
+					}
 
 					break;
 				}

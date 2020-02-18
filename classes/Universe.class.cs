@@ -6,6 +6,8 @@ namespace SpaceGame
 {
 	public class Universe
 	{
+		public const int StarbucksToSavePrincess = 10000;
+
 		public Game Game
 		{
 			get; set;
@@ -26,10 +28,16 @@ namespace SpaceGame
 			get; set;
 		}
 
+		public List<string> Messages
+		{
+			get; set;
+		}
+
 		public Universe()
 		{
 			this.CelestialBodies = new List<CelestialBody>();
 			this.Objectives = new List<Objective>();
+			this.Messages = new List<string>();
 		}
 
 		public void Add(Character character)
@@ -45,6 +53,11 @@ namespace SpaceGame
 		public void Add(CelestialBody celestialBody)
 		{
 			this.CelestialBodies.Add(celestialBody);
+		}
+
+		public void ClearMessages()
+		{
+			this.Messages = new List<string>();
 		}
 	}
 }

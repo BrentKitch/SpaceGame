@@ -6,7 +6,7 @@ namespace SpaceGame
 {
 	public class Spaceship
 	{
-		public ConsoleColor color
+		public ConsoleColor Color
 		{
 			get; set;
 		}
@@ -16,17 +16,34 @@ namespace SpaceGame
 			get; set;
 		}
 
+		public int MaxWeight
+		{
+			get; set;
+		}
+
 		public int FuelCapacity
 		{
 			get; set;
 		}
 
+		public int FuelLossRate
+		{
+			get; set;
+		}
+
+		public int Speed
+		{
+			get; set;
+		}
 
 		public Spaceship()
 		{
-			this.color = ConsoleColor.White;
+			this.Color = ConsoleColor.White;
+			this.MaxWeight = 100;
 			this.FuelCapacity = 100;
 			this.Fuel = 100;
+			this.FuelLossRate = 5;
+			this.Speed = 4;
 		}
 	}
 }
