@@ -13,7 +13,8 @@ namespace SpaceGame
 		}
 
 		private Menu _menu;
-		
+
+
 		public Menu Menu
 		{
 			get
@@ -35,7 +36,26 @@ namespace SpaceGame
 		// TODO: Game loop.
 		void Step()
 		{
-
+			this.Menu.StartMovement();
+			do
+			{
+				Console.Clear();
+				new UserInterface().RenderGame(this.U, this.Menu);
+				
+				ConsoleKey keyInput = Console.ReadKey().Key;
+				foreach (MenuItem menuItem in this.Menu.MenuItems)
+				{
+					Console.WriteLine(menuItem.Label);
+					if (menuItem.Key == keyInput)
+					{
+						Console.WriteLine($"You Presed {keyInput}");
+						Console.ReadLine();
+						//menuItem.Execute();
+					}
+				}
+				Console.ReadLine();
+				//this.Save();
+			} while (true);
 		}
 
 		void CheckObjectives()
@@ -86,7 +106,8 @@ namespace SpaceGame
 				this.U.Add(uranus);
 			}
 
-			this.Save();
+			//this.Save();
+			this.Step();
 		}
 
 		// Loads the game if a saved file exists.

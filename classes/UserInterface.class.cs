@@ -8,39 +8,28 @@ namespace SpaceGame
 {
     public class UserInterface
     {
-        [DllImport("kernel32.dll", ExactSpelling = true)] //For Full Screen
-
-        private static extern IntPtr GetConsoleWindow();
-
-        private static IntPtr ThisConsole = GetConsoleWindow();
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-
-        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-
-        private const int HIDE = 0;
-
-        private const int MAXIMIZE = 3;
-
-        private const int MINIMIZE = 6;
-
-        private const int RESTORE = 9;
+        private Universe u
+        {
+            get; set;
+        }
+        private Menu menu
+        {
+            get; set;
+        }
         List<(int, int)> xyPair = new List<(int, int)> { };
         public void RenderGame(Universe u, Menu menu)
         {
-            foreach(CelestialBody cb in u.CelestialBodies)
+            this.u = u;
+            this.menu = menu;
+            foreach(CelestialBody cb in this.u.CelestialBodies)
             {
                 xyPair.Add((cb.Coordinates.X,cb.Coordinates.Y));
             }
-           
-            Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight); //For Full Screen
-             ShowWindow(ThisConsole, MAXIMIZE);
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
-            RenderMap(u);
-            RenderMenu(u, menu);
-            Console.ReadLine();
+            Console.Clear();
+            RenderMap();
+            RenderMenu();
         }
-        void RenderMap(Universe u)  
+        void RenderMap()  
         {   
             int starCounter = 0; // counts through the following for loop to give a star distribution
             for(int i = 0; i < 30; i++)  //writes height
@@ -55,7 +44,7 @@ namespace SpaceGame
                         {
                             Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
                             
-                            switch (u.Character.Direction)
+                            switch (this.u.Character.Direction)
                             {
                                 case Direction.Up:
                                     Console.Write("▲");
@@ -76,7 +65,7 @@ namespace SpaceGame
                         }
                         else
                         {
-                            switch (u.Character.Direction)
+                            switch (this.u.Character.Direction)
                             {
                                 case Direction.Up:
                                     Console.Write("▲");
@@ -155,9 +144,11 @@ namespace SpaceGame
                     
                 }
             }
+            Console.ResetColor();
         }
-        void RenderMenu(Universe u, Menu menu)
+        void RenderMenu()
         {
+            
             for(int i = 0; i < 20; i++)
             {
                 for(int a = 0; a < 120; a++)
@@ -182,8 +173,10 @@ namespace SpaceGame
                     {
                         Console.Write("\n");
                     }
+                    
                 }
             }
+            Console.ResetColor();
         }
     }
 }
