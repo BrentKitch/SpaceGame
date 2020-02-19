@@ -296,7 +296,7 @@ namespace SpaceGame
 				if ((Universe.StarbucksToSavePrincess - u.Character.Starbucks) > 0)
 				{
 					this.RenderStory($"" +
-						$"The princess is probably really lonely.\n\n" +
+						$"The princess, Kanna Endrick, is probably really lonely.\n\n" +
 						$"On the plus side, you have {u.Character.Starbucks} Starbucks.\n\n" +
 						$"You only need {Universe.StarbucksToSavePrincess - u.Character.Starbucks} more." +
 						$"You must hurry.");
@@ -344,7 +344,7 @@ namespace SpaceGame
                 $"  It has been a decade since your journey began.\n\n" +
                 $"  You only have ¤{u.Character.Starbucks} Starbucks.\n\n\n\n" +
                 $"  You still need another ¤{Universe.StarbucksToSavePrincess - u.Character.Starbucks} Starbucks to buy her freedom.\n\n\n\n" +
-                $"  Get it together. The princess needs your help.");
+                $"  Get it together. The princess, Kanna Endrick, needs your help.");
             }
 			else if (u.Character.Age == 252) // 21 years old.
 			{
@@ -358,7 +358,7 @@ namespace SpaceGame
 				this.RenderStory($"" +
                     $"Your journey begins.\n\n" +
                     $"You are {this.u.Character.Name}, an 18 year-old adventurer.\n\n" +
-                    $"You hear rumors that the space princess, Anna Kendrick, has been captured by a\n" +
+                    $"You hear rumors that the space princess, Kanna Endrick, has been captured by a\n" +
                     $"space pirate, a nefarious villain known by the name of Hairy Tenderson.\n\n" +
                     $"According to this rumor, he will only release her if he is wire transferred\n" +
                     $"¤10,002 Starbucks.\n\n" +

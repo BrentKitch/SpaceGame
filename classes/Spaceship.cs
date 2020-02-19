@@ -43,7 +43,7 @@ namespace SpaceGame
 			this.FuelCapacity = 100;
 			this.Fuel = 100;
 			this.FuelLossRate = 5;
-			this.Speed = 3;
+			this.Speed = 1;
 		}
 	}
 }
