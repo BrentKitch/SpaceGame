@@ -249,7 +249,7 @@ namespace SpaceGame
 				this.RenderStory($"" +
 					$"You receive another letter in your SpaceMail inbox.\n" +
 					$"It's from the doctor.!\n\n" +
-					$"'You've got exactly one years left to live,' it says.\n\n" +
+					$"'You've got exactly one year left to live,' it says.\n\n" +
 					$"'Well,' you think to yourself. 'It's been a good run.'");
 			}
 			else if (u.Character.Age == 756) // 63 years old.

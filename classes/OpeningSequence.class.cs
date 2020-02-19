@@ -6,6 +6,48 @@ namespace SpaceGame
 {
     class OpeningSequence
     {
+        public static ConsoleKeyInfo Menu()
+        {
+            string menu = @"                      /\    
+                     ----                    
+                    /    \               SSSSSS    PPPPPPPP    AAA      CCCCCCCC EEEEEEEEE
+                   --------             SSS        PP  PPP    AA AA     CC       EE
+                  /        \              SSS      PP   PPP  AA   AA    CC       EE   
+                 /          \              SSS     PPPPPPPP AAAAAAAAA   CC       EE
+                /            \                SS   PP      AAAAAAAAAAA  CC       EEEEEEEE
+               /   --------   \                SS  PP     AA         AA CC       EE
+              /    |OOOOOO|    \              SSS  PP     AA         AA CC       EE   
+             /     --------     \            SSS   PP     AA         AA CC       EE
+            /                    \       SSSSS     PP     AA         AA CCCCCCCC EEEEEEEEE  
+           |     ------------     |            
+           |    '  OOOOOOOOO '    |                          
+           |   '  OOOOOOOOOOO '   |   
+           |   '  OOOOOOOOOOO '   |             DDDDDDDDD     UU      UU DDDDDDDDD     EEEEEEEEE
+           |    '  OOOOOOOOO '    |             DD       DD   UU      UU DD       DD   EE        
+           |     TTTTTTTTTTTT     |             DD        DD  UU      UU DD        DD  EE     
+           |                      |             DD         DD UU      UU DD         DD EE
+           |                      |             DD         DD UU      UU DD         DD EEEEEEE   
+          / \                    / \            DD        DD  UU      UU DD        DD  EE
+         /   \                  /   \           DD       DD   UU      UU DD       DD   EE         
+        /     :_______________ :     \          DD      DD    UU      UU DD      DD    EE
+       /      / ______________ \      \         DDDDDDDD      UUUUUUUUUU DDDDDDDDD     EEEEEEEEE
+       \     /  / |________| \  \     /    
+        \     \   *''''''''*   /     /  
+         \     \              /     /                   *with some trading           
+          \     \            /     /       
+           \     \          /     /   
+            \____/          \____/      
+
+    1.  Load Game				2.  New Game				3. Quit";
+            Console.WriteLine(menu);
+            ConsoleKeyInfo option = Console.ReadKey();
+            while (option.Key != ConsoleKey.D1 && option.Key != ConsoleKey.D2 && option.Key != ConsoleKey.D3)
+            {
+                Console.WriteLine(menu);
+                option = Console.ReadKey();
+            }
+            return option;
+        }
         public static void Animation()
         {
             string one = @"                      /\    
