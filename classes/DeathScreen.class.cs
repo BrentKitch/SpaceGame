@@ -6,7 +6,9 @@ namespace SpaceGame
 {
     class DeathScreen
     {
-        string deathScreen = @"                                                                   
+        public void deathscreen()
+        {
+            string deathScreen = @"                                                                   
                            .AMMMMMMMMMMA.          
       			.AV. :::.:.:.::MA.        
       	  	   A' :..        : .:`A       
@@ -30,5 +32,8 @@ namespace SpaceGame
                                                                    
                                                                    
                                                                    ";
+            Console.WriteLine(deathScreen);
+            Environment.Exit(0);
+        }
     }
 }
