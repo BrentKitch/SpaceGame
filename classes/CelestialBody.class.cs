@@ -5,6 +5,11 @@ namespace SpaceGame
 {
 	public abstract class CelestialBody
 	{
+		public string Type
+		{
+			get; set;
+		}
+
 		public string Name
 		{
 			get; set;
@@ -36,12 +41,21 @@ namespace SpaceGame
 
 		public CelestialBody(string name, string description, ConsoleColor color, Coordinates coordinates, List<ItemCategory> favoredItemCategories)
 		{
+			this.Type = "celestial body";
 			this.Name = name;
 			this.Description = description;
 			this.Color = color;
 			this.Coordinates = coordinates;
 			this.Items = new List<Item>();
 			this.FavoredItemCategories = favoredItemCategories;
+		}
+		
+		public CelestialBody(string name, string description, ConsoleColor color, Coordinates coordinates)
+		{
+			this.Name = name;
+			this.Description = description;
+			this.Color = color;
+			this.Coordinates = coordinates;
 		}
 
 		virtual public void AddItem(Item item)

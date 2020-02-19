@@ -45,7 +45,7 @@ namespace SpaceGame
 						menuItem.Execute();
 					}
 				}
-				
+
 			} while (true);
 		}
 
@@ -150,6 +150,22 @@ namespace SpaceGame
 					this.U.Add(uranus);
 
 					//////////////////////////////////////////////////////////////////////////
+					//
+					// STARS
+					//
+					//////////////////////////////////////////////////////////////////////////
+
+					// Sol
+					CelestialBody sol = new Star("Sol", "Your birth star. There's no place like home.", ConsoleColor.Yellow,
+						new Coordinates(40, 22));
+					this.U.Add(sol);
+
+					// Proxima Centauri
+					CelestialBody proximaCentauri = new Star("Proxima Centauri", "The closest sun to the sun. Unremarkable in every other way.", ConsoleColor.Red,
+						new Coordinates(40, 22));
+					this.U.Add(proximaCentauri);
+
+					//////////////////////////////////////////////////////////////////////////
 				}
 			}
 		}
@@ -233,19 +249,22 @@ namespace SpaceGame
 			// Is the character in a planet?
 			foreach (CelestialBody celestialBody in this.U.CelestialBodies)
 			{
-				if (this.U.Character.InCollision(celestialBody.Coordinates))
+				if (this.U.Character.InCollisionPlanet(celestialBody))
 				{
 					collision = true;
 
-					menu.Add(
-						new MenuItem($"Leave {celestialBody.Name} (-10 FUEL)",
-						new Action(
-							this.U,
-							"LeaveCelestialBody",
-							celestialBody
-						),
-						ConsoleKey.D0)
-					);
+					if (this.U.Character.Spaceship.Fuel >= 10)
+					{
+						menu.Add(
+							new MenuItem($"Leave {celestialBody.Name} (-10 FUEL)",
+							new Action(
+								this.U,
+								"LeaveCelestialBody",
+								celestialBody
+							),
+							ConsoleKey.D0)
+						);
+					}
 
 					menu.Add(
 						new MenuItem("Buy",
@@ -266,13 +285,25 @@ namespace SpaceGame
 						ConsoleKey.D2)
 					);
 
-					if (this.U.Character.Spaceship.Fuel < this.U.Character.Spaceship.FuelCapacity)
+					if (this.U.Character.Spaceship.Fuel < this.U.Character.Spaceship.FuelCapacity && this.U.Character.Starbucks >= 20)
 					{
 						menu.Add(
 							new MenuItem($"Refuel (-20 Starbucks)",
 							new Action(
 								this.U,
 								"Refuel"
+							),
+							ConsoleKey.D3)
+						);
+					}
+
+					if (this.U.Character.Health < 100 && this.U.Character.Starbucks >= 100)
+					{
+						menu.Add(
+							new MenuItem($"Hospital (-100 Starbucks)",
+							new Action(
+								this.U,
+								"Hospital"
 							),
 							ConsoleKey.D3)
 						);
