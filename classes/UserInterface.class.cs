@@ -209,40 +209,18 @@ namespace SpaceGame
             Console.SetCursorPosition(55, 32);
             Console.Write($"¤{u.Character.Starbucks} Starbucks");
         }
-		public void ShowStory(Universe u)
+
+		public void ShowStory()
 		{
-			// Clear the input buffer.
-			while (Console.KeyAvailable)
-			{
-				Console.ReadKey(false);
-			}
-			Console.Clear();
 
-			// The screen should be displayed for a minimum of 2 seconds.
-			System.Threading.Thread.Sleep(2000);
-
-			// Show messages.
-			this.ShowMessage(u);
-
-			// Take input and hide the screen.
-			Console.WriteLine("  Press any key to continue...");
-			while (Console.KeyAvailable)
-			{
-				Console.ReadKey(false);
-			}
-			Console.ReadKey(false);
-			Console.Clear();
-		}
-
-		private void ShowMessage(Universe u)
-		{
 			if (u.Character.Age == 780) // 65 years old.
 			{
 				this.RenderStory($"" +
 					$"You turn 65.\n\n" +
 					$"Your body fails you.\n\n" +
 					$"Your vitals give way.\n\n" +
-					$"You die.");
+					$"You die...\n\n\n" +
+                    $"...single.");
 			}
 			else if (u.Character.Age == 768) // 64 years old.
 			{
@@ -284,35 +262,20 @@ namespace SpaceGame
 						$"What are you waiting for?");
 				}
 			}
-			else if (u.Character.Age == 636) // 53 years old.
-			{
-				this.RenderStory($"");
-			}
-			else if (u.Character.Age == 612) // 51 years old.
-			{
-				this.RenderStory($"");
-			}
 			else if (u.Character.Age == 588) // 49 years old.
 			{
 				this.RenderStory($"" +
 					$"You receive another letter in your SpaceMail inbox.\n" +
 					$"It's from the princess!\n\n" +
 					$"'Pretty sure I just went through menopause,' it says.\n\n" +
-					$"On the plus side, you didn't really want kids anyway.");
-			}
-			else if (u.Character.Age == 564) // 47 years old.
-			{
-				this.RenderStory($"" +
-					$"You are starting to feel really old.\n\n" +
-					$"You have a hunch you won't make it past sixty-five.\n\n" +
-					$"But it's just a hunch.");
+					$"You didn't really want kids anyway.");
 			}
 			else if (u.Character.Age == 540) // 45 years old.
 			{
 				this.RenderStory($"" +
 					$"You receive a letter your SpaceMail inbox.\n" +
 					$"It's from the princess!\n\n" +
-					$"'Please hurry,' it says.\n\n" +
+					$"'Please hurry,' it says.\n\n\n" +
 					$"No shit.");
 			}
 			else if (u.Character.Age == 480) // 40 years old.
@@ -321,39 +284,21 @@ namespace SpaceGame
 					$"You just turned 40 years old.\n\n" +
 					$"...and you're still single.");
 			}
-			else if (u.Character.Age == 468) // 39 years old.
-			{
-				this.RenderStory($"It's been 20 years, and you're still single.\n\n" +
-					$"You're 39 years old." +
-					$"'Oof,' you mumble to yourself." +
-					$"");
-			}
 			else if (u.Character.Age == 420) // 35 years old.
 			{
 				this.RenderStory($"" +
-					$"Some quick math confirms you are 420 months old.\n\n" +
-					$"You chuckle to yourself.\n\n" +
+					$"Some quick math confirms you are 35 years old.\n\n" +
+					$"'Man, I'm getting old,' you chuckle to yourself.\n\n" +
 					$"Somehow, this fills you with determination.");
-			}
-			else if (u.Character.Age == 396) // 33 years old.
-			{
-				this.RenderStory($"" +
-					$"  'What is the point,' you ask yourself. 'She doesn't even know me.'\n\n" +
-					$"  You have a point.");
 			}
 			else if (u.Character.Age == 372) // 31 years old.
 			{
-				this.RenderStory($"" +
-					$"  As of today, you have been traveling for an entire decade.\n\n" +
-					$"  The princess needs you now more than ever.");
-			}
-			else if (u.Character.Age == 276) // 23 years old.
-			{
-				this.RenderStory($"" +
-					$"  It has been five years.\n\n" +
-					$"  You only have {u.Character.Starbucks} Starbucks.\n\n\n\n" +
-					$"  Get it together. The princess needs your help.");
-			}
+                this.RenderStory($"" +
+                $"  It has been a decade since your journey began.\n\n" +
+                $"  You only have ¤{u.Character.Starbucks} Starbucks.\n\n\n\n" +
+                $"  You still need another ¤{Universe.StarbucksToSavePrincess - u.Character.Starbucks} Starbucks to buy her freedom.\n\n\n\n" +
+                $"  Get it together. The princess needs your help.");
+            }
 			else if (u.Character.Age == 252) // 21 years old.
 			{
 				this.RenderStory($"" +
@@ -361,25 +306,56 @@ namespace SpaceGame
 					$"  'Help me, {u.Character.Name}!'\n\n" +
 					$"  But sound doesn't travel in space.");
 			}
-			else if (u.Character.Age == 228) // 19 years old.
+			else if (u.Character.Age == 216) // 18 years old.
 			{
 				this.RenderStory($"" +
-					$"  It has been one year since you embarked on your adventure.\n\n" +
-					$"  You must save the princess!");
+                    $"Your journey begins.\n\n" +
+                    $"You are {this.u.Character.Name}, an 18 year-old adventurer.\n\n" +
+                    $"You hear rumors that the space princess, Anna Kendrick, has been captured by a\n" +
+                    $"space pirate, a nefarious villain known by the name of Hairy Tenderson.\n\n" +
+                    $"According to this rumor, he will only release her if he is wire transferred\n" +
+                    $"¤10,002 Starbucks.\n\n" +
+                    $"You have ¤74 Starbucks.\n" +
+                    $"You are low on fuel.\n" +
+                    $"'Too easy,' you say to yourself.\n\n\n" +
+                    $"And so beginneth your adventureth.\n\n" +
+                    $"");
 			}
 		}
 
 		private void RenderStory(string Message)
 		{
+            // Clear the input buffer.
+            while (Console.KeyAvailable)
+            {
+                Console.ReadKey(false);
+            }
+
+            // Clear the screen.
+            Console.Clear();
+
+            // Render the story message.
+            Console.WriteLine("\n\n\n");
+			Console.WriteLine("  +-------------------------------------------------------------+");
+			Console.WriteLine("  |                                                             |");
+			Console.WriteLine("  |                     THE STORY CONTINUES...                  |");
+			Console.WriteLine("  |                                                             |");
+			Console.WriteLine("  +-------------------------------------------------------------+");
 			Console.WriteLine("\n\n\n");
-			Console.WriteLine("+-------------------------------------------------------------+");
-			Console.WriteLine("|                                                             |");
-			Console.WriteLine("|                     THE STORY CONTINUES...                  |");
-			Console.WriteLine("|                                                             |");
-			Console.WriteLine("+-------------------------------------------------------------+");
-			Console.WriteLine("\n\n\n");
-			Console.WriteLine($"\"{Message}\"");
+			Console.WriteLine($"{Message}");
 			Console.WriteLine("\n\n\n\n\n\n");
-		}
+
+            // The screen should be displayed for a minimum of 1 second.
+            System.Threading.Thread.Sleep(1000);
+
+            // Take input and hide the screen.
+            Console.Write("  Press any key to continue...  ");
+            while (Console.KeyAvailable)
+            {
+                Console.ReadKey(false);
+            }
+            Console.ReadKey(false);
+            Console.Clear();
+        }
 	}
 }

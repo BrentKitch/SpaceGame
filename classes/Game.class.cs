@@ -12,8 +12,7 @@ namespace SpaceGame
 			get; set;
 		}
 
-		private Menu _menu;
-		private UserInterface UI;
+		public UserInterface UI;
 		public Menu Menu
 		{
 			get; set;
@@ -149,8 +148,6 @@ namespace SpaceGame
 
 				//////////////////////////////////////////////////////////////////////////
 			}
-
-			//this.Save();
 		}
 
 		// Loads the game if a saved file exists.
