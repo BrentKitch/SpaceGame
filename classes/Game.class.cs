@@ -173,7 +173,7 @@ namespace SpaceGame
 					//////////////////////////////////////////////////////////////////////////
 				}
 			}
-		}
+		
 
 		// Loads the game if a saved file exists.
 		public void Load()
