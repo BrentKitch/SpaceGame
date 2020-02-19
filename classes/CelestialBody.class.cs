@@ -5,7 +5,7 @@ namespace SpaceGame
 {
 	public abstract class CelestialBody
 	{
-		public string Type
+		virtual public string Type
 		{
 			get; set;
 		}

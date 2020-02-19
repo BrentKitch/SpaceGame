@@ -348,16 +348,16 @@ namespace SpaceGame
 			else if (u.Character.Age == 216) // 18 years old.
 			{
 				this.RenderStory($"" +
-                    $"Your journey begins.\n\n" +
-                    $"You are {this.u.Character.Name}, an 18 year-old adventurer.\n\n" +
-                    $"You hear rumors that the space princess, Kanna Endrick, has been captured by a\n" +
-                    $"space pirate, a nefarious villain known by the name of Hairy Tenderson.\n\n" +
-                    $"According to this rumor, he will only release her if he is wire transferred\n" +
-                    $"¤10,002 Starbucks.\n\n" +
-                    $"You have ¤74 Starbucks.\n" +
-                    $"You are low on fuel.\n" +
-                    $"'Too easy,' you say to yourself.\n\n\n" +
-                    $"And so beginneth your adventureth.\n\n" +
+                    $"  Your journey begins.\n\n" +
+                    $"  You are {this.u.Character.Name}, an 18 year-old adventurer.\n\n" +
+                    $"  You hear rumors that the space princess, Kanna Endrick, has been captured by a\n" +
+                    $"  space pirate, a nefarious villain known by the name of Hairy Tenderson.\n\n" +
+                    $"  According to this rumor, he will only release her if he is wire transferred\n" +
+                    $"  ¤10,002 Starbucks.\n\n" +
+                    $"  You have ¤74 Starbucks.\n" +
+                    $"  You are low on fuel.\n" +
+                    $"  'Too easy,' you say to yourself.\n\n\n" +
+                    $"  And so beginneth your adventureth.\n\n" +
                     $"");
 			}
 		}

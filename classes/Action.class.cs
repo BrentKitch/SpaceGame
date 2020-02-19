@@ -40,6 +40,11 @@ namespace SpaceGame
 			get; set;
 		}
 
+		public ConsoleColor PaintColor
+		{
+			get; set;
+		}
+
 		public Action(Universe u, string name)
 		{
 			this.U = u;
@@ -53,6 +58,14 @@ namespace SpaceGame
 			this.Item = item;
 			this.ItemCost = itemCost;
 		}
+		public Action(Universe u, string name, ConsoleColor paintColor, int itemCost)
+		{
+			this.U = u;
+			this.Name = name;
+			this.PaintColor = paintColor;
+			this.ItemCost = itemCost;
+		}
+
 		public Action(Universe u, string name, List<Item> items)
 		{
 			this.U = u;
@@ -90,6 +103,10 @@ namespace SpaceGame
 					this.Sell();
 					this.U.Game.BuildMenu();
 					this.U.Game.Menu.MenuItems[2].Execute(); // Select Sell again.
+					break;
+				case "PaintSpaceship":
+					this.PaintSpaceship();
+					this.U.Game.BuildMenu();
 					break;
 				case "Refuel":
 					this.Refuel();
@@ -152,16 +169,31 @@ namespace SpaceGame
 			this.U.Character.Inventory.Remove(this.Item);
 		}
 
+		private void PaintSpaceship()
+		{
+			if ((this.U.Character.Starbucks - this.ItemCost) > 0)
+			{
+				this.U.Character.Starbucks -= this.ItemCost;
+				this.U.Character.Spaceship.Color = this.PaintColor;
+			}
+		}
+
 		private void Refuel()
 		{
-			this.U.Character.Starbucks -= 20;
-			this.U.Character.Spaceship.Fuel = this.U.Character.Spaceship.FuelCapacity;
+			if ((this.U.Character.Starbucks - 20) > 0)
+			{
+				this.U.Character.Starbucks -= 20;
+				this.U.Character.Spaceship.Fuel = this.U.Character.Spaceship.FuelCapacity;
+			}
 		}
 
 		private void Hospital()
 		{
-			this.U.Character.Starbucks -= 100;
-			this.U.Character.Health = 100;
+			if ((this.U.Character.Starbucks - 100) > 0)
+			{
+				this.U.Character.Starbucks -= 100;
+				this.U.Character.Health = 100;
+			}
 		}
 
 		private void ChangeMenu(Menu newMenu)

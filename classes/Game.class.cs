@@ -280,6 +280,7 @@ namespace SpaceGame
 						),
 						ConsoleKey.D1)
 					);
+
 					menu.Add(
 						new MenuItem("Sell",
 						new Action(
@@ -290,6 +291,16 @@ namespace SpaceGame
 						ConsoleKey.D2)
 					);
 
+					menu.Add(
+						new MenuItem("Paint Spaceship",
+						new Action(
+							this.U,
+							"ChangeMenu",
+							new Menu(this.U).ShowPaintSpaceshipMenu()
+						),
+						ConsoleKey.D3)
+					);
+
 					if (this.U.Character.Spaceship.Fuel < this.U.Character.Spaceship.FuelCapacity && this.U.Character.Starbucks >= 20)
 					{
 						menu.Add(
@@ -298,7 +309,7 @@ namespace SpaceGame
 								this.U,
 								"Refuel"
 							),
-							ConsoleKey.D3)
+							ConsoleKey.D4)
 						);
 					}
 
@@ -310,7 +321,7 @@ namespace SpaceGame
 								this.U,
 								"Hospital"
 							),
-							ConsoleKey.D3)
+							ConsoleKey.D5)
 						);
 					}
 

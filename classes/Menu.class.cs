@@ -185,5 +185,50 @@ namespace SpaceGame
 			return this;
 		}
 
+		public Menu ShowPaintSpaceshipMenu()
+		{
+			int i = 0;
+
+			this.Add(new MenuItem
+				(
+				"Go Back",
+				new Action(
+					this.U,
+					"ResetMenu"
+					),
+				(ConsoleKey)(ConsoleKey.D0)
+				)
+			);
+
+			var colors = new List<(string color, ConsoleColor cColor)>();
+			colors.Add(("Red", ConsoleColor.Red));
+			colors.Add(("Green", ConsoleColor.Green));
+			colors.Add(("Blue", ConsoleColor.Cyan));
+			colors.Add(("Yellow", ConsoleColor.DarkYellow));
+			colors.Add(("Pink", ConsoleColor.Magenta));
+			colors.Add(("White", ConsoleColor.White));
+			colors.Add(("Black", ConsoleColor.Black));
+
+			foreach ((string color, ConsoleColor cColor) color in colors)
+			{
+				i++;
+				int cost = (int)Math.Ceiling((double)this.U.Character.Starbucks * .2);
+
+				this.Add(new MenuItem
+					(
+					$"{color.color} (COST: {cost})",
+					new Action(
+						this.U,
+						"PaintSpaceship",
+						color.cColor,
+						cost
+						),
+					(ConsoleKey)(i + 48)
+					)
+				);
+			}
+
+			return this;
+		}
 	}
 }
