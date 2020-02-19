@@ -38,12 +38,12 @@ namespace SpaceGame
 
 		public Spaceship()
 		{
-			this.Color = ConsoleColor.White;
+			this.Color = ConsoleColor.Green;
 			this.MaxWeight = 100;
 			this.FuelCapacity = 100;
 			this.Fuel = 100;
 			this.FuelLossRate = 5;
-			this.Speed = 4;
+			this.Speed = 1;
 		}
 	}
 }

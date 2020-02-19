@@ -23,17 +23,17 @@ namespace SpaceGame
 		{
 			get; set;
 		}
-		
+
 		public int Starbucks
 		{
 			get; set;
 		}
-		
+
 		public Coordinates Coordinates
 		{
 			get; set;
 		}
-		
+
 		public Gender Gender
 		{
 			get; set;
@@ -46,7 +46,7 @@ namespace SpaceGame
 
 		public Spaceship Spaceship
 		{
-			get;set;
+			get; set;
 		}
 
 		public List<Item> Inventory
@@ -60,24 +60,48 @@ namespace SpaceGame
 			this.Gender = gender;
 			this.Coordinates = coordinates;
 			this.Age = 18 * 12; // Age, but in months.
-			this.Starbucks = 100;
+			this.Starbucks = 74;
 			this.Health = 100;
 			this.Direction = Direction.Up;
 			this.Spaceship = new Spaceship();
 			this.Inventory = new List<Item>();
 		}
 
-		public bool InCollision(Coordinates coordinates)
+		public bool InCollisionPlanet(CelestialBody celestialBody)
 		{
-			if ((this.Coordinates.X == coordinates.X || this.Coordinates.X == coordinates.X + 1)
-				&& this.Coordinates.Y == coordinates.Y)
+			if (celestialBody.Type == "planet")
 			{
-				return true;
+				if ((this.Coordinates.X == celestialBody.Coordinates.X || this.Coordinates.X == celestialBody.Coordinates.X + 1)
+					&& this.Coordinates.Y == celestialBody.Coordinates.Y)
+				{
+					return true;
+				}
 			}
-			else
+
+			return false;
+		}
+
+		public bool InCollisionStar(CelestialBody celestialBody)
+		{
+			if (celestialBody.Type == "star")
 			{
-				return false;
+				if ((
+					this.Coordinates.X == celestialBody.Coordinates.X
+					|| this.Coordinates.X == celestialBody.Coordinates.X + 1
+					|| this.Coordinates.X == celestialBody.Coordinates.X + 2
+					|| this.Coordinates.X == celestialBody.Coordinates.X + 3
+					)
+					&&
+					(
+					this.Coordinates.Y == celestialBody.Coordinates.Y
+					|| this.Coordinates.Y == celestialBody.Coordinates.Y + 1
+					))
+				{
+					return true;
+				}
 			}
+
+			return false;
 		}
 	}
 }

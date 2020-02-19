@@ -28,10 +28,14 @@ namespace SpaceGame
 			// Create the game.
 			Game g = new Game(u);
 			u.Game = g;
-			// Start the game.
-			
+
+			// Start the game.			
 			g.Initialize();
+			g.UI.ShowStory();
+
 			g.BuildMenu();
+
+
 			g.Step();
 			//// Display the menu.
 			

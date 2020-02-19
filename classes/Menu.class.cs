@@ -106,6 +106,7 @@ namespace SpaceGame
 
 			foreach (Item item in celestialBody.Items)
 			{
+				i++;
 				int cost = item.BaseCost;
 
 				// Let's check if the celestial body favors this item.
@@ -153,6 +154,7 @@ namespace SpaceGame
 
 			foreach (Item item in this.U.Character.Inventory)
 			{
+				i++;
 				int cost = (int)(item.BaseCost * .9);
 
 				// Let's check if the celestial body favors this item.

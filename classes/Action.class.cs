@@ -95,6 +95,10 @@ namespace SpaceGame
 					this.Refuel();
 					this.U.Game.BuildMenu();
 					break;
+				case "Hospital":
+					this.Hospital();
+					this.U.Game.BuildMenu();
+					break;
 				case "ChangeMenu":
 					this.ChangeMenu(this.NewMenu);
 					break;
@@ -104,18 +108,22 @@ namespace SpaceGame
 					break;
 				case "MoveUp":
 					this.MoveUp();
+					this.U.Game.UI.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveRight":
 					this.MoveRight();
+					this.U.Game.UI.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveLeft":
 					this.MoveLeft();
+					this.U.Game.UI.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveDown":
 					this.MoveDown();
+					this.U.Game.UI.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 			}
@@ -124,6 +132,7 @@ namespace SpaceGame
 		private void LeaveCelestialBody()
 		{
 			this.U.Character.Spaceship.Fuel -= 10;
+			this.U.Character.Direction = Direction.Up;
 			this.U.Character.Coordinates.X = this.CelestialBody.Coordinates.X;
 			this.U.Character.Coordinates.Y = this.CelestialBody.Coordinates.Y - 1;
 		}
@@ -145,12 +154,14 @@ namespace SpaceGame
 
 		private void Refuel()
 		{
-			if (this.U.Character.Starbucks >= 20)
-			{
-				this.U.Character.Starbucks -= 20;
-			}
-			
+			this.U.Character.Starbucks -= 20;
 			this.U.Character.Spaceship.Fuel = this.U.Character.Spaceship.FuelCapacity;
+		}
+
+		private void Hospital()
+		{
+			this.U.Character.Starbucks -= 100;
+			this.U.Character.Health = 100;
 		}
 
 		private void ChangeMenu(Menu newMenu)
@@ -176,6 +187,15 @@ namespace SpaceGame
 			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.Y -= 1;
 			this.U.Character.Direction = Direction.Up;
+
+			// If the character is inside a star, hurt them.
+			foreach (CelestialBody celestialBody in this.U.CelestialBodies)
+			{
+				if (this.U.Character.InCollisionStar(celestialBody))
+				{
+					this.U.Character.Health -= 21;
+				}
+			}
 		}
 
 		private void MoveRight()
@@ -192,6 +212,15 @@ namespace SpaceGame
 			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.X += 1;
 			this.U.Character.Direction = Direction.Right;
+
+			// If the character is inside a star, hurt them.
+			foreach (CelestialBody celestialBody in this.U.CelestialBodies)
+			{
+				if (this.U.Character.InCollisionStar(celestialBody))
+				{
+					this.U.Character.Health -= 21;
+				}
+			}
 		}
 
 		private void MoveLeft()
@@ -208,6 +237,15 @@ namespace SpaceGame
 			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.X -= 1;
 			this.U.Character.Direction = Direction.Left;
+
+			// If the character is inside a star, hurt them.
+			foreach (CelestialBody celestialBody in this.U.CelestialBodies)
+			{
+				if (this.U.Character.InCollisionStar(celestialBody))
+				{
+					this.U.Character.Health -= 21;
+				}
+			}
 		}
 
 		private void MoveDown()
@@ -224,6 +262,15 @@ namespace SpaceGame
 			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.Y += 1;
 			this.U.Character.Direction = Direction.Down;
+
+			// If the character is inside a star, hurt them.
+			foreach (CelestialBody celestialBody in this.U.CelestialBodies)
+			{
+				if (this.U.Character.InCollisionStar(celestialBody))
+				{
+					this.U.Character.Health -= 21;
+				}
+			}
 		}
 	}
 }
