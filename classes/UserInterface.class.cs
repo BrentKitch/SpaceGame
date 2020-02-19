@@ -38,17 +38,17 @@ namespace SpaceGame
         void RenderMap()  
         {   
             int starCounter = 0; // counts through the following for loop to give a star distribution
-            for(int i = 0; i < 30; i++)  //writes height(y)
+            for(int y = 0; y < 30; y++)  //writes height(y)
             {
                 
-                for(int a = 0; a < 120; a++, starCounter++) // writes width(x)
+                for(int x = 0; x < 120; x++, starCounter++) // writes width(x)
                 {  
-                    if(u.Character.Coordinates.X == a && u.Character.Coordinates.Y == i)
+                    if(u.Character.Coordinates.X == x && u.Character.Coordinates.Y == y)
                     {
                         Console.ForegroundColor = this.u.Character.Spaceship.Color;
-                        if (xyPair.Contains((a, i)))
+                        if (xyPair.Contains((x, y)))
                         {
-                            Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((a, i))).Color;
+                            Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Color;
                             
                             switch (this.u.Character.Direction)
                             {
@@ -66,7 +66,7 @@ namespace SpaceGame
                                     break;
                             }
                             Console.Write(" ");
-                            a++;
+                            x++;
                             Console.ResetColor();
                         }
                         else
@@ -89,20 +89,43 @@ namespace SpaceGame
                             Console.ResetColor();
                         }
                     }
-                    else if (xyPair.Contains((a, i)))
+                    else if (xyPair.Contains((x, y)))
                     {
-                        Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((a, i))).Color;
+                        Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Color;
                         Console.Write(" ");
-                        Console.Write(" ");
-                        a++;
+                        if (this.u.Character.Coordinates.X == x+1 && this.u.Character.Coordinates.Y == y)
+                        {
+                            Console.ForegroundColor = this.u.Character.Spaceship.Color;
+                            switch (this.u.Character.Direction)
+                            {
+                                case Direction.Up:
+                                    Console.Write("▲");
+                                    break;
+                                case Direction.Down:
+                                    Console.Write("▼");
+                                    break;
+                                case Direction.Left:
+                                    Console.Write("◄");
+                                    break;
+                                case Direction.Right:
+                                    Console.Write("►");
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Console.Write(" ");
+                        }    
+                        x++;
+                        Console.ResetColor();
                     }
-                    else if ((i != 0 || i != 29) && (a == 0 || a == 119))        // makes box for map
+                    else if ((y != 0 || y != 29) && (x == 0 || x == 119))        // makes box for map
                     {
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                         Console.Write(" ");
                         Console.ResetColor();
                     }
-                    else if (i == 0 || i == 29)
+                    else if (y == 0 || y == 29)
                     {
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                         Console.Write(" ");
@@ -143,7 +166,7 @@ namespace SpaceGame
                         }
                     }
                    
-                     if (a == 119)   //returns to the next line when it reaches the set map width. 
+                     if (x == 119)   //returns to the next line when it reaches the set map width. 
                     {
                         Console.Write("\n");
                     }
@@ -158,22 +181,7 @@ namespace SpaceGame
             for(int i = 0; i < 17; i++)
             {
                 for(int a = 0; a < 120; a++)
-                {
-                    //if(i == 2)
-                    //{
-                    //    if(a == 2)
-                    //    {
-                    //        Console.ResetColor();
-                    //        Console.Write(u.Character.Name);
-                    //        a += u.Character.Name.Length;
-                    //    }else if( a == 55)
-                    //    {
-                    //        Console.WriteLine($"${u.Character.Starbucks}");
-                    //        a += (u.Character.Starbucks.ToString().Length + 1);
-                    //    }
-                        
-                    //}
-                    
+                {                   
                     if(i == 4)
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
@@ -233,7 +241,8 @@ namespace SpaceGame
                 default:
                     break;
             }
-            
+            Console.SetCursorPosition(25, 32);
+            Console.Write($"Age: {this.u.Character.Age / 12}");
             Console.SetCursorPosition(50, 32);
             Console.Write($"¤{u.Character.Starbucks} Starbucks");
             Console.SetCursorPosition(105, 32);
@@ -266,7 +275,7 @@ namespace SpaceGame
 				this.RenderStory($"" +
 					$"You receive another letter in your SpaceMail inbox.\n" +
 					$"It's from the doctor.!\n\n" +
-					$"'You've got exactly one years left to live,' it says.\n\n" +
+					$"'You've got exactly one year left to live,' it says.\n\n" +
 					$"'Well,' you think to yourself. 'It's been a good run.'");
 			}
 			else if (u.Character.Age == 756) // 63 years old.
