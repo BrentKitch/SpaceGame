@@ -93,8 +93,31 @@ namespace SpaceGame
                     {
                         Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((a, i))).Color;
                         Console.Write(" ");
-                        Console.Write(" ");
+                        if (this.u.Character.Coordinates.X == a+1 && this.u.Character.Coordinates.Y == i)
+                        {
+                            Console.ForegroundColor = this.u.Character.Spaceship.Color;
+                            switch (this.u.Character.Direction)
+                            {
+                                case Direction.Up:
+                                    Console.Write("▲");
+                                    break;
+                                case Direction.Down:
+                                    Console.Write("▼");
+                                    break;
+                                case Direction.Left:
+                                    Console.Write("◄");
+                                    break;
+                                case Direction.Right:
+                                    Console.Write("►");
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            Console.Write(" ");
+                        }    
                         a++;
+                        Console.ResetColor();
                     }
                     else if ((i != 0 || i != 29) && (a == 0 || a == 119))        // makes box for map
                     {
@@ -158,22 +181,7 @@ namespace SpaceGame
             for(int i = 0; i < 17; i++)
             {
                 for(int a = 0; a < 120; a++)
-                {
-                    //if(i == 2)
-                    //{
-                    //    if(a == 2)
-                    //    {
-                    //        Console.ResetColor();
-                    //        Console.Write(u.Character.Name);
-                    //        a += u.Character.Name.Length;
-                    //    }else if( a == 55)
-                    //    {
-                    //        Console.WriteLine($"${u.Character.Starbucks}");
-                    //        a += (u.Character.Starbucks.ToString().Length + 1);
-                    //    }
-                        
-                    //}
-                    
+                {                   
                     if(i == 4)
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
