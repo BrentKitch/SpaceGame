@@ -8,6 +8,7 @@ namespace SpaceGame
 {
     public class UserInterface
     {
+
         private Universe u
         {
             get; set;
@@ -15,13 +16,18 @@ namespace SpaceGame
         private Menu menu
         {
             get; set;
+        }       
+        public UserInterface(Universe u, Menu menu)
+        {
+            this.u = u;
+            this.menu = menu;
         }
         List<(int, int)> xyPair = new List<(int, int)> { };
         public void RenderGame(Universe u, Menu menu)
         {
             this.u = u;
             this.menu = menu;
-            foreach(CelestialBody cb in this.u.CelestialBodies)
+            foreach (CelestialBody cb in this.u.CelestialBodies)
             {
                 xyPair.Add((cb.Coordinates.X,cb.Coordinates.Y));
             }
@@ -39,10 +45,10 @@ namespace SpaceGame
                 {  
                     if(u.Character.Coordinates.X == a && u.Character.Coordinates.Y == i)
                     {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        if (xyPair.Contains((i, a)))
+                        Console.ForegroundColor = this.u.Character.Spaceship.Color;
+                        if (xyPair.Contains((a, i)))
                         {
-                            Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
+                            Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((a, i))).Color;
                             
                             switch (this.u.Character.Direction)
                             {
@@ -149,7 +155,7 @@ namespace SpaceGame
         void RenderMenu()
         {
             
-            for(int i = 0; i < 20; i++)
+            for(int i = 0; i < 17; i++)
             {
                 for(int a = 0; a < 120; a++)
                 {
@@ -179,7 +185,7 @@ namespace SpaceGame
                         Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.Write(" ");
                     }
-                    else if(i == 0 || i == 19)
+                    else if(i == 0 || i == 16)
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.Write(" ");
@@ -202,12 +208,37 @@ namespace SpaceGame
             
         }
 
-        private void DisplayInformation()
+        private void DisplayInformation() 
         {
-            Console.SetCursorPosition(2, 32);
+            
+            Console.SetCursorPosition(2, 32); 
             Console.Write(u.Character.Name);
-            Console.SetCursorPosition(55, 32);
+            switch (u.Character.Gender.ToString())
+            {
+                case "Male":
+                    Console.Write($" ♂");
+                    break;
+                case "Female":
+                    Console.Write($" ♀");
+                    break;
+                case "Alien":
+                    Console.Write($" §");
+                    break;
+            }
+            
+            Console.SetCursorPosition(40, 32);
             Console.Write($"¤{u.Character.Starbucks} Starbucks");
+            Console.SetCursorPosition(105, 32);
+            Console.Write($"Fuel {this.u.Character.Spaceship.Fuel}/{this.u.Character.Spaceship.FuelCapacity}");
+
+            (int, int) menuPosition = (85, 35);
+            foreach( MenuItem menuItem in menu.MenuItems)
+            {
+                Console.SetCursorPosition(menuPosition.Item1, menuPosition.Item2);
+                Console.Write($"{menuItem.Key}: {menuItem.Label}");
+                menuPosition.Item2++;
+            }
+
         }
 		public void ShowStory(Universe u)
 		{

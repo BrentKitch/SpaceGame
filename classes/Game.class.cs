@@ -23,7 +23,7 @@ namespace SpaceGame
 		{
 			this.U = u;
 			this.Menu = new Menu(u);
-			this.UI = new UserInterface();
+			this.UI = new UserInterface(this.U, this.Menu);
 		}
 
 		// TODO: Game loop.
@@ -38,14 +38,19 @@ namespace SpaceGame
 				{
 					Console.ReadKey(false);
 				}
-				ConsoleKey keyInput = Console.ReadKey().Key;
-				foreach (MenuItem menuItem in this.Menu.MenuItems)
+				bool properKey = false;
+				do
 				{
-					if (menuItem.Key == keyInput)
+					ConsoleKey keyInput = Console.ReadKey(true).Key;
+					foreach (MenuItem menuItem in this.Menu.MenuItems)
 					{
-						menuItem.Execute();
+						if (menuItem.Key == keyInput)
+						{
+							properKey = true;
+							menuItem.Execute();
+						}
 					}
-				}
+				}while (!properKey);
 				
 			} while (true);
 		}
