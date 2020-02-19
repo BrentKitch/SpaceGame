@@ -8,6 +8,7 @@ namespace SpaceGame
     {
         public void deathscreen()
         {
+            Console.Clear();
             string deathScreen = @"                                                                   
                            .AMMMMMMMMMMA.          
       			.AV. :::.:.:.::MA.        
@@ -33,6 +34,7 @@ namespace SpaceGame
                                                                    
                                                                    ";
             Console.WriteLine(deathScreen);
+            Console.ReadKey(false);
             Environment.Exit(0);
         }
     }
