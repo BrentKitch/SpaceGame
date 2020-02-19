@@ -104,18 +104,22 @@ namespace SpaceGame
 					break;
 				case "MoveUp":
 					this.MoveUp();
+					this.U.Game.UI.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveRight":
 					this.MoveRight();
+					this.U.Game.UI.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveLeft":
 					this.MoveLeft();
+					this.U.Game.UI.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveDown":
 					this.MoveDown();
+					this.U.Game.UI.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 			}
@@ -124,6 +128,7 @@ namespace SpaceGame
 		private void LeaveCelestialBody()
 		{
 			this.U.Character.Spaceship.Fuel -= 10;
+			this.U.Character.Direction = Direction.Up;
 			this.U.Character.Coordinates.X = this.CelestialBody.Coordinates.X;
 			this.U.Character.Coordinates.Y = this.CelestialBody.Coordinates.Y - 1;
 		}

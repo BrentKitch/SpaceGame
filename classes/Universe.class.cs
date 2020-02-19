@@ -6,7 +6,7 @@ namespace SpaceGame
 {
 	public class Universe
 	{
-		public const int StarbucksToSavePrincess = 10000;
+		public const int StarbucksToSavePrincess = 10002;
 
 		public Game Game
 		{

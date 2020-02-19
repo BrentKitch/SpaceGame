@@ -12,8 +12,7 @@ namespace SpaceGame
 			get; set;
 		}
 
-		private Menu _menu;
-		private UserInterface UI;
+		public UserInterface UI;
 		public Menu Menu
 		{
 			get; set;
@@ -63,99 +62,101 @@ namespace SpaceGame
 		// Game initialization (i.e. startup) sequence.
 		public void Initialize()
 		{
-			Console.WriteLine("Welcome to Space Mario 2049 with some science.");
-			Console.WriteLine("Do you want to load an old save file? (Y or N)");
-			string areWeLoading = Console.ReadLine();
-			areWeLoading = areWeLoading.ToUpper();
+			OpeningSequence.Animation();
 
-			if (areWeLoading == "Y" && this.U != null)
+			if (this.U != null)
 			{
-				this.Load();
-				Console.WriteLine("Welcome back " + this.U.Character.Name);
-				Console.WriteLine("Your current Coordinates are (" + this.U.Character.Coordinates.X + "," + this.U.Character.Coordinates.Y + ")");
-				Console.WriteLine("Your current health is " + this.U.Character.Health);
-				Console.WriteLine("Your have *" + this.U.Character.Starbucks + " Starbucks");
+				Console.WriteLine("Do you want to load an old save file? (Y or N)");
+				string areWeLoading = Console.ReadLine();
+				areWeLoading = areWeLoading.ToUpper();
+
+				if (areWeLoading == "Y")
+				{
+					this.Load();
+					Console.WriteLine("Welcome back " + this.U.Character.Name);
+					Console.WriteLine("Your current Coordinates are (" + this.U.Character.Coordinates.X + "," + this.U.Character.Coordinates.Y + ")");
+					Console.WriteLine("Your current health is " + this.U.Character.Health);
+					Console.WriteLine("Your have *" + this.U.Character.Starbucks + " Starbucks");
+				}
+				else
+				{
+					// Add a character to the universe.
+					Console.WriteLine("Enter a name");
+					string name = Console.ReadLine();
+
+					Character character = new Character(name, Gender.Male, new Coordinates(8, 12));
+					character.Spaceship.Fuel = 30; // Low fuel!
+					this.U.Add(character);
+
+					//////////////////////////////////////////////////////////////////////////
+					//
+					// MARS
+					//
+					//////////////////////////////////////////////////////////////////////////
+
+					// Planet
+					CelestialBody mars = new Planet("Mars", "The big red boi.", ConsoleColor.Red,
+						new Coordinates(15, 50),
+						new List<ItemCategory> { ItemCategory.Medical });
+
+					// Shop
+					mars.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
+						new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+					mars.AddItem(new Item("Chocolate Tree", "It's like a tree, but delicious.", 15, 1,
+						new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+
+					// Create it!
+					this.U.Add(mars);
+
+					//////////////////////////////////////////////////////////////////////////
+
+					//////////////////////////////////////////////////////////////////////////
+					//
+					// NEPTUNE
+					//
+					//////////////////////////////////////////////////////////////////////////
+
+					// Planet
+					CelestialBody neptune = new Planet("Neptune", "Holy Neptune!", ConsoleColor.Blue,
+						new Coordinates(5, 12),
+						new List<ItemCategory> { ItemCategory.Military });
+
+					// Shop
+					neptune.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
+						new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+					neptune.AddItem(new Item("Holy Water", "Don't drink this!", 100, 1,
+						new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Medical }));
+
+					// Create it!
+					this.U.Add(neptune);
+
+					//////////////////////////////////////////////////////////////////////////
+
+					//////////////////////////////////////////////////////////////////////////
+					//
+					// URANUS
+					//
+					//////////////////////////////////////////////////////////////////////////
+
+					// Planet
+					CelestialBody uranus = new Planet("Uranus", "No, not that one!", ConsoleColor.Yellow,
+						new Coordinates(40, 22),
+						new List<ItemCategory> { ItemCategory.Alcohol });
+
+					// Shop
+					uranus.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
+						new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+					uranus.AddItem(new Item("Space Gunk", "You don't want to know what this is.", 2, 1,
+						new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+					uranus.AddItem(new Item("Flux Capacitor", "Keeps you young. Or old, depending on your perspective.", 500, 5,
+						new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+
+					// Create it!
+					this.U.Add(uranus);
+
+					//////////////////////////////////////////////////////////////////////////
+				}
 			}
-			else
-			{
-				// Add a character to the universe.
-				Console.WriteLine("Enter a name");
-				string name = Console.ReadLine();
-
-				Character character = new Character(name, Gender.Male, new Coordinates(8, 12));
-				character.Spaceship.Fuel = 30; // Low fuel!
-				this.U.Add(character);
-
-				//////////////////////////////////////////////////////////////////////////
-				//
-				// MARS
-				//
-				//////////////////////////////////////////////////////////////////////////
-
-				// Planet
-				CelestialBody mars = new Planet("Mars", "The big red boi.", ConsoleColor.Red,
-					new Coordinates(15, 50),
-					new List<ItemCategory> { ItemCategory.Medical });
-
-				// Shop
-				mars.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-				mars.AddItem(new Item("Chocolate Tree", "It's like a tree, but delicious.", 15, 1,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-
-				// Create it!
-				this.U.Add(mars);
-
-				//////////////////////////////////////////////////////////////////////////
-
-				//////////////////////////////////////////////////////////////////////////
-				//
-				// NEPTUNE
-				//
-				//////////////////////////////////////////////////////////////////////////
-
-				// Planet
-				CelestialBody neptune = new Planet("Neptune", "Holy Neptune!", ConsoleColor.Blue,
-					new Coordinates(5, 12),
-					new List<ItemCategory> { ItemCategory.Military });
-
-				// Shop
-				neptune.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-				neptune.AddItem(new Item("Holy Water", "Don't drink this!", 100, 1,
-					new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Medical }));
-
-				// Create it!
-				this.U.Add(neptune);
-
-				//////////////////////////////////////////////////////////////////////////
-
-				//////////////////////////////////////////////////////////////////////////
-				//
-				// URANUS
-				//
-				//////////////////////////////////////////////////////////////////////////
-
-				// Planet
-				CelestialBody uranus = new Planet("Uranus", "No, not that one!", ConsoleColor.Yellow,
-					new Coordinates(40, 22),
-					new List<ItemCategory> { ItemCategory.Alcohol });
-
-				// Shop
-				uranus.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-				uranus.AddItem(new Item("Space Gunk", "You don't want to know what this is.", 2, 1,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-				uranus.AddItem(new Item("Flux Capacitor", "Keeps you young. Or old, depending on your perspective.", 500, 5,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-
-				// Create it!
-				this.U.Add(uranus);
-
-				//////////////////////////////////////////////////////////////////////////
-			}
-
-			//this.Save();
 		}
 
 		// Loads the game if a saved file exists.
