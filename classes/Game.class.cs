@@ -13,7 +13,7 @@ namespace SpaceGame
 		}
 
 		private Menu _menu;
-		private UserInterface UI = new UserInterface();
+		private UserInterface UI;
 		public Menu Menu
 		{
 			get; set;
@@ -23,20 +23,24 @@ namespace SpaceGame
 		{
 			this.U = u;
 			this.Menu = new Menu(u);
+			this.UI = new UserInterface();
 		}
 
 		// TODO: Game loop.
-		void Step()
+		public void Step()
 		{
 			do
 			{
 				Console.Clear();
-				UI.RenderGame(this.U, this.Menu);
+				this.UI.RenderGame(this.U, this.Menu);
 				this.Save();
+				while (Console.KeyAvailable)
+				{
+					Console.ReadKey(false);
+				}
 				ConsoleKey keyInput = Console.ReadKey().Key;
 				foreach (MenuItem menuItem in this.Menu.MenuItems)
 				{
-					Console.WriteLine(menuItem.Label);
 					if (menuItem.Key == keyInput)
 					{
 						menuItem.Execute();
@@ -73,7 +77,7 @@ namespace SpaceGame
 				Console.WriteLine("Enter a name");
 				string name = Console.ReadLine();
 
-				Character character = new Character(name, Gender.Male, new Coordinates(6, 12));
+				Character character = new Character(name, Gender.Male, new Coordinates(8, 12));
 				character.Spaceship.Fuel = 30; // Low fuel!
 				this.U.Add(character);
 
@@ -147,7 +151,6 @@ namespace SpaceGame
 			}
 
 			//this.Save();
-			this.Step();
 		}
 
 		// Loads the game if a saved file exists.

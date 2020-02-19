@@ -83,9 +83,9 @@ namespace SpaceGame
                             Console.ResetColor();
                         }
                     }
-                    else if (xyPair.Contains((i, a)))
+                    else if (xyPair.Contains((a, i)))
                     {
-                        Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((i, a))).Color;
+                        Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((a, i))).Color;
                         Console.Write(" ");
                         Console.Write(" ");
                         a++;

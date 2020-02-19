@@ -29,9 +29,10 @@ namespace SpaceGame
 			Game g = new Game(u);
 			u.Game = g;
 			// Start the game.
-			g.BuildMenu();
+			
 			g.Initialize();
-
+			g.BuildMenu();
+			g.Step();
 			//// Display the menu.
 			
 			//foreach (MenuItem item in g.Menu.MenuItems)
