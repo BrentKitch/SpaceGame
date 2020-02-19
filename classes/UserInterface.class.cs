@@ -38,17 +38,17 @@ namespace SpaceGame
         void RenderMap()  
         {   
             int starCounter = 0; // counts through the following for loop to give a star distribution
-            for(int i = 0; i < 30; i++)  //writes height(y)
+            for(int y = 0; y < 30; y++)  //writes height(y)
             {
                 
-                for(int a = 0; a < 120; a++, starCounter++) // writes width(x)
+                for(int x = 0; x < 120; x++, starCounter++) // writes width(x)
                 {  
-                    if(u.Character.Coordinates.X == a && u.Character.Coordinates.Y == i)
+                    if(u.Character.Coordinates.X == x && u.Character.Coordinates.Y == y)
                     {
                         Console.ForegroundColor = this.u.Character.Spaceship.Color;
-                        if (xyPair.Contains((a, i)))
+                        if (xyPair.Contains((x, y)))
                         {
-                            Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((a, i))).Color;
+                            Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Color;
                             
                             switch (this.u.Character.Direction)
                             {
@@ -66,7 +66,7 @@ namespace SpaceGame
                                     break;
                             }
                             Console.Write(" ");
-                            a++;
+                            x++;
                             Console.ResetColor();
                         }
                         else
@@ -89,11 +89,11 @@ namespace SpaceGame
                             Console.ResetColor();
                         }
                     }
-                    else if (xyPair.Contains((a, i)))
+                    else if (xyPair.Contains((x, y)))
                     {
-                        Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((a, i))).Color;
+                        Console.BackgroundColor = u.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Color;
                         Console.Write(" ");
-                        if (this.u.Character.Coordinates.X == a+1 && this.u.Character.Coordinates.Y == i)
+                        if (this.u.Character.Coordinates.X == x+1 && this.u.Character.Coordinates.Y == y)
                         {
                             Console.ForegroundColor = this.u.Character.Spaceship.Color;
                             switch (this.u.Character.Direction)
@@ -116,16 +116,16 @@ namespace SpaceGame
                         {
                             Console.Write(" ");
                         }    
-                        a++;
+                        x++;
                         Console.ResetColor();
                     }
-                    else if ((i != 0 || i != 29) && (a == 0 || a == 119))        // makes box for map
+                    else if ((y != 0 || y != 29) && (x == 0 || x == 119))        // makes box for map
                     {
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                         Console.Write(" ");
                         Console.ResetColor();
                     }
-                    else if (i == 0 || i == 29)
+                    else if (y == 0 || y == 29)
                     {
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                         Console.Write(" ");
@@ -166,7 +166,7 @@ namespace SpaceGame
                         }
                     }
                    
-                     if (a == 119)   //returns to the next line when it reaches the set map width. 
+                     if (x == 119)   //returns to the next line when it reaches the set map width. 
                     {
                         Console.Write("\n");
                     }
@@ -241,7 +241,8 @@ namespace SpaceGame
                 default:
                     break;
             }
-            
+            Console.SetCursorPosition(25, 32);
+            Console.Write($"Age: {this.u.Character.Age / 12}");
             Console.SetCursorPosition(50, 32);
             Console.Write($"¤{u.Character.Starbucks} Starbucks");
             Console.SetCursorPosition(105, 32);
@@ -356,16 +357,16 @@ namespace SpaceGame
 			else if (u.Character.Age == 216) // 18 years old.
 			{
 				this.RenderStory($"" +
-                    $"Your journey begins.\n\n" +
-                    $"You are {this.u.Character.Name}, an 18 year-old adventurer.\n\n" +
-                    $"You hear rumors that the space princess, Kanna Endrick, has been captured by a\n" +
-                    $"space pirate, a nefarious villain known by the name of Hairy Tenderson.\n\n" +
-                    $"According to this rumor, he will only release her if he is wire transferred\n" +
-                    $"¤10,002 Starbucks.\n\n" +
-                    $"You have ¤74 Starbucks.\n" +
-                    $"You are low on fuel.\n" +
-                    $"'Too easy,' you say to yourself.\n\n\n" +
-                    $"And so beginneth your adventureth.\n\n" +
+                    $"  Your journey begins.\n\n" +
+                    $"  You are {this.u.Character.Name}, an 18 year-old adventurer.\n\n" +
+                    $"  You hear rumors that the space princess, Kanna Endrick, has been captured by a\n" +
+                    $"  space pirate, a nefarious villain known by the name of Hairy Tenderson.\n\n" +
+                    $"  According to this rumor, he will only release her if he is wire transferred\n" +
+                    $"  ¤10,002 Starbucks.\n\n" +
+                    $"  You have ¤74 Starbucks.\n" +
+                    $"  You are low on fuel.\n" +
+                    $"  'Too easy,' you say to yourself.\n\n\n" +
+                    $"  And so beginneth your adventureth.\n\n" +
                     $"");
 			}
 		}

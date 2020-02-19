@@ -5,7 +5,7 @@ namespace SpaceGame
 {
 	public class Planet : CelestialBody
 	{
-		public new string Type
+		override public string Type
 		{
 			get; set;
 		}
