@@ -162,12 +162,12 @@ namespace SpaceGame
 
 					// Sol
 					CelestialBody sol = new Star("Sol", "Your birth star. There's no place like home.", ConsoleColor.Yellow,
-						new Coordinates(40, 22));
+						new Coordinates(110, 05));
 					this.U.Add(sol);
 
 					// Proxima Centauri
 					CelestialBody proximaCentauri = new Star("Proxima Centauri", "The closest sun to the sun. Unremarkable in every other way.", ConsoleColor.Red,
-						new Coordinates(40, 22));
+						new Coordinates(50, 13));
 					this.U.Add(proximaCentauri);
 
 					//////////////////////////////////////////////////////////////////////////
