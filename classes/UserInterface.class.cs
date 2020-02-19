@@ -32,6 +32,7 @@ namespace SpaceGame
                 xyPair.Add((cb.Coordinates.X,cb.Coordinates.Y));
             }
             Console.Clear();
+            
             RenderMap();
             RenderMenu();
         }
