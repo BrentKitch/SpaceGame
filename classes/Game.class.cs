@@ -329,7 +329,7 @@ namespace SpaceGame
 			if (this.U.Character.Starbucks >= Universe.StarbucksToSavePrincess)
 			{
 				menu.Add(
-					new MenuItem($"Transfer Starbucks to HAIRY TENDERSON (-¤{Universe.StarbucksToSavePrincess} Starbucks)",
+					new MenuItem($"Wire Transfer (-¤{Universe.StarbucksToSavePrincess} Starbucks)",
 					new Action(
 						this.U,
 						"Win"

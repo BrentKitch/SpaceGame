@@ -184,7 +184,7 @@ namespace SpaceGame
 			{
 				this.U.Character.Starbucks -= this.ItemCost;
 				this.U.Character.Inventory.Add(this.Item);
-				this.U.Message = $"You bought '{this.Item.Name}'!";
+				this.U.Message = $"You bought '{this.Item.Name}'! {this.Item.Description}";
 			}
 			else
 			{
