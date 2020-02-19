@@ -79,9 +79,9 @@ namespace SpaceGame
 					Console.WriteLine("Enter a name");
 					string name = Console.ReadLine();
 
-				Character character = new Character(name, Gender.Male, new Coordinates(8, 12));
-				character.Spaceship.Fuel = 30; // Low fuel!
-				this.U.Add(character);
+					Character character = new Character(name, Gender.Male, new Coordinates(8, 12));
+					character.Spaceship.Fuel = 30; // Low fuel!
+					this.U.Add(character);
 
 					//////////////////////////////////////////////////////////////////////////
 					//
@@ -149,7 +149,8 @@ namespace SpaceGame
 					// Create it!
 					this.U.Add(uranus);
 
-				//////////////////////////////////////////////////////////////////////////
+					//////////////////////////////////////////////////////////////////////////
+				}
 			}
 		}
 
