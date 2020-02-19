@@ -216,17 +216,25 @@ namespace SpaceGame
             switch (u.Character.Gender.ToString())
             {
                 case "Male":
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.Write($" ♂");
+                    Console.ResetColor();
                     break;
                 case "Female":
+                    Console.ForegroundColor = ConsoleColor.DarkMagenta;
                     Console.Write($" ♀");
+                    Console.ResetColor();
                     break;
                 case "Alien":
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
                     Console.Write($" §");
+                    Console.ResetColor();
+                    break;
+                default:
                     break;
             }
             
-            Console.SetCursorPosition(40, 32);
+            Console.SetCursorPosition(50, 32);
             Console.Write($"¤{u.Character.Starbucks} Starbucks");
             Console.SetCursorPosition(105, 32);
             Console.Write($"Fuel {this.u.Character.Spaceship.Fuel}/{this.u.Character.Spaceship.FuelCapacity}");
