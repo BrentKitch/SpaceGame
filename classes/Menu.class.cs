@@ -33,34 +33,58 @@ namespace SpaceGame
 
 		public Menu StartMovement()
 		{
-			this.Add(new MenuItem
-				(
-				"Move Up",
-				new Action(this.U, "MoveUp"),
-				ConsoleKey.UpArrow
-				)
-			);
-			this.Add(new MenuItem
-				(
-				"Move Right",
-				new Action(this.U, "MoveRight"),
-				ConsoleKey.RightArrow
-				)
-			);
-			this.Add(new MenuItem
-				(
-				"Move Left",
-				new Action(this.U, "MoveLeft"),
-				ConsoleKey.LeftArrow
-				)
-			);
-			this.Add(new MenuItem
-				(
-				"Move Down",
-				new Action(this.U, "MoveDown"),
-				ConsoleKey.DownArrow
-				)
-			);
+			string moveUpCost = (this.U.Character.Direction != Direction.Up) ? $" (-{this.U.Character.Spaceship.FuelLossRate} FUEL)" : null;
+			string moveRightCost = (this.U.Character.Direction != Direction.Right) ? $" (-{this.U.Character.Spaceship.FuelLossRate} FUEL)" : null;
+			string moveLeftCost = (this.U.Character.Direction != Direction.Left) ? $" (-{this.U.Character.Spaceship.FuelLossRate} FUEL)" : null;
+			string moveDownCost = (this.U.Character.Direction != Direction.Down) ? $" (-{this.U.Character.Spaceship.FuelLossRate} FUEL)" : null;
+
+			if (this.U.Character.Spaceship.Fuel >= this.U.Character.Spaceship.FuelLossRate
+				|| this.U.Character.Direction == Direction.Up)
+			{
+				this.Add(new MenuItem
+					(
+					$"Move Up {moveUpCost}",
+					new Action(this.U, "MoveUp"),
+					ConsoleKey.UpArrow
+					)
+				);
+			}
+
+			if (this.U.Character.Spaceship.Fuel >= this.U.Character.Spaceship.FuelLossRate
+				|| this.U.Character.Direction == Direction.Right)
+			{
+				this.Add(new MenuItem
+					(
+					$"Move Right {moveRightCost}",
+					new Action(this.U, "MoveRight"),
+					ConsoleKey.RightArrow
+					)
+				);
+			}
+
+			if (this.U.Character.Spaceship.Fuel >= this.U.Character.Spaceship.FuelLossRate
+				|| this.U.Character.Direction == Direction.Left)
+			{
+				this.Add(new MenuItem
+					(
+					$"Move Left {moveLeftCost}",
+					new Action(this.U, "MoveLeft"),
+					ConsoleKey.LeftArrow
+					)
+				);
+			}
+
+			if (this.U.Character.Spaceship.Fuel >= this.U.Character.Spaceship.FuelLossRate
+				|| this.U.Character.Direction == Direction.Down)
+			{
+				this.Add(new MenuItem
+					(
+					$"Move Down {moveDownCost}",
+					new Action(this.U, "MoveDown"),
+					ConsoleKey.DownArrow
+					)
+				);
+			}
 
 			return this;
 		}

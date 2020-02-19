@@ -19,11 +19,6 @@ namespace SpaceGame
 			get; set;
 		}
 
-		public int AgeMultiplier
-		{
-			get; set;
-		}
-
 		public int Health
 		{
 			get; set;
@@ -49,14 +44,14 @@ namespace SpaceGame
 			get; set;
 		}
 
+		public Spaceship Spaceship
+		{
+			get;set;
+		}
+
 		public List<Item> Inventory
 		{
 			get; set;
-		}
-
-		public Spaceship SpaceShip
-		{
-			get;set;
 		}
 
 		public Character(string name, Gender gender, Coordinates coordinates)
@@ -65,12 +60,11 @@ namespace SpaceGame
 			this.Gender = gender;
 			this.Coordinates = coordinates;
 			this.Age = 18 * 12; // Age, but in months.
-			this.AgeMultiplier = 3; // How quickly our character ages.
 			this.Starbucks = 100;
 			this.Health = 100;
 			this.Direction = Direction.Up;
+			this.Spaceship = new Spaceship();
 			this.Inventory = new List<Item>();
-			this.SpaceShip = new Spaceship();
 		}
 
 		public bool InCollision(Coordinates coordinates)
