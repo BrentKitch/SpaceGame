@@ -823,7 +823,7 @@ namespace SpaceGame
             stf.Add(thirty1);
 
             Console.WriteLine(one);
-            Console.ReadLine();
+            
             Console.Clear();
             for (int i = 1; i < stf.Count; i++)
             {
