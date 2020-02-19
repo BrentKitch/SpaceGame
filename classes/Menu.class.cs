@@ -214,6 +214,11 @@ namespace SpaceGame
 				i++;
 				int cost = (int)Math.Ceiling((double)this.U.Character.Starbucks * .2);
 
+				if (color.color == "Black")
+				{
+					cost = this.U.Character.Starbucks + 1;
+				}
+
 				this.Add(new MenuItem
 					(
 					$"{color.color} (COST: {cost})",

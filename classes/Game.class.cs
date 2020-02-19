@@ -30,6 +30,45 @@ namespace SpaceGame
 		{
 			do
 			{
+				// Check if the character is dead.
+				if (this.U.Character.Health <= 0)
+				{
+					// If the character is inside a star, hurt them.
+					foreach (CelestialBody celestialBody in this.U.CelestialBodies)
+					{
+						if (this.U.Character.InCollisionStar(celestialBody))
+						{
+							this.UI.GameOver("  Stars are not good places to pass time.\n\n" +
+								"You are burnt to a crisp.");
+						}
+					}
+
+					this.UI.GameOver("  You ran out of health and died.\n\n" +
+						"It was a good run!");
+				}
+
+				if (this.U.Character.Coordinates.X <= 0
+					|| this.U.Character.Coordinates.X >= 119
+					|| this.U.Character.Coordinates.Y <= 0
+					|| this.U.Character.Coordinates.Y >= 29
+					)
+				{
+					if (this.U.Character.Spaceship.Fuel <= 0)
+					{
+						this.UI.GameOver("  You ran out of fuel!\n\n" +
+							"You drift off into space for a few more days, but ultimately die alone in the abyss.\n\n\n" +
+							"The space princess is never rescued.");
+					}
+					else
+					{
+						this.UI.GameOver("  You drift off into space.\n\n" +
+							"You get lost.\n\n" +
+							"You never find your way back, and you never save the princess.");
+					}
+				}
+
+
+
 				Console.Clear();
 				this.UI.RenderGame(this.U, this.Menu);
 				this.Save();

@@ -371,7 +371,57 @@ namespace SpaceGame
 			}
 		}
 
-		private void RenderStory(string Message)
+        public void GameOver(string message)
+        {
+            Console.Clear();
+
+            string deathScreen = @"                                                                   
+                           .AMMMMMMMMMMA.          
+      			.AV. :::.:.:.::MA.        
+      	  	   A' :..        : .:`A       
+   		      A'..              . `A.                   YY   YY      A
+   		     A' :.    :::::::::  : :`A                   YY YY      AAA
+   		     M  .    :::.:.:.:::  . .M                    YYY      A   A
+  		     M  :   ::.:.....::.:   .M                     Y      AAAAAAA
+  		     V : :.::.:........:.:  :V                     Y      A     A
+ 		    A  A:    ..:...:...:.   A A                    Y      A     A
+ 		   .V  MA:.....:M.::.::. .:AM.M                    Y      A     A
+		  A'  .VMMMMMMMMM:.:AMMMMMMMV: A  
+		 :M .  .`VMMMMMMV.:A `VMMMMV .:M: 
+		  V.:.  ..`VMMMV.:AM..`VMV' .: V  
+		   V.  .:. .....:AMMA. . .:. .V            DDDDDDD    EEEEEEE      A      DDDDDDD
+ 		    VMM...: ...:.MMMM.: .: MMV             D     DD   E           AAA     D     DD
+		       `VM: . ..M.:M..:::M'                D      D   E          A   A    D      D
+   		    	 `M::. .:.... .::M                 D      D   EEEEEEE   AAAAAAA   D      D
+		          M:.  :. .... ..M                 D     DD   E         A     A   D      D
+		          V:  M:. M. :M .V                 D    DD    E         A     A   D     DD
+		          `V.:M.. M. :M.V'                 DDDDDD     EEEEEEE   A     A   DDDDDDD
+                                                                   
+                                                                   
+
+
+                                                                   ";
+
+            Console.WriteLine(deathScreen);
+            Console.WriteLine("\n\n");
+            Console.WriteLine($"\"{message}\"");
+
+            // The screen should be displayed for a minimum of 3 seconds.
+            System.Threading.Thread.Sleep(3000);
+
+            // Take input and hide the screen.
+            Console.WriteLine("\n\n\n\n");
+            Console.Write("  Press any key to exit...  ");
+            while (Console.KeyAvailable)
+            {
+                Console.ReadKey(false);
+            }
+            Console.ReadKey(false);
+            Console.Clear();
+            Environment.Exit(0);
+        }
+
+        private void RenderStory(string Message)
 		{
             // Clear the input buffer.
             while (Console.KeyAvailable)
@@ -393,8 +443,8 @@ namespace SpaceGame
 			Console.WriteLine($"{Message}");
 			Console.WriteLine("\n\n\n\n\n\n");
 
-            // The screen should be displayed for a minimum of 1 second.
-            System.Threading.Thread.Sleep(1000);
+            // The screen should be displayed for a minimum of 3 seconds.
+            System.Threading.Thread.Sleep(3000);
 
             // Take input and hide the screen.
             Console.Write("  Press any key to continue...  ");
