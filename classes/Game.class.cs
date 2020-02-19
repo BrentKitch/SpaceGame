@@ -12,7 +12,7 @@ namespace SpaceGame
 			get; set;
 		}
 
-		public UserInterface UI;
+		public UserInterface UserInterface;
 		public Menu Menu
 		{
 			get; set;
@@ -22,7 +22,7 @@ namespace SpaceGame
 		{
 			this.U = u;
 			this.Menu = new Menu(u);
-			this.UI = new UserInterface(this.U, this.Menu);
+			this.UserInterface = new UserInterface(this.U, this.Menu);
 		}
 
 		// TODO: Game loop.
@@ -38,12 +38,12 @@ namespace SpaceGame
 					{
 						if (this.U.Character.InCollisionStar(celestialBody))
 						{
-							this.UI.GameOver("  Stars are not good places to pass time.\n\n" +
+							this.UserInterface.GameOver("  Stars are not good places to pass time.\n\n" +
 								"You are burnt to a crisp.");
 						}
 					}
 
-					this.UI.GameOver("  You ran out of health and died.\n\n" +
+					this.UserInterface.GameOver("  You ran out of health and died.\n\n" +
 						"It was a good run!");
 				}
 
@@ -55,13 +55,13 @@ namespace SpaceGame
 				{
 					if (this.U.Character.Spaceship.Fuel <= 0)
 					{
-						this.UI.GameOver("  You ran out of fuel!\n\n" +
+						this.UserInterface.GameOver("  You ran out of fuel!\n\n" +
 							"You drift off into space for a few more days, but ultimately die alone in the abyss.\n\n\n" +
 							"The space princess is never rescued.");
 					}
 					else
 					{
-						this.UI.GameOver("  You drift off into space.\n\n" +
+						this.UserInterface.GameOver("  You drift off into space.\n\n" +
 							"You get lost.\n\n" +
 							"You never find your way back, and you never save the princess.");
 					}
@@ -70,7 +70,7 @@ namespace SpaceGame
 
 
 				Console.Clear();
-				this.UI.RenderGame(this.U, this.Menu);
+				this.UserInterface.RenderGame(this.U, this.Menu);
 				this.Save();
 				while (Console.KeyAvailable)
 				{
@@ -88,8 +88,8 @@ namespace SpaceGame
 							menuItem.Execute();
 						}
 					}
-				}while (!properKey);
-				
+				} while (!properKey);
+
 			} while (true);
 		}
 
@@ -116,16 +116,37 @@ namespace SpaceGame
 			if (option.Key == ConsoleKey.D1)
 			{
 				this.Load();
+
+				if (this.U.Character.Starbucks < Universe.StarbucksToSavePrincess)
+				{
+					this.UserInterface.RenderStory($"" +
+						$"  Welcome back!\n\n" +
+						$"  Your name is {this.U.Character.Name}. You are {this.U.Character.Age / 12} years old.\n\n" +
+						$"  You have ¤{this.U.Character.Starbucks} Starbucks.\n" +
+						$"  You need ¤{Universe.StarbucksToSavePrincess - this.U.Character.Starbucks} more Starbucks to save the princess, KANNA ENDRICK.\n\n" +
+						$"  And thus continueth your adventureth.\n\n" +
+						$"");
+				}
+				else
+				{
+					this.UserInterface.RenderStory($"" +
+						$"  Welcome back!\n\n" +
+						$"  Your name is {this.U.Character.Name}. You are {this.U.Character.Age / 12} years old.\n\n" +
+						$"  You have ¤{this.U.Character.Starbucks} Starbucks.\n" +
+						$"  That's enough to save the princess!\n\n" +
+						$"  You must hurry!\n\n" +
+						$"");
+				}
 			}
 			else
 			{
 				// Add a character to the universe.
 				Console.WriteLine("Enter a name");
-				string name = Console.ReadLine();
+				string name = Console.ReadLine().ToUpper();
 
-					Character character = new Character(name, Gender.Male, new Coordinates(8, 12));
-					character.Spaceship.Fuel = 30; // Low fuel!
-					this.U.Add(character);
+				Character character = new Character(name, Gender.Male, new Coordinates(8, 12));
+				character.Spaceship.Fuel = 30; // Low fuel!
+				this.U.Add(character);
 
 				//////////////////////////////////////////////////////////////////////////
 				//
@@ -193,26 +214,41 @@ namespace SpaceGame
 				// Create it!
 				this.U.Add(uranus);
 
-					//////////////////////////////////////////////////////////////////////////
-					//
-					// STARS
-					//
-					//////////////////////////////////////////////////////////////////////////
+				//////////////////////////////////////////////////////////////////////////
+				//
+				// STARS
+				//
+				//////////////////////////////////////////////////////////////////////////
 
-					// Sol
-					CelestialBody sol = new Star("Sol", "Your birth star. There's no place like home.", ConsoleColor.Yellow,
-						new Coordinates(110, 05));
-					this.U.Add(sol);
+				// Sol
+				CelestialBody sol = new Star("Sol", "Your birth star. There's no place like home.", ConsoleColor.Yellow,
+					new Coordinates(110, 05));
+				this.U.Add(sol);
 
-					// Proxima Centauri
-					CelestialBody proximaCentauri = new Star("Proxima Centauri", "The closest sun to the sun. Unremarkable in every other way.", ConsoleColor.Red,
-						new Coordinates(50, 13));
-					this.U.Add(proximaCentauri);
+				// Proxima Centauri
+				CelestialBody proximaCentauri = new Star("Proxima Centauri", "The closest sun to the sun. Unremarkable in every other way.", ConsoleColor.Red,
+					new Coordinates(50, 13));
+				this.U.Add(proximaCentauri);
 
-					//////////////////////////////////////////////////////////////////////////
-				}
+				//////////////////////////////////////////////////////////////////////////
+
+				// Start the game.
+
+				this.UserInterface.RenderStory($"" +
+					$"  Your journey begins.\n\n" +
+					$"  You are {this.U.Character.Name}, an 18 year-old adventurer.\n\n" +
+					$"  You hear rumors that the space princess, KANNA ENDRICK, has been captured by a\n" +
+					$"  space pirate, a nefarious villain known by the name of HAIRY TENDERSON.\n\n" +
+					$"  According to this rumor, he will only release her if he is wire transferred\n" +
+					$"  ¤10,002 Starbucks.\n\n" +
+					$"  You have ¤{this.U.Character.Starbucks} Starbucks.\n" +
+					$"  You are low on fuel.\n\n" +
+					$"  'Too easy,' you say to yourself.\n\n" +
+					$"  And so beginneth your adventureth.\n\n" +
+					$"");
 			}
-		
+		}
+
 
 		// Loads the game if a saved file exists.
 		public void Load()
@@ -289,6 +325,18 @@ namespace SpaceGame
 		{
 			bool collision = false;
 			Menu menu = new Menu(this.U);
+
+			if (this.U.Character.Starbucks >= Universe.StarbucksToSavePrincess)
+			{
+				menu.Add(
+					new MenuItem($"Transfer Starbucks to HAIRY TENDERSON (-¤{Universe.StarbucksToSavePrincess} Starbucks)",
+					new Action(
+						this.U,
+						"Win"
+					),
+					ConsoleKey.Tab)
+				);
+			}
 
 			// Is the character in a planet?
 			foreach (CelestialBody celestialBody in this.U.CelestialBodies)

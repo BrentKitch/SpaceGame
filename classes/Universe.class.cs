@@ -28,7 +28,7 @@ namespace SpaceGame
 			get; set;
 		}
 
-		public List<string> Messages
+		public string Message
 		{
 			get; set;
 		}
@@ -37,7 +37,7 @@ namespace SpaceGame
 		{
 			this.CelestialBodies = new List<CelestialBody>();
 			this.Objectives = new List<Objective>();
-			this.Messages = new List<string>();
+			this.Message = "";
 		}
 
 		public void Add(Character character)
@@ -53,11 +53,6 @@ namespace SpaceGame
 		public void Add(CelestialBody celestialBody)
 		{
 			this.CelestialBodies.Add(celestialBody);
-		}
-
-		public void ClearMessages()
-		{
-			this.Messages = new List<string>();
 		}
 	}
 }

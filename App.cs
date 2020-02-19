@@ -31,7 +31,7 @@ namespace SpaceGame
 
 			// Start the game.			
 			g.Initialize();
-			g.UI.ShowStory();
+			g.UserInterface.ShowStory();
 
 			g.BuildMenu();
 
