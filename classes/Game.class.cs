@@ -42,12 +42,14 @@ namespace SpaceGame
 						if (this.U.Character.InCollisionStar(celestialBody))
 						{
 							this.UserInterface.GameOver("  Stars are not good places to pass time.\n\n" +
-								"You are burnt to a crisp.");
+								"  You are burnt to a crisp.");
 						}
 					}
 
+					Console.WriteLine(this.U.Character.Health);
+					Console.ReadKey();
 					this.UserInterface.GameOver("  You ran out of health and died.\n\n" +
-						"It was a good run!");
+						"  It was a good run!");
 				}
 
 				if (this.U.Character.Coordinates.X <= 0
@@ -59,22 +61,38 @@ namespace SpaceGame
 					if (this.U.Character.Spaceship.Fuel <= 0)
 					{
 						this.UserInterface.GameOver("  You ran out of fuel!\n\n" +
-							"You drift off into space for a few more days, but ultimately die alone in the abyss.\n\n\n" +
-							"The space princess is never rescued.");
+							"  You drift off into space for a few more days, but ultimately die alone in the abyss.\n\n\n" +
+							"  The space princess is never rescued.");
 					}
 					else
 					{
 						this.UserInterface.GameOver("  You drift off into space.\n\n" +
-							"You get lost.\n\n" +
-							"You never find your way back, and you never save the princess.");
+							"  You get lost.\n\n" +
+							"  You never find your way back, and you never save the princess.");
+					}
+				}
+
+				// If the character has no items, not enough money to buy fuel, and not enough fuel to escape the planet
+				// (and is on a planet).
+				if (this.U.Character.Inventory.Count <= 0
+					&& this.U.Character.Starbucks < 100
+					&& this.U.Character.Spaceship.Fuel < 15)
+				{
+					foreach (CelestialBody celestialBody in this.U.CelestialBodies)
+					{
+						// If the character is on a planet.
+						if (this.U.Character.InCollisionPlanet(celestialBody))
+						{
+							this.UserInterface.GameOver("  With no money to your name and no fuel to escape,\n" +
+							$"  you spend the rest of your days on {celestialBody.Name}.\n\n" +
+							$"  You die single and princessless.");
+						}
 					}
 				}
 
 
-
 				Console.Clear();
 				this.UserInterface.RenderGame(this.U, this.Menu);
-				this.Save();
 				while (Console.KeyAvailable)
 				{
 					Console.ReadKey(false);
@@ -114,7 +132,7 @@ namespace SpaceGame
 			}
 			if (option.Key == ConsoleKey.D1)
 			{
-				
+
 				//runs opening animation
 				OpeningSequence.Animation();
 				this.Load();
@@ -171,14 +189,21 @@ namespace SpaceGame
 					{
 						gender = Gender.Alien;
 					}
-						} while (genderChoice != 1 && genderChoice != 2 && genderChoice != 3);
+				} while (genderChoice != 1 && genderChoice != 2 && genderChoice != 3);
 
 				Character character = new Character(name, gender, new Coordinates(8, 12));
+
+				character.Inventory.Add(new Item("Space Gunk", "Looks like the poop emoji.", 5,
+					new List<ItemCategory> { ItemCategory.Junk }));
+				character.Inventory.Add(new Item("Earwax", "From an alien. Species unknown.", 25,
+					new List<ItemCategory> { ItemCategory.Junk }));
+
 				character.Spaceship.Fuel = 30; // Low fuel!
 				this.U.Add(character);
 
 				// Build the galaxy.
 				this.BuildGalaxy();
+
 				// Start the game.
 				this.UserInterface.RenderStory($"" +
 					$"  Your journey begins.\n\n" +
@@ -291,10 +316,10 @@ namespace SpaceGame
 				{
 					collision = true;
 
-					if (this.U.Character.Spaceship.Fuel >= 10)
+					if (this.U.Character.Spaceship.Fuel >= 15)
 					{
 						menu.Add(
-							new MenuItem($"Leave {celestialBody.Name} (-10 FUEL)",
+							new MenuItem($"Leave {celestialBody.Name} (-15 FUEL)",
 							new Action(
 								this.U,
 								"LeaveCelestialBody",
@@ -337,7 +362,7 @@ namespace SpaceGame
 					if (this.U.Character.Spaceship.Fuel < this.U.Character.Spaceship.FuelCapacity && this.U.Character.Starbucks >= 20)
 					{
 						menu.Add(
-							new MenuItem($"Refuel (-20 Starbucks)",
+							new MenuItem($"Refuel (-100 Starbucks)",
 							new Action(
 								this.U,
 								"Refuel"
@@ -570,7 +595,7 @@ namespace SpaceGame
 
 			CelestialBody venus = new Planet("Venus", "Really hot, but oddly beautiful.", ConsoleColor.White,
 				new Coordinates(8, 20),
-				new List<ItemCategory> { ItemCategory.Crafting, ItemCategory.Medical});
+				new List<ItemCategory> { ItemCategory.Crafting, ItemCategory.Medical });
 			venus.AddItem(item["Space Beer"]);
 			venus.AddItem(item["Hyperseltzer"]);
 			venus.AddItem(item["Dimensional Whiskey"]);
@@ -582,7 +607,7 @@ namespace SpaceGame
 
 			CelestialBody mars = new Planet("Mars", "Fully terraformed, and still red!", ConsoleColor.Red,
 				new Coordinates(34, 26),
-				new List<ItemCategory> { ItemCategory.Food, ItemCategory.Dessert});
+				new List<ItemCategory> { ItemCategory.Food, ItemCategory.Dessert });
 			mars.AddItem(item["Hydrogen"]);
 			mars.AddItem(item["Xenon"]);
 			mars.AddItem(item["Plutonium"]);
@@ -617,7 +642,7 @@ namespace SpaceGame
 
 			CelestialBody proximaCentauriB = new Planet("Proxima Centauri b", "A close friend of our second nearest star.", ConsoleColor.DarkMagenta,
 				new Coordinates(115, 24),
-				new List<ItemCategory> { ItemCategory.Crafting, ItemCategory.Elements});
+				new List<ItemCategory> { ItemCategory.Crafting, ItemCategory.Elements });
 			proximaCentauriB.AddItem(item["Holy Water"]);
 			proximaCentauriB.AddItem(item["Consciousness Incarnate"]);
 			proximaCentauriB.AddItem(item["Artificial God"]);
@@ -718,9 +743,165 @@ namespace SpaceGame
 			this.U.Add(uyScuti);
 		}
 
-		private void RandomEvent()
+		public void RandomEvent()
 		{
-			
+			if (this.Random.Next(1, 75) == 1)
+			{
+				int r = this.Random.Next(1, 10);
+
+				if (r == 1)
+				{
+					int damage = this.Random.Next(5, 30);
+					List<string> hitBy = new List<string> {
+						"are hit by a flying meteor",
+						"are attacked by a beautiful alien",
+						"are poisoned by a rotten xenoberry",
+						"trip over your own feet",
+						"are slapped by a beautiful android",
+						"caught in the middle of an interplanetary crossfire",
+					};
+
+					this.U.Game.UserInterface.RenderStory($"" +
+						$"  You are {hitBy[this.Random.Next(hitBy.Count)]}.\n\n" +
+						$"  You sustain {damage} damage!\n\n" +
+						$"  That sucks.", true);
+
+					this.U.Character.Health -= damage;
+				}
+
+				else if (r == 2)
+				{
+					List<ConsoleColor> color = new List<ConsoleColor>
+					{
+						ConsoleColor.Red,
+						ConsoleColor.Green,
+						ConsoleColor.Cyan,
+						ConsoleColor.Blue,
+						ConsoleColor.Magenta,
+						ConsoleColor.Yellow,
+						ConsoleColor.White,
+						ConsoleColor.Green
+					};
+
+					ConsoleColor randomColor = color[this.Random.Next(color.Count)];
+
+					this.U.Game.UserInterface.RenderStory($"" +
+						$"  You fly through a mysterious cloud of {randomColor} paint.\n" +
+						$"  It stuck to your spaceship!\n\n" +
+						$"  I hope you like {randomColor}.", true);
+
+					this.U.Character.Spaceship.Color = randomColor;
+				}
+
+				else if (r == 3)
+				{
+					this.U.Game.UserInterface.RenderStory($"" +
+						$"  A mysterious solar wind turns your ship around.\n\n" +
+						$"  It was completely unexpected.\n\n" +
+						$"  I hope you had extra fuel!", true);
+
+					switch (this.U.Character.Direction)
+					{
+						case Direction.Up:
+							this.U.Character.Direction = Direction.Down;
+							break;
+						case Direction.Right:
+							this.U.Character.Direction = Direction.Left;
+							break;
+						case Direction.Left:
+							this.U.Character.Direction = Direction.Right;
+							break;
+						case Direction.Down:
+							this.U.Character.Direction = Direction.Up;
+							break;
+					}
+				}
+
+				else if (r == 4)
+				{
+					this.U.Game.UserInterface.RenderStory($"" +
+						$"  A mysterious force intersects your spaceship.\n\n" +
+						$"  Your fuel capacity has increased!\n\n" +
+						$"  Perhaps it was magic.", true);
+
+					this.U.Character.Spaceship.FuelCapacity += 25;
+					this.U.Character.Spaceship.Fuel = this.U.Character.Spaceship.FuelCapacity;
+				}
+
+				else if (r == 5)
+				{
+					this.U.Game.UserInterface.RenderStory($"" +
+						$"  A mysterious force intersects your spaceship.\n\n" +
+						$"  Your fuel capacity has decreased!\n\n" +
+						$"  How unfortunate.", true);
+
+					this.U.Character.Spaceship.FuelCapacity -= 10;
+					if (this.U.Character.Spaceship.FuelCapacity < 1)
+					{
+						this.U.Character.Spaceship.FuelCapacity = 1;
+					}
+
+					if (this.U.Character.Spaceship.Fuel > this.U.Character.Spaceship.FuelCapacity)
+					{
+						this.U.Character.Spaceship.Fuel = this.U.Character.Spaceship.FuelCapacity;
+					}
+				}
+
+				else if (r == 6)
+				{
+					if (this.U.Character.Health < 100)
+					{
+						this.U.Game.UserInterface.RenderStory($"" +
+							$"  You feel strangely invigorated.\n\n" +
+							$"  Your wounds are completely healed!", true);
+
+						this.U.Character.Health = 100;
+					}
+					else if (this.U.Character.Health == 100)
+					{
+						this.U.Game.UserInterface.RenderStory($"" +
+							$"  You are infected with the Wuhan Fluhan.\n\n" +
+							$"  Quick, you must to the hospital!", true);
+
+						this.U.Character.Health = 1;
+					}
+				}
+
+				else if (r == 7)
+				{
+					if (this.U.Character.Spaceship.Fuel > 0)
+					{
+						this.U.Game.UserInterface.RenderStory($"" +
+							$"  A hole appears in your fuel tank.\n\n" +
+							$"  Needless to say, you don't have any left.", true);
+
+						this.U.Character.Spaceship.Fuel = 0;
+					}
+				}
+
+				else if (r == 8)
+				{
+					int newMoney = this.Random.Next(1, this.U.Character.Starbucks + 1);
+
+					this.U.Game.UserInterface.RenderStory($"" +
+						$"  A negative numeric overflow at the bank works in your favor.\n\n" +
+						$"  You are now ¤{newMoney} Starbucks richer!", true);
+
+					this.U.Character.Starbucks += newMoney;
+
+				}
+
+				else if (r == 9)
+				{
+					int newMoney = this.Random.Next(1, this.U.Character.Starbucks + 1) * -1;
+
+					this.U.Game.UserInterface.RenderStory($"" +
+						$"  In a drunken rampage, you enter (and lose) an online poker game.\n\n" +
+						$"  You are now ¤{newMoney * -1} Starbucks poorer!", true);
+
+					this.U.Character.Starbucks -= newMoney;
+				}
+			}
 		}
 	}
 }

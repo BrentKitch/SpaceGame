@@ -102,23 +102,28 @@ namespace SpaceGame
 					this.Buy();
 					this.U.Game.BuildMenu();
 					this.U.Game.Menu.MenuItems[1].Execute(); // Select Buy again.
+					this.U.Game.Save();
 					break;
 				case "Sell":
 					this.Sell();
 					this.U.Game.BuildMenu();
 					this.U.Game.Menu.MenuItems[2].Execute(); // Select Sell again.
+					this.U.Game.Save();
 					break;
 				case "PaintSpaceship":
 					this.PaintSpaceship();
 					this.U.Game.BuildMenu();
+					this.U.Game.Save();
 					break;
 				case "Refuel":
 					this.Refuel();
 					this.U.Game.BuildMenu();
+					this.U.Game.Save();
 					break;
 				case "Hospital":
 					this.Hospital();
 					this.U.Game.BuildMenu();
+					this.U.Game.Save();
 					break;
 				case "ChangeMenu":
 					this.ChangeMenu(this.NewMenu);
@@ -130,21 +135,25 @@ namespace SpaceGame
 				case "MoveUp":
 					this.MoveUp();
 					this.U.Game.UserInterface.ShowStory();
+					this.U.Game.RandomEvent();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveRight":
 					this.MoveRight();
 					this.U.Game.UserInterface.ShowStory();
+					this.U.Game.RandomEvent();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveLeft":
 					this.MoveLeft();
 					this.U.Game.UserInterface.ShowStory();
+					this.U.Game.RandomEvent();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveDown":
 					this.MoveDown();
 					this.U.Game.UserInterface.ShowStory();
+					this.U.Game.RandomEvent();
 					this.U.Game.BuildMenu();
 					break;
 			}
@@ -171,7 +180,7 @@ namespace SpaceGame
 
 		private void LeaveCelestialBody()
 		{
-			this.U.Character.Spaceship.Fuel -= 10;
+			this.U.Character.Spaceship.Fuel -= 15;
 			this.U.Character.Direction = Direction.Up;
 			this.U.Character.Coordinates.X = this.CelestialBody.Coordinates.X;
 			this.U.Character.Coordinates.Y = this.CelestialBody.Coordinates.Y - 1;
@@ -215,9 +224,9 @@ namespace SpaceGame
 
 		private void Refuel()
 		{
-			if ((this.U.Character.Starbucks - 20) > 0)
+			if ((this.U.Character.Starbucks - 100) > 0)
 			{
-				this.U.Character.Starbucks -= 20;
+				this.U.Character.Starbucks -= 100;
 				this.U.Character.Spaceship.Fuel = this.U.Character.Spaceship.FuelCapacity;
 				this.U.Message = $"Your fuel has been topped off.";
 			}
@@ -270,8 +279,17 @@ namespace SpaceGame
 			{
 				if (this.U.Character.InCollisionStar(celestialBody))
 				{
-					this.U.Character.Health -= 21;
-					this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+
+					if (celestialBody.Name == "Black Hole")
+					{
+						this.U.Game.UserInterface.GameOver("  You fall into a black hole.\n\n" +
+							"  You are never seen again.");
+					}
+					else
+					{
+						this.U.Character.Health -= 21;
+						this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+					}
 				}
 			}
 		}
@@ -296,8 +314,17 @@ namespace SpaceGame
 			{
 				if (this.U.Character.InCollisionStar(celestialBody))
 				{
-					this.U.Character.Health -= 21;
-					this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+
+					if (celestialBody.Name == "Black Hole")
+					{
+						this.U.Game.UserInterface.GameOver("  You fall into a black hole.\n\n" +
+							"  You are never seen again.");
+					}
+					else
+					{
+						this.U.Character.Health -= 21;
+						this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+					}
 				}
 			}
 		}
@@ -322,8 +349,17 @@ namespace SpaceGame
 			{
 				if (this.U.Character.InCollisionStar(celestialBody))
 				{
-					this.U.Character.Health -= 21;
-					this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+
+					if (celestialBody.Name == "Black Hole")
+					{
+						this.U.Game.UserInterface.GameOver("  You fall into a black hole.\n\n" +
+							"  You are never seen again.");
+					}
+					else
+					{
+						this.U.Character.Health -= 21;
+						this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+					}
 				}
 			}
 		}
@@ -348,8 +384,17 @@ namespace SpaceGame
 			{
 				if (this.U.Character.InCollisionStar(celestialBody))
 				{
-					this.U.Character.Health -= 21;
-					this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+
+					if (celestialBody.Name == "Black Hole")
+					{
+						this.U.Game.UserInterface.GameOver("  You fall into a black hole.\n\n" +
+							"  You are never seen again.");
+					}
+					else
+					{
+						this.U.Character.Health -= 21;
+						this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+					}
 				}
 			}
 		}
