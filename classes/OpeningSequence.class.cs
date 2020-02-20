@@ -40,9 +40,10 @@ namespace SpaceGame
 
 
 
-
-    1.  Load Game				2.  New Game				3. Quit";
+                ";
+            string options = "      1.  Load Game				2.  New Game				3. Quit";
             Console.WriteLine(menu);
+            Console.WriteLine(options);
             ConsoleKeyInfo option = Console.ReadKey(false);
             while (option.Key != ConsoleKey.D1 && option.Key != ConsoleKey.D2 && option.Key != ConsoleKey.D3)
             {
@@ -51,6 +52,43 @@ namespace SpaceGame
                 option = Console.ReadKey(false);
             }
             return option;
+        }
+        public static void NewCharacterHeader()
+        {
+            string aye = @"                      /\    
+                     ----                    
+                    /    \               SSSSSS    PPPPPPPP    AAA      CCCCCCCC EEEEEEEEE
+                   --------             SSS        PP  PPP    AA AA     CC       EE
+                  /        \              SSS      PP   PPP  AA   AA    CC       EE   
+                 /          \              SSS     PPPPPPPP AAAAAAAAA   CC       EE
+                /            \                SS   PP      AAAAAAAAAAA  CC       EEEEEEEE
+               /   --------   \                SS  PP     AA         AA CC       EE
+              /    |OOOOOO|    \              SSS  PP     AA         AA CC       EE   
+             /     --------     \            SSS   PP     AA         AA CC       EE
+            /                    \       SSSSS     PP     AA         AA CCCCCCCC EEEEEEEEE  
+           |     ------------     |            
+           |    '  OOOOOOOOO '    |                          
+           |   '  OOOOOOOOOOO '   |   
+           |   '  OOOOOOOOOOO '   |             DDDDDDDDD     UU      UU DDDDDDDDD     EEEEEEEEE
+           |    '  OOOOOOOOO '    |             DD       DD   UU      UU DD       DD   EE        
+           |     TTTTTTTTTTTT     |             DD        DD  UU      UU DD        DD  EE     
+           |                      |             DD         DD UU      UU DD         DD EE
+           |                      |             DD         DD UU      UU DD         DD EEEEEEE   
+          / \                    / \            DD        DD  UU      UU DD        DD  EE
+         /   \                  /   \           DD       DD   UU      UU DD       DD   EE         
+        /     :_______________ :     \          DD      DD    UU      UU DD      DD    EE
+       /      / ______________ \      \         DDDDDDDD      UUUUUUUUUU DDDDDDDDD     EEEEEEEEE
+       \     /  / |________| \  \     /    
+        \     \   *''''''''*   /     /  
+         \     \              /     /                   *with some trading           
+          \     \            /     /       
+           \     \          /     /   
+            \____/          \____/      
+
+
+
+                ";
+            Console.WriteLine(aye);
         }
         public static void Animation()
         {
@@ -84,7 +122,7 @@ namespace SpaceGame
            \     \          /     /   
             \____/          \____/      ";
 
-        string two = @"                     ----                    
+            string two = @"                     ----                    
                     /    \      
                    --------             
                   /        \            
@@ -113,7 +151,7 @@ namespace SpaceGame
            \     \          /     /   
             \____/          \____/      ";
 
-        string three = @"                    /    \      
+            string three = @"                    /    \      
                    --------             
                   /        \            
                  /          \             
@@ -141,7 +179,7 @@ namespace SpaceGame
            \     \          /     /   
             \____/          \____/      ";
 
-        string four = @"                   --------             
+            string four = @"                   --------             
                   /        \            
                  /          \             
                 /            \             
@@ -167,7 +205,7 @@ namespace SpaceGame
           \     \ * '   ;  * /     /       
            \     \*,     . */     /   
             \____/          \____/      ";
-        string five = @"                  /        \            
+            string five = @"                  /        \            
                  /          \             
                 /            \             
                /   --------   \                
@@ -193,7 +231,7 @@ namespace SpaceGame
            \     \*,     . */     /   
             \____/* '   .  *\____/      
                    ";
-        string six = @"                 /          \             
+            string six = @"                 /          \             
                 /            \             
                /   --------   \                
               /    |OOOOOO|    \               
@@ -218,7 +256,7 @@ namespace SpaceGame
            \     \*,     . */     /   
             \____/* '   .  *\____/      
                  *,   ;  '  *   ";
-        string seven = @"                /            \             
+            string seven = @"                /            \             
                /   --------   \                
               /    |OOOOOO|    \               
              /     --------     \           
@@ -243,7 +281,7 @@ namespace SpaceGame
             \____/* '   .  *\____/      
                  *,   ;  '  *   
                 *   .   ,    *";
-        string eight = @"               /   --------   \                
+            string eight = @"               /   --------   \                
               /    |OOOOOO|    \               
              /     --------     \           
             /                    \ 
@@ -268,7 +306,7 @@ namespace SpaceGame
                  *,   ;  '  *   
                 *   .   ,    *
                *  '   .    ;  *";
-        string nine = @"              /    |OOOOOO|    \               
+            string nine = @"              /    |OOOOOO|    \               
              /     --------     \           
             /                    \ 
            |     ------------     |            
@@ -293,7 +331,7 @@ namespace SpaceGame
                 *   .   ,    *
                *  '   .    ;  *
               *     ;   .   ,  * ";
-        string ten = @"             /     --------     \           
+            string ten = @"             /     --------     \           
             /                    \ 
            |     ------------     |            
            |    '  OOOOOOOOO '    |                          
@@ -318,7 +356,7 @@ namespace SpaceGame
                *  '   .    ;  *
               *     ;   .   ,  *
              * ,   .   '   ;    * ";
-        string eleven = @"            /                    \ 
+            string eleven = @"            /                    \ 
            |     ------------     |            
            |    '  OOOOOOOOO '    |                          
            |   '  OOOOOOOOOOO '   |   
@@ -344,7 +382,7 @@ namespace SpaceGame
              * ,   .   '   ;    * 
             *    ,    .   ^   '  *";
 
-        string twelve = @"           |     ------------     |            
+            string twelve = @"           |     ------------     |            
            |    '  OOOOOOOOO '    |                          
            |   '  OOOOOOOOOOO '   |   
            |   '  OOOOOOOOOOO '   |           
@@ -369,7 +407,7 @@ namespace SpaceGame
              * ,   .   '   ;    * 
             *    ,    .   ^   '  *
            * ;   .     ,    ;  .  *";
-        string thirteen = @"           |    '  OOOOOOOOO '    |                          
+            string thirteen = @"           |    '  OOOOOOOOO '    |                          
            |   '  OOOOOOOOOOO '   |   
            |   '  OOOOOOOOOOO '   |           
            |    '  OOOOOOOOO '    |             
@@ -394,7 +432,7 @@ namespace SpaceGame
             *    ,    .   ^   '  *
            * ;   .     ,    ;  .  *
           *    ,    ^    .    ;    *";
-        string fourteen = @"           |   '  OOOOOOOOOOO '   |   
+            string fourteen = @"           |   '  OOOOOOOOOOO '   |   
            |   '  OOOOOOOOOOO '   |           
            |    '  OOOOOOOOO '    |             
            |     TTTTTTTTTTTT     |     
@@ -419,7 +457,7 @@ namespace SpaceGame
            * ;   .     ,    ;  .  *
           *    ,    ^    .    ;    *
          * '     .     ,   ;     .  *";
-        string fifteen = @"           |   '  OOOOOOOOOOO '   |           
+            string fifteen = @"           |   '  OOOOOOOOOOO '   |           
            |    '  OOOOOOOOO '    |             
            |     TTTTTTTTTTTT     |     
            |                      |      
@@ -444,7 +482,7 @@ namespace SpaceGame
           *    ,    ^    .    ;    *
          * '     .     ,   ;     .  *
         *   ,      ,     .    '      *";
-        string sixteen = @"           |    '  OOOOOOOOO '    |             
+            string sixteen = @"           |    '  OOOOOOOOO '    |             
            |     TTTTTTTTTTTT     |     
            |                      |      
            |                      |               
@@ -469,32 +507,8 @@ namespace SpaceGame
          * '     .     ,   ;     .  *
         *   ,      ,     .    '      *
        *        .           ,    ;    *";
-        string seventeen = @"           |     TTTTTTTTTTTT     |     
-           |                      |      
-           |                      |               
-          / \                    / \            
-         /   \                  /   \                  
-        /     :_______________ :     \          
-       /      / ______________ \      \         
-       \     /  / |________| \  \     /    
-        \     \   *''''''''*   /     /  
-         \     \  *  '    .*  /     /                              
-          \     \ * '   ;  * /     /       
-           \     \*,     . */     /   
-            \____/* '   .  *\____/      
-                 *,   ;  '  *   
-                *   .   ,    *
-               *  '   .    ;  *
-              *     ;   .   ,  *
-             * ,   .   '   ;    * 
-            *    ,    .   ^   '  *
-           * ;   .     ,    ;  .  *
-          *    ,    ^    .    ;    *
-         * '     .     ,   ;     .  *
-        *   ,      ,     .    '      *
-       *        .           ,    ;    *
-      * ,    ;         -            '  *";
-        string eighteen = @"           |     TTTTTTTTTTTT     |     
+            //seventeen was same value as sixteen, deleted to open space
+            string eighteen = @"           |     TTTTTTTTTTTT     |     
            |                      |      
            |                      |               
           / \                    / \            
@@ -520,7 +534,7 @@ namespace SpaceGame
        *        .           ,    ;    *
       * ,    ;         -            '  *
      *   '        -        .      ,     *";
-        string nineteen = @"           |                      |      
+            string nineteen = @"           |                      |      
            |                      |               
           / \                    / \            
          /   \                  /   \                  
@@ -546,7 +560,7 @@ namespace SpaceGame
       * ,    ;         -            '  *
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *";
-        string twenty = @"           |                      |               
+            string twenty = @"           |                      |               
           / \                    / \            
          /   \                  /   \                  
         /     :_______________ :     \          
@@ -572,7 +586,7 @@ namespace SpaceGame
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *
    *                                      *";
-        string twenty1 = @"          / \                    / \            
+            string twenty1 = @"          / \                    / \            
          /   \                  /   \                  
         /     :_______________ :     \          
        /      / ______________ \      \         
@@ -595,9 +609,8 @@ namespace SpaceGame
        *        .           ,    ;    *
       * ,    ;         -            '  *
      *   '        -        .      ,     *
-    * .      ,         ;       -     -   *
-   *                                      *";
-        string twenty2 = @"         /   \                  /   \                  
+    * .      ,         ;       -     -   *";
+            string twenty2 = @"         /   \                  /   \                  
         /     :_______________ :     \          
        /      / ______________ \      \         
        \     /  / |________| \  \     /    
@@ -621,7 +634,7 @@ namespace SpaceGame
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *
    *                                      *";
-        string twenty3 = @"        /     :_______________ :     \          
+            string twenty3 = @"        /     :_______________ :     \          
        /      / ______________ \      \         
        \     /  / |________| \  \     /    
         \     \   *''''''''*   /     /  
@@ -644,7 +657,7 @@ namespace SpaceGame
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *
    *                                      *";
-        string twenty4 = @"       /      / ______________ \      \         
+            string twenty4 = @"       /      / ______________ \      \         
        \     /  / |________| \  \     /    
         \     \   *''''''''*   /     /  
          \     \  *  '    .*  /     /                              
@@ -666,7 +679,7 @@ namespace SpaceGame
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *
    *                                      *";
-        string twenty5 = @"       \     /  / |________| \  \     /    
+            string twenty5 = @"       \     /  / |________| \  \     /    
         \     \   *''''''''*   /     /  
          \     \  *  '    .*  /     /                              
           \     \ * '   ;  * /     /       
@@ -687,7 +700,7 @@ namespace SpaceGame
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *
    *                                      *";
-        string twenty6 = @"        \     \   *''''''''*   /     /  
+            string twenty6 = @"        \     \   *''''''''*   /     /  
          \     \  *  '    .*  /     /                              
           \     \ * '   ;  * /     /       
            \     \*,     . */     /   
@@ -707,7 +720,7 @@ namespace SpaceGame
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *
    *                                      *";
-        string twenty7 = @"         \     \  *  '    .*  /     /                              
+            string twenty7 = @"         \     \  *  '    .*  /     /                              
           \     \ * '   ;  * /     /       
            \     \*,     . */     /   
             \____/* '   .  *\____/      
@@ -726,7 +739,7 @@ namespace SpaceGame
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *
    *                                      *";
-        string twenty8 = @"          \     \ * '   ;  * /     /       
+            string twenty8 = @"          \     \ * '   ;  * /     /       
            \     \*,     . */     /   
             \____/* '   .  *\____/      
                  *,   ;  '  *   
@@ -744,7 +757,7 @@ namespace SpaceGame
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *
    *                                      *";
-        string twenty9 = @"           \     \*,     . */     /   
+            string twenty9 = @"           \     \*,     . */     /   
             \____/* '   .  *\____/      
                  *,   ;  '  *   
                 *   .   ,    *
@@ -761,7 +774,7 @@ namespace SpaceGame
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *
    *                                      *";
-        string thirty = @"            \____/* '   .  *\____/      
+            string thirty = @"            \____/* '   .  *\____/      
                  *,   ;  '  *   
                 *   .   ,    *
                *  '   .    ;  *
@@ -777,7 +790,7 @@ namespace SpaceGame
      *   '        -        .      ,     *
     * .      ,         ;       -     -   *
    *                                      *";
-        string thirty1 = @"                 *,   ;  '  *   
+            string thirty1 = @"                 *,   ;  '  *   
                 *   .   ,    *
                *  '   .    ;  *
               *     ;   .   ,  *
@@ -810,7 +823,6 @@ namespace SpaceGame
             stf.Add(fourteen);
             stf.Add(fifteen);
             stf.Add(sixteen);
-            stf.Add(seventeen);
             stf.Add(eighteen);
             stf.Add(nineteen);
             stf.Add(twenty);
@@ -827,13 +839,21 @@ namespace SpaceGame
             stf.Add(thirty1);
 
             Console.WriteLine(one);
-            
             Console.Clear();
+
             for (int i = 1; i < stf.Count; i++)
             {
-                Console.WriteLine(stf[i]);
-                Thread.Sleep(1);
-                Console.Clear();
+                if (Console.KeyAvailable == false)
+                {
+                    Console.WriteLine(stf[i]);
+                    Thread.Sleep(20);
+                    Console.Clear();
+                }
+                else
+                {
+                    break;
+                }
+
             }
         }
     }

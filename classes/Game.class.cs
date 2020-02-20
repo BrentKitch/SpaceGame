@@ -109,12 +109,11 @@ namespace SpaceGame
 			{
 				Environment.Exit(0);
 			}
-
-			//runs opening animation
-			OpeningSequence.Animation();
-
 			if (option.Key == ConsoleKey.D1)
 			{
+				
+				//runs opening animation
+				OpeningSequence.Animation();
 				this.Load();
 
 				if (this.U.Character.Starbucks < Universe.StarbucksToSavePrincess)
@@ -141,13 +140,40 @@ namespace SpaceGame
 			else
 			{
 				// Add a character to the universe.
-				Console.WriteLine("Enter a name");
-				string name = Console.ReadLine().ToUpper();
+				OpeningSequence.NewCharacterHeader();
 
-				Character character = new Character(name, Gender.Male, new Coordinates(8, 12));
+				string name;
+				do
+				{
+					Console.WriteLine("Whats your name?");
+					name = Console.ReadLine().ToUpper();
+				} while (name == "");
+
+				Gender gender = Gender.Alien;
+				int genderChoice = 4;
+				do
+				{
+					Console.WriteLine("Are you a boy(1), girl(2), or alien(3)?");
+					genderChoice = int.Parse(Console.ReadLine());
+
+					if (genderChoice == 1)
+					{
+						gender = Gender.Male;
+					}
+					else if (genderChoice == 2)
+					{
+						gender = Gender.Female;
+					}
+					else if (genderChoice == 3)
+					{
+						gender = Gender.Alien;
+					}
+						} while (genderChoice != 1 && genderChoice != 2 && genderChoice != 3);
+
+				Character character = new Character(name, gender, new Coordinates(8, 12));
 				character.Spaceship.Fuel = 30; // Low fuel!
 				this.U.Add(character);
-
+				
 				//////////////////////////////////////////////////////////////////////////
 				//
 				// MARS
@@ -232,6 +258,10 @@ namespace SpaceGame
 
 				//////////////////////////////////////////////////////////////////////////
 
+				Console.Clear();
+				//runs opening animation
+				OpeningSequence.Animation();
+
 				// Start the game.
 
 				this.UserInterface.RenderStory($"" +
@@ -247,6 +277,7 @@ namespace SpaceGame
 					$"  And so beginneth your adventureth.\n\n" +
 					$"");
 			}
+			
 		}
 
 

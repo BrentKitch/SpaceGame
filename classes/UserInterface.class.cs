@@ -242,10 +242,14 @@ namespace SpaceGame
                 default:
                     break;
             }
+            
+            //displays HUD
             Console.SetCursorPosition(25, 32);
             Console.Write($"Age: {this.U.Character.Age / 12}");
             Console.SetCursorPosition(50, 32);
             Console.Write($"¤{U.Character.Starbucks} Starbucks");
+            Console.SetCursorPosition(80, 32);
+            Console.Write($"Health {this.U.Character.Health}/100");
             Console.SetCursorPosition(105, 32);
             Console.Write($"Fuel {this.U.Character.Spaceship.Fuel}/{this.U.Character.Spaceship.FuelCapacity}");
 
