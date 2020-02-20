@@ -38,14 +38,17 @@ namespace SpaceGame
            \     \          /     /   
             \____/          \____/      
 
+
+
+
     1.  Load Game				2.  New Game				3. Quit";
             Console.WriteLine(menu);
-            ConsoleKeyInfo option = Console.ReadKey();
+            ConsoleKeyInfo option = Console.ReadKey(false);
             while (option.Key != ConsoleKey.D1 && option.Key != ConsoleKey.D2 && option.Key != ConsoleKey.D3)
             {
                 Console.Clear();
                 Console.WriteLine(menu);
-                option = Console.ReadKey();
+                option = Console.ReadKey(false);
             }
             return option;
         }
@@ -829,7 +832,7 @@ namespace SpaceGame
             for (int i = 1; i < stf.Count; i++)
             {
                 Console.WriteLine(stf[i]);
-                Thread.Sleep(10);
+                Thread.Sleep(1);
                 Console.Clear();
             }
         }

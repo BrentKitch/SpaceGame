@@ -90,6 +90,10 @@ namespace SpaceGame
 		{
 			switch (this.Name)
 			{
+				case "Win":
+					this.Win();
+					this.U.Game.BuildMenu();
+					break;
 				case "LeaveCelestialBody":
 					this.LeaveCelestialBody();
 					this.U.Game.BuildMenu();
@@ -125,25 +129,44 @@ namespace SpaceGame
 					break;
 				case "MoveUp":
 					this.MoveUp();
-					this.U.Game.UI.ShowStory();
+					this.U.Game.UserInterface.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveRight":
 					this.MoveRight();
-					this.U.Game.UI.ShowStory();
+					this.U.Game.UserInterface.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveLeft":
 					this.MoveLeft();
-					this.U.Game.UI.ShowStory();
+					this.U.Game.UserInterface.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 				case "MoveDown":
 					this.MoveDown();
-					this.U.Game.UI.ShowStory();
+					this.U.Game.UserInterface.ShowStory();
 					this.U.Game.BuildMenu();
 					break;
 			}
+		}
+
+		private void Win()
+		{
+			this.U.Character.Starbucks -= Universe.StarbucksToSavePrincess;
+
+			this.U.Game.UserInterface.RenderStory($"" +
+				$"  You finally managed to save up ¤{Universe.StarbucksToSavePrincess} Starbucks.\n\n" +
+				$"  Full of resolve, you wire transfer that amount to HAIRY TENDERSON.\n" +
+				$"  You now have ¤{this.U.Character.Starbucks} Starbucks.\n\n" +
+				$"  Two months later, you receive a letter in your SpaceMail inbox.\n\n" +
+				$"  It's from the princess!\n\n" +
+				$"  'Thanks for the transfer. Now me and HAIRY TENDERSON can live\n" +
+				$"  happily ever after." +
+				$"'\n\n\n\n\n\n" +
+				$"                              THE END\n\n" +
+				$"");
+
+			Environment.Exit(0);
 		}
 
 		private void LeaveCelestialBody()
@@ -152,6 +175,7 @@ namespace SpaceGame
 			this.U.Character.Direction = Direction.Up;
 			this.U.Character.Coordinates.X = this.CelestialBody.Coordinates.X;
 			this.U.Character.Coordinates.Y = this.CelestialBody.Coordinates.Y - 1;
+			this.U.Message = $"Now leaving {this.CelestialBody}.";
 		}
 
 		private void Buy()
@@ -160,6 +184,11 @@ namespace SpaceGame
 			{
 				this.U.Character.Starbucks -= this.ItemCost;
 				this.U.Character.Inventory.Add(this.Item);
+				this.U.Message = $"You bought '{this.Item.Name}'! {this.Item.Description}";
+			}
+			else
+			{
+				this.U.Message = $"You can't afford '{this.Item.Name}'.";
 			}
 		}
 
@@ -167,6 +196,7 @@ namespace SpaceGame
 		{
 			this.U.Character.Starbucks += this.ItemCost;
 			this.U.Character.Inventory.Remove(this.Item);
+			this.U.Message = $"You sold '{this.Item.Name}' for ¤{this.ItemCost}!";
 		}
 
 		private void PaintSpaceship()
@@ -175,6 +205,11 @@ namespace SpaceGame
 			{
 				this.U.Character.Starbucks -= this.ItemCost;
 				this.U.Character.Spaceship.Color = this.PaintColor;
+				this.U.Message = $"You painted your spaceship. Lookin' good!";
+			}
+			else
+			{
+				this.U.Message = $"You can't afford this paint color. Better save up!";
 			}
 		}
 
@@ -184,6 +219,11 @@ namespace SpaceGame
 			{
 				this.U.Character.Starbucks -= 20;
 				this.U.Character.Spaceship.Fuel = this.U.Character.Spaceship.FuelCapacity;
+				this.U.Message = $"Your fuel has been topped off.";
+			}
+			else
+			{
+				this.U.Message = $"You can't afford to refuel!";
 			}
 		}
 
@@ -193,6 +233,11 @@ namespace SpaceGame
 			{
 				this.U.Character.Starbucks -= 100;
 				this.U.Character.Health = 100;
+				this.U.Message = $"Your wounds have been treated.";
+			}
+			else
+			{
+				this.U.Message = $"You can't afford to see a doctor!";
 			}
 		}
 
@@ -226,6 +271,7 @@ namespace SpaceGame
 				if (this.U.Character.InCollisionStar(celestialBody))
 				{
 					this.U.Character.Health -= 21;
+					this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
 				}
 			}
 		}
@@ -251,6 +297,7 @@ namespace SpaceGame
 				if (this.U.Character.InCollisionStar(celestialBody))
 				{
 					this.U.Character.Health -= 21;
+					this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
 				}
 			}
 		}
@@ -276,6 +323,7 @@ namespace SpaceGame
 				if (this.U.Character.InCollisionStar(celestialBody))
 				{
 					this.U.Character.Health -= 21;
+					this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
 				}
 			}
 		}
@@ -301,6 +349,7 @@ namespace SpaceGame
 				if (this.U.Character.InCollisionStar(celestialBody))
 				{
 					this.U.Character.Health -= 21;
+					this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
 				}
 			}
 		}

@@ -122,7 +122,7 @@ namespace SpaceGame
 
 				this.Add(new MenuItem
 					(
-					$"{item.Name} (COST: {cost})",
+					$"{item.Name} (COST: ¤{cost})",
 					new Action(
 						this.U,
 						"Buy",
@@ -170,7 +170,7 @@ namespace SpaceGame
 
 				this.Add(new MenuItem
 					(
-					$"{item.Name} (VALUE: {cost})",
+					$"{item.Name} (VALUE: ¤{cost})",
 					new Action(
 						this.U,
 						"Sell",
@@ -201,22 +201,42 @@ namespace SpaceGame
 			);
 
 			var colors = new List<(string color, ConsoleColor cColor)>();
-			colors.Add(("Red", ConsoleColor.Red));
 			colors.Add(("Green", ConsoleColor.Green));
+			colors.Add(("Red", ConsoleColor.Red));
 			colors.Add(("Blue", ConsoleColor.Cyan));
 			colors.Add(("Yellow", ConsoleColor.DarkYellow));
 			colors.Add(("Pink", ConsoleColor.Magenta));
 			colors.Add(("White", ConsoleColor.White));
-			colors.Add(("Black", ConsoleColor.Black));
+			colors.Add(("Black", ConsoleColor.DarkGray));
 
 			foreach ((string color, ConsoleColor cColor) color in colors)
 			{
 				i++;
-				int cost = (int)Math.Ceiling((double)this.U.Character.Starbucks * .2);
+				int cost = (int)Math.Ceiling((double)this.U.Character.Starbucks * .2) + 50;
+
+				if (color.color == "Green")
+				{
+					cost = 50;
+				}
+
+				if (color.color == "Black")
+				{
+					cost = this.U.Character.Starbucks + 1;
+
+					if (cost < 150)
+					{
+						cost = 150;
+					}
+
+					if (cost > 5000)
+					{
+						cost = 5000;
+					}
+				}
 
 				this.Add(new MenuItem
 					(
-					$"{color.color} (COST: {cost})",
+					$"{color.color} (COST: ¤{cost})",
 					new Action(
 						this.U,
 						"PaintSpaceship",
