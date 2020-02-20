@@ -174,7 +174,7 @@ namespace SpaceGame
 				do
 				{
 					Console.WriteLine("    Are you a boy (1), girl (2), or an alien(3)?");
-					genderChoice = Console.ReadKey();
+					genderChoice = Console.ReadKey(false);
 
 					if (genderChoice.Key == ConsoleKey.D1)
 					{
@@ -194,7 +194,7 @@ namespace SpaceGame
 				//runs opening animation
 				OpeningSequence.Animation();
 
-				Character character = new Character(name, gender, new Coordinates(8, 12));
+				Character character = new Character(name, gender, new Coordinates(20, 22));
 
 				character.Inventory.Add(new Item("Space Gunk", "Looks like the poop emoji.", 5,
 					new List<ItemCategory> { ItemCategory.Junk }));
