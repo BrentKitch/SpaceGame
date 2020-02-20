@@ -109,12 +109,11 @@ namespace SpaceGame
 			{
 				Environment.Exit(0);
 			}
-
-			//runs opening animation
-			OpeningSequence.Animation();
-
 			if (option.Key == ConsoleKey.D1)
 			{
+				
+				//runs opening animation
+				OpeningSequence.Animation();
 				this.Load();
 
 				if (this.U.Character.Starbucks < Universe.StarbucksToSavePrincess)
@@ -141,15 +140,120 @@ namespace SpaceGame
 			else
 			{
 				// Add a character to the universe.
-				Console.WriteLine("Enter a name");
-				string name = Console.ReadLine().ToUpper();
+				OpeningSequence.NewCharacterHeader();
 
-				Character character = new Character(name, Gender.Male, new Coordinates(6, 25));
+				string name;
+				do
+				{
+					Console.WriteLine("Whats your name?");
+					name = Console.ReadLine().ToUpper();
+				} while (name == "");
+
+				Gender gender = Gender.Alien;
+				int genderChoice = 4;
+				do
+				{
+					Console.WriteLine("Are you a boy(1), girl(2), or alien(3)?");
+					genderChoice = int.Parse(Console.ReadLine());
+
+					if (genderChoice == 1)
+					{
+						gender = Gender.Male;
+					}
+					else if (genderChoice == 2)
+					{
+						gender = Gender.Female;
+					}
+					else if (genderChoice == 3)
+					{
+						gender = Gender.Alien;
+					}
+						} while (genderChoice != 1 && genderChoice != 2 && genderChoice != 3);
+
+				Character character = new Character(name, gender, new Coordinates(8, 12));
 				character.Spaceship.Fuel = 30; // Low fuel!
 				this.U.Add(character);
 
 				// Build the galaxy.
 				this.BuildGalaxy();
+
+				// Planet
+				CelestialBody mars = new Planet("Mars", "The big red boi.", ConsoleColor.Red,
+					new Coordinates(15, 50),
+					new List<ItemCategory> { ItemCategory.Medical });
+
+				// Shop
+				mars.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+				mars.AddItem(new Item("Chocolate Tree", "It's like a tree, but delicious.", 15, 1,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+
+				// Create it!
+				this.U.Add(mars);
+
+				//////////////////////////////////////////////////////////////////////////
+
+				//////////////////////////////////////////////////////////////////////////
+				//
+				// NEPTUNE
+				//
+				//////////////////////////////////////////////////////////////////////////
+
+				// Planet
+				CelestialBody neptune = new Planet("Neptune", "Holy Neptune!", ConsoleColor.Blue,
+					new Coordinates(5, 12),
+					new List<ItemCategory> { ItemCategory.Military });
+
+				// Shop
+				neptune.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+				neptune.AddItem(new Item("Holy Water", "Don't drink this!", 100, 1,
+					new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Medical }));
+
+				// Create it!
+				this.U.Add(neptune);
+
+				//////////////////////////////////////////////////////////////////////////
+
+				//////////////////////////////////////////////////////////////////////////
+				//
+				// URANUS
+				//
+				//////////////////////////////////////////////////////////////////////////
+
+				// Planet
+				CelestialBody uranus = new Planet("Uranus", "No, not that one!", ConsoleColor.Yellow,
+					new Coordinates(40, 22),
+					new List<ItemCategory> { ItemCategory.Alcohol });
+
+				// Shop
+				uranus.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+				uranus.AddItem(new Item("Space Gunk", "You don't want to know what this is.", 2, 1,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+				uranus.AddItem(new Item("Flux Capacitor", "Keeps you young. Or old, depending on your perspective.", 500, 5,
+					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
+
+				// Create it!
+				this.U.Add(uranus);
+
+				//////////////////////////////////////////////////////////////////////////
+				//
+				// STARS
+				//
+				//////////////////////////////////////////////////////////////////////////
+
+				// Sol
+				CelestialBody sol = new Star("Sol", "Your birth star. There's no place like home.", ConsoleColor.Yellow,
+					new Coordinates(110, 05));
+				this.U.Add(sol);
+
+				// Proxima Centauri
+				CelestialBody proximaCentauri = new Star("Proxima Centauri", "The closest sun to the sun. Unremarkable in every other way.", ConsoleColor.Red,
+					new Coordinates(50, 13));
+				this.U.Add(proximaCentauri);
+
+				//////////////////////////////////////////////////////////////////////////
 
 				// Start the game.
 
