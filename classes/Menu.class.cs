@@ -155,7 +155,7 @@ namespace SpaceGame
 			foreach (Item item in this.U.Character.Inventory)
 			{
 				i++;
-				int cost = (int)(item.BaseCost * .9);
+				int cost = (int)(item.BaseCost * .3);
 
 				// Let's check if the celestial body favors this item.
 				foreach (ItemCategory favoredItemCategory in celestialBody.FavoredItemCategories)
@@ -164,7 +164,7 @@ namespace SpaceGame
 					// then we can buy and sell this item for a higher cost.
 					if (item.ItemCategories.Contains(favoredItemCategory))
 					{
-						cost = (int)Math.Ceiling((double)cost * 2);
+						cost = cost * 5;
 					}
 				}
 
@@ -223,14 +223,9 @@ namespace SpaceGame
 				{
 					cost = this.U.Character.Starbucks + 1;
 
-					if (cost < 150)
+					if (cost > Universe.StarbucksToSavePrincess)
 					{
-						cost = 150;
-					}
-
-					if (cost > 5000)
-					{
-						cost = 5000;
+						cost = Universe.StarbucksToSavePrincess;
 					}
 				}
 

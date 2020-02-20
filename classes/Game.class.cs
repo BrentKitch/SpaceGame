@@ -144,93 +144,12 @@ namespace SpaceGame
 				Console.WriteLine("Enter a name");
 				string name = Console.ReadLine().ToUpper();
 
-				Character character = new Character(name, Gender.Male, new Coordinates(8, 12));
+				Character character = new Character(name, Gender.Male, new Coordinates(6, 25));
 				character.Spaceship.Fuel = 30; // Low fuel!
 				this.U.Add(character);
 
-				//////////////////////////////////////////////////////////////////////////
-				//
-				// MARS
-				//
-				//////////////////////////////////////////////////////////////////////////
-
-				// Planet
-				CelestialBody mars = new Planet("Mars", "The big red boi.", ConsoleColor.Red,
-					new Coordinates(15, 50),
-					new List<ItemCategory> { ItemCategory.Medical });
-
-				// Shop
-				mars.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-				mars.AddItem(new Item("Chocolate Tree", "It's like a tree, but delicious.", 15, 1,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-
-				// Create it!
-				this.U.Add(mars);
-
-				//////////////////////////////////////////////////////////////////////////
-
-				//////////////////////////////////////////////////////////////////////////
-				//
-				// NEPTUNE
-				//
-				//////////////////////////////////////////////////////////////////////////
-
-				// Planet
-				CelestialBody neptune = new Planet("Neptune", "Holy Neptune!", ConsoleColor.Blue,
-					new Coordinates(5, 12),
-					new List<ItemCategory> { ItemCategory.Military });
-
-				// Shop
-				neptune.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-				neptune.AddItem(new Item("Holy Water", "Don't drink this!", 100, 1,
-					new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Medical }));
-
-				// Create it!
-				this.U.Add(neptune);
-
-				//////////////////////////////////////////////////////////////////////////
-
-				//////////////////////////////////////////////////////////////////////////
-				//
-				// URANUS
-				//
-				//////////////////////////////////////////////////////////////////////////
-
-				// Planet
-				CelestialBody uranus = new Planet("Uranus", "No, not that one!", ConsoleColor.Yellow,
-					new Coordinates(40, 22),
-					new List<ItemCategory> { ItemCategory.Alcohol });
-
-				// Shop
-				uranus.AddItem(new Item("Broccoli", "It's like a tree, but gross.", 10, 1,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-				uranus.AddItem(new Item("Space Gunk", "You don't want to know what this is.", 2, 1,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-				uranus.AddItem(new Item("Flux Capacitor", "Keeps you young. Or old, depending on your perspective.", 500, 5,
-					new List<ItemCategory> { ItemCategory.Military, ItemCategory.Medical }));
-
-				// Create it!
-				this.U.Add(uranus);
-
-				//////////////////////////////////////////////////////////////////////////
-				//
-				// STARS
-				//
-				//////////////////////////////////////////////////////////////////////////
-
-				// Sol
-				CelestialBody sol = new Star("Sol", "Your birth star. There's no place like home.", ConsoleColor.Yellow,
-					new Coordinates(110, 05));
-				this.U.Add(sol);
-
-				// Proxima Centauri
-				CelestialBody proximaCentauri = new Star("Proxima Centauri", "The closest sun to the sun. Unremarkable in every other way.", ConsoleColor.Red,
-					new Coordinates(50, 13));
-				this.U.Add(proximaCentauri);
-
-				//////////////////////////////////////////////////////////////////////////
+				// Build the galaxy.
+				this.BuildGalaxy();
 
 				// Start the game.
 
@@ -422,6 +341,354 @@ namespace SpaceGame
 			}
 
 			this.Menu = menu;
+		}
+
+		// Create the whole galaxy.
+		private void BuildGalaxy()
+		{
+			//////////////////////////////////////////////////////////////////////////
+			//
+			// ITEMS
+			//
+			//////////////////////////////////////////////////////////////////////////
+			//
+			// Alcohol
+			// Computers
+			// Crafting
+			// Creatures
+			// Dessert
+			// Elements
+			// Food
+			// Gems
+			// Junk
+			// Medical
+			// Robots
+			// Sacred
+			// Software
+			// Weapons
+			//
+			//////////////////////////////////////////////////////////////////////////
+
+			var item = new Dictionary<string, Item>();
+			item.Add(
+				"Space Beer", new Item("Space Beer", "Made from space hops (or something like that).", 10,
+					new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Food, ItemCategory.Medical }));
+			item.Add(
+				"Hyperseltzer", new Item("Hyperseltzer", "Its flavor is out of this world. And this galaxy.", 35,
+					new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Food }));
+			item.Add(
+				"Dimensional Whiskey", new Item("Dimensional Whiskey", "Literally tastes like the 5th dimension.", 100,
+					new List<ItemCategory> { ItemCategory.Alcohol }));
+			item.Add(
+				"Xenowine", new Item("Xenowine", "Xenoberry extract, aged via time dilation.", 200,
+					new List<ItemCategory> { ItemCategory.Alcohol }));
+			item.Add(
+				"Alienware", new Item("Alienware", "No, not THAT Alienware. Literally wares from an alien.", 80,
+					new List<ItemCategory> { ItemCategory.Computers }));
+			item.Add(
+				"A.I. Chip", new Item("A.I. Chip", "10x smarter than the average human. Smaller than a xenoberry.", 200,
+					new List<ItemCategory> { ItemCategory.Computers, ItemCategory.Robots, ItemCategory.Software }));
+			item.Add(
+				"V.R. Implant", new Item("V.R. Implant", "Allows one to see the 'pataphysical side of (un)reality.", 400,
+					new List<ItemCategory> { ItemCategory.Computers, ItemCategory.Medical }));
+			item.Add(
+				"Superdrive", new Item("Superdrive", "Like a flash drive, but superer.", 850,
+					new List<ItemCategory> { ItemCategory.Computers }));
+			item.Add(
+				"Galaxy Nails", new Item("Galaxy Nails", "It's a combo pack.", 50,
+					new List<ItemCategory> { ItemCategory.Crafting }));
+			item.Add(
+				"Galaxy Hammer", new Item("Galaxy Hammer", "Using for hammering galaxy nails.", 100,
+					new List<ItemCategory> { ItemCategory.Crafting }));
+			item.Add(
+				"Solder Beam", new Item("Solder Beam", "Allows you to solder exotic metals from over one lightyear away.", 190,
+					new List<ItemCategory> { ItemCategory.Crafting, ItemCategory.Weapons }));
+			item.Add(
+				"Robotic Screwdriver", new Item("Robotic Screwdriver", "It really screws!", 320,
+					new List<ItemCategory> { ItemCategory.Crafting, ItemCategory.Robots }));
+			item.Add(
+				"Tribble", new Item("Tribble", "It's a fuzzy wuzzy buddy.", 100,
+					new List<ItemCategory> { ItemCategory.Creatures }));
+			item.Add(
+				"Pet Droid", new Item("Pet Droid", "It's not really alive, but who could tell?", 500,
+					new List<ItemCategory> { ItemCategory.Creatures, ItemCategory.Robots }));
+			item.Add(
+				"Baby Ewok", new Item("Baby Ewok", "Not to be confused with a baby bear.", 500,
+					new List<ItemCategory> { ItemCategory.Creatures }));
+			item.Add(
+				"Fish", new Item("Fish", "Literally just a fish.", 2002,
+					new List<ItemCategory> { ItemCategory.Creatures }));
+			item.Add(
+				"Cocoa Jumbo", new Item("Cocoa Jumbo", "It's a large chocolate... something.", 15,
+					new List<ItemCategory> { ItemCategory.Dessert }));
+			item.Add(
+				"Vanilla Jumbo", new Item("Vanilla Jumbo", "It's a large vanilla... something.", 15,
+					new List<ItemCategory> { ItemCategory.Dessert }));
+			item.Add(
+				"Jumbo Jumbo", new Item("Jumbo Jumbo", "It's a large something... something.", 150,
+					new List<ItemCategory> { ItemCategory.Dessert }));
+			item.Add(
+				"Recursive Jumbo", new Item("Recursive Jumbo", "It's a large [It's a large [It's a large [ It's a large ...] ...] ...] ...", 1515,
+					new List<ItemCategory> { ItemCategory.Dessert }));
+			item.Add(
+				"Hydrogen", new Item("Hydrogen", "2/3 of an entire water molecule.", 50,
+					new List<ItemCategory> { ItemCategory.Elements }));
+			item.Add(
+				"Xenon", new Item("Xenon", "Noble AF.", 250,
+					new List<ItemCategory> { ItemCategory.Elements }));
+			item.Add(
+				"Plutonium", new Item("Plutonium", "Don't breathe this!", 500,
+					new List<ItemCategory> { ItemCategory.Elements }));
+			item.Add(
+				"Platinum Chunk", new Item("Platinum Chunk", "Literally a chunk of expensive junk.", 2000,
+					new List<ItemCategory> { ItemCategory.Elements, ItemCategory.Junk }));
+			item.Add(
+				"Ectoburger", new Item("Ectoburger", "Made with mystery alien meat.", 50,
+					new List<ItemCategory> { ItemCategory.Food }));
+			item.Add(
+				"Xenoberry", new Item("Xenoberry", "Sweet, tart, spicy... and savory?", 80,
+					new List<ItemCategory> { ItemCategory.Food }));
+			item.Add(
+				"Superhot Dog", new Item("Superhot Dog", "Grilled with the energy of a thousand supernovae.", 120,
+					new List<ItemCategory> { ItemCategory.Food }));
+			item.Add(
+				"Edible Stardust", new Item("Edible Stardust", "Guess what it's made out of.", 600,
+					new List<ItemCategory> { ItemCategory.Food }));
+			item.Add(
+				"Broccoli", new Item("Broccoli", "May or may not have magical properties. It's literally just broccoli though.", 9999,
+					new List<ItemCategory> { ItemCategory.Food, ItemCategory.Sacred }));
+			item.Add(
+				"Diamond Supercluster", new Item("Diamond Supercluster", "This is what you get when you combine multiple diamonds into one diamond", 800,
+					new List<ItemCategory> { ItemCategory.Gems }));
+			item.Add(
+				"Purple Gemaflex", new Item("Purple Gemaflex", "The most beautiful jewelry there be.", 1250,
+					new List<ItemCategory> { ItemCategory.Gems }));
+			item.Add(
+				"Space Gunk", new Item("Space Gunk", "Looks like the poop emoji.", 5,
+					new List<ItemCategory> { ItemCategory.Junk }));
+			item.Add(
+				"Earwax", new Item("Earwax", "From an alien. Species unknown.", 25,
+					new List<ItemCategory> { ItemCategory.Junk }));
+			item.Add(
+				"Space Claritin", new Item("Space Claritin", "Cures space allergies with surprising efficacy.", 100,
+					new List<ItemCategory> { ItemCategory.Medical }));
+			item.Add(
+				"Throxnard Pills", new Item("Throxnard Pills", "These make you feel really warm.", 150,
+					new List<ItemCategory> { ItemCategory.Medical }));
+			item.Add(
+				"Xenoberry Extract", new Item("Xenoberry Extract", "Don't worry, it's 'natural'.", 325,
+					new List<ItemCategory> { ItemCategory.Medical }));
+			item.Add(
+				"Android (female)", new Item("Android (female)", "Indistinguishable from a human female. Equally annoying.", 1000,
+					new List<ItemCategory> { ItemCategory.Robots }));
+			item.Add(
+				"Android (male)", new Item("Android (male)", "Indistinguishable from a human male. Equally unintelligent.", 1000,
+					new List<ItemCategory> { ItemCategory.Robots }));
+			item.Add(
+				"Spyder Tank", new Item("Spyder Tank", "Hexapod heavy weapon. Effective on all terrains.", 1000,
+					new List<ItemCategory> { ItemCategory.Robots, ItemCategory.Weapons }));
+			item.Add(
+				"Nanomyte", new Item("Nanomyte", "1mm in diameter, but fully capable of killing, healing, and logical reasoning.", 1000,
+					new List<ItemCategory> { ItemCategory.Medical, ItemCategory.Robots, ItemCategory.Weapons }));
+			item.Add(
+				"Holy Water", new Item("Holy Water", "Tastes like sactification.", 77,
+					new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Sacred }));
+			item.Add(
+				"Consciousness Incarnate", new Item("Consciousness Incarnate", "The physical manifestation of conscious existence.", 777,
+					new List<ItemCategory> { ItemCategory.Sacred }));
+			item.Add(
+				"Artificial God", new Item("Artificial God", "Has technology gone too far?", 7777,
+					new List<ItemCategory> { ItemCategory.Sacred, ItemCategory.Robots }));
+			item.Add(
+				"Windows 3000", new Item("Windows 3000", "The immediate successor to Windows 2998.", 100,
+					new List<ItemCategory> { ItemCategory.Software }));
+			item.Add(
+				"OS XY FatPanda", new Item("OS XY FatPanda", "It's safe to say they're running out of animal names.", 250,
+					new List<ItemCategory> { ItemCategory.Software }));
+			item.Add(
+				"Linux", new Item("Linux", "Technically still free, but a man's gotta make a living somehow.", 600,
+					new List<ItemCategory> { ItemCategory.Software }));
+			item.Add(
+				"Raygun", new Item("Raygun", "Makes a satisfying 'pew' sound.", 400,
+					new List<ItemCategory> { ItemCategory.Weapons }));
+			item.Add(
+				"Portable Nuke", new Item("Portable Nuke", "Completely silent if detonated in space.", 800,
+					new List<ItemCategory> { ItemCategory.Weapons }));
+			item.Add(
+				"Tactical Lego", new Item("Tactical Lego", "Inflicts irreparable damage if an adversary steps on it.", 900,
+					new List<ItemCategory> { ItemCategory.Weapons }));
+			item.Add(
+				"Disintegration Sauce", new Item("Disintegration Sauce", "Basically liquid death.", 1500,
+					new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Weapons }));
+
+
+
+			//////////////////////////////////////////////////////////////////////////
+			//
+			// PLANETS
+			//
+			//////////////////////////////////////////////////////////////////////////
+
+			CelestialBody earth = new Planet("Sol-3", "Ground zero. Home base. Mi casita.", ConsoleColor.Blue,
+				new Coordinates(8, 26),
+				new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Junk, ItemCategory.Weapons });
+			earth.AddItem(item["Ectoburger"]);
+			earth.AddItem(item["Xenoberry"]);
+			earth.AddItem(item["Superhot Dog"]);
+			earth.AddItem(item["Edible Stardust"]);
+			earth.AddItem(item["Cocoa Jumbo"]);
+			earth.AddItem(item["Vanilla Jumbo"]);
+			earth.AddItem(item["Jumbo Jumbo"]);
+			earth.AddItem(item["Recursive Jumbo"]);
+
+			CelestialBody venus = new Planet("Venus", "Really hot, but oddly beautiful.", ConsoleColor.White,
+				new Coordinates(8, 20),
+				new List<ItemCategory> { ItemCategory.Crafting, ItemCategory.Medical});
+			venus.AddItem(item["Space Beer"]);
+			venus.AddItem(item["Hyperseltzer"]);
+			venus.AddItem(item["Dimensional Whiskey"]);
+			venus.AddItem(item["Xenowine"]);
+			venus.AddItem(item["Alienware"]);
+			venus.AddItem(item["A.I. Chip"]);
+			venus.AddItem(item["V.R. Implant"]);
+			venus.AddItem(item["Superdrive"]);
+
+			CelestialBody mars = new Planet("Mars", "Fully terraformed, and still red!", ConsoleColor.Red,
+				new Coordinates(34, 26),
+				new List<ItemCategory> { ItemCategory.Food, ItemCategory.Dessert});
+			mars.AddItem(item["Hydrogen"]);
+			mars.AddItem(item["Xenon"]);
+			mars.AddItem(item["Plutonium"]);
+			mars.AddItem(item["Platinum Chunk"]);
+			mars.AddItem(item["Space Claritin"]);
+			mars.AddItem(item["Throxnard Pills"]);
+			mars.AddItem(item["Xenoberry Extract"]);
+
+			CelestialBody vulcan = new Planet("Vulcan", "Home to the Vulcans, surprisingly.", ConsoleColor.DarkRed,
+				new Coordinates(74, 16),
+				new List<ItemCategory> { ItemCategory.Computers, ItemCategory.Software });
+			vulcan.AddItem(item["Android (female)"]);
+			vulcan.AddItem(item["Android (male)"]);
+			vulcan.AddItem(item["Spyder Tank"]);
+			vulcan.AddItem(item["Nanomyte"]);
+			vulcan.AddItem(item["Raygun"]);
+			vulcan.AddItem(item["Portable Nuke"]);
+			vulcan.AddItem(item["Tactical Lego"]);
+			vulcan.AddItem(item["Disintegration Sauce"]);
+
+			CelestialBody tatooine = new Planet("Tatooine", "Home of the Ewoks and unjust war.", ConsoleColor.Green,
+				new Coordinates(100, 8),
+				new List<ItemCategory> { ItemCategory.Creatures, ItemCategory.Robots, ItemCategory.Gems });
+			tatooine.AddItem(item["Windows 3000"]);
+			tatooine.AddItem(item["OS XY FatPanda"]);
+			tatooine.AddItem(item["Linux"]);
+			tatooine.AddItem(item["Earwax"]);
+			tatooine.AddItem(item["Xenoberry"]);
+			tatooine.AddItem(item["Xenoberry Extract"]);
+			tatooine.AddItem(item["Xenowine"]);
+			tatooine.AddItem(item["Platinum Chunk"]);
+
+			CelestialBody proximaCentauriB = new Planet("Proxima Centauri b", "A close friend of our second nearest star.", ConsoleColor.DarkMagenta,
+				new Coordinates(115, 24),
+				new List<ItemCategory> { ItemCategory.Crafting, ItemCategory.Elements});
+			proximaCentauriB.AddItem(item["Holy Water"]);
+			proximaCentauriB.AddItem(item["Consciousness Incarnate"]);
+			proximaCentauriB.AddItem(item["Artificial God"]);
+			proximaCentauriB.AddItem(item["Diamond Supercluster"]);
+			proximaCentauriB.AddItem(item["Purple Gemaflex"]);
+			proximaCentauriB.AddItem(item["Broccoli"]);
+
+			CelestialBody camazotz = new Planet("Camazotz", "Home of extreme militant conformity and colorless food.", ConsoleColor.Gray,
+				new Coordinates(5, 8),
+				new List<ItemCategory> { ItemCategory.Robots, ItemCategory.Weapons });
+			camazotz.AddItem(item["A.I. Chip"]);
+			camazotz.AddItem(item["V.R. Implant"]);
+			camazotz.AddItem(item["Superdrive"]);
+			camazotz.AddItem(item["Galaxy Nails"]);
+			camazotz.AddItem(item["Galaxy Hammer"]);
+			camazotz.AddItem(item["Solder Beam"]);
+			camazotz.AddItem(item["Robotic Screwdriver"]);
+			camazotz.AddItem(item["Hydrogen"]);
+			camazotz.AddItem(item["Xenon"]);
+
+			CelestialBody naboo = new Planet("Naboo", "Home of Darth Jar Jar.", ConsoleColor.DarkCyan,
+				new Coordinates(11, 11),
+				new List<ItemCategory> { ItemCategory.Elements, ItemCategory.Medical, ItemCategory.Weapons });
+			naboo.AddItem(item["Space Gunk"]);
+			naboo.AddItem(item["Earwax"]);
+			naboo.AddItem(item["Tribble"]);
+			naboo.AddItem(item["Pet Droid"]);
+			naboo.AddItem(item["Baby Ewok"]);
+			naboo.AddItem(item["Fish"]);
+			naboo.AddItem(item["Holy Water"]);
+			naboo.AddItem(item["Consciousness Incarnate"]);
+			naboo.AddItem(item["Artificial God"]);
+
+			CelestialBody jakku = new Planet("Jakku", "After a scientific disaster turned Arizona into a planet... we got Jakku.", ConsoleColor.DarkYellow,
+				new Coordinates(13, 17),
+				new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Elements, ItemCategory.Robots, ItemCategory.Weapons });
+			jakku.AddItem(item["Space Claritin"]);
+			jakku.AddItem(item["Throxnard Pills"]);
+			jakku.AddItem(item["Xenoberry Extract"]);
+			jakku.AddItem(item["Windows 3000"]);
+			jakku.AddItem(item["OS XY FatPanda"]);
+			jakku.AddItem(item["Linux"]);
+			jakku.AddItem(item["Galaxy Nails"]);
+			jakku.AddItem(item["Galaxy Hammer"]);
+
+			CelestialBody marioWorld = new Planet("Mario World", "Lots of pipes and strange creatures can be found here.", ConsoleColor.DarkGreen,
+				new Coordinates(55, 15),
+				new List<ItemCategory> { ItemCategory.Dessert, ItemCategory.Food, ItemCategory.Creatures });
+			marioWorld.AddItem(item["Tribble"]);
+			marioWorld.AddItem(item["Pet Droid"]);
+			marioWorld.AddItem(item["Baby Ewok"]);
+			marioWorld.AddItem(item["Fish"]);
+
+			CelestialBody asgard = new Planet("Asgard", "Full of scientific wonder and magic (i.e. scientific wonder).", ConsoleColor.Yellow,
+				new Coordinates(75, 5),
+				new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Gems, ItemCategory.Sacred, ItemCategory.Weapons });
+			mars.AddItem(item["Galaxy Nails"]);
+			mars.AddItem(item["Galaxy Hammer"]);
+			mars.AddItem(item["Solder Beam"]);
+			mars.AddItem(item["Robotic Screwdriver"]);
+			mars.AddItem(item["Cocoa Jumbo"]);
+			mars.AddItem(item["Vanilla Jumbo"]);
+			mars.AddItem(item["Jumbo Jumbo"]);
+			mars.AddItem(item["Recursive Jumbo"]);
+
+			// Add the planets to the universe.
+			this.U.Add(earth);
+			this.U.Add(venus);
+			this.U.Add(mars);
+			this.U.Add(vulcan);
+			this.U.Add(tatooine);
+			this.U.Add(proximaCentauriB);
+			this.U.Add(camazotz);
+			this.U.Add(naboo);
+			this.U.Add(jakku);
+			this.U.Add(marioWorld);
+			this.U.Add(asgard);
+
+			//////////////////////////////////////////////////////////////////////////
+			//
+			// STARS
+			//
+			//////////////////////////////////////////////////////////////////////////
+
+			CelestialBody sol = new Star("Sol", "Your birth star. There's no place like home.", ConsoleColor.Yellow,
+				new Coordinates(12, 24));
+			CelestialBody proximaCentauri = new Star("Proxima Centauri", "The closest sun to the sun. Unremarkable in every other way.", ConsoleColor.Red,
+				new Coordinates(16, 21));
+			CelestialBody solaris = new Star("Solaris", "Something feels... spooky about this place.", ConsoleColor.Magenta,
+				new Coordinates(5, 80));
+			CelestialBody uyScuti = new Star("UY Scuti", "The biggest star that there be.", ConsoleColor.Blue,
+				new Coordinates(17, 120));
+
+			// Add the stars to the universe.
+			this.U.Add(sol);
+			this.U.Add(proximaCentauri);
+			this.U.Add(solaris);
+			this.U.Add(uyScuti);
 		}
 	}
 }

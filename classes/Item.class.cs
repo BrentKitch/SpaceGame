@@ -32,12 +32,12 @@ namespace SpaceGame
 		}
 
 
-		public Item(string name, string description, int baseCost, int weight, List<ItemCategory> itemCategories)
+		public Item(string name, string description, int baseCost, List<ItemCategory> itemCategories)
 		{
 			this.Name = name;
 			this.Description = description;
 			this.BaseCost = baseCost;
-			this.Weight = weight;
+			this.Weight = 1;
 			this.ItemCategories = itemCategories;
 		}
 	}

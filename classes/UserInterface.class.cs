@@ -397,11 +397,11 @@ namespace SpaceGame
 
             // Take input and hide the screen.
             Console.WriteLine("\n\n\n\n");
-            Console.Write("  Press any key to exit...  ");
             while (Console.KeyAvailable)
             {
                 Console.ReadKey(false);
             }
+            Console.Write("  Press any key to exit...  ");
             Console.ReadKey(false);
             Console.Clear();
             Environment.Exit(0);
@@ -433,11 +433,11 @@ namespace SpaceGame
             System.Threading.Thread.Sleep(3000);
 
             // Take input and hide the screen.
-            Console.Write("  Press any key to continue...  ");
             while (Console.KeyAvailable)
             {
                 Console.ReadKey(false);
             }
+            Console.Write("  Press any key to continue...  ");
             Console.ReadKey(false);
             Console.Clear();
         }
