@@ -46,8 +46,6 @@ namespace SpaceGame
 						}
 					}
 
-					Console.WriteLine(this.U.Character.Health);
-					Console.ReadKey();
 					this.UserInterface.GameOver("  You ran out of health and died.\n\n" +
 						"  It was a good run!");
 				}
@@ -162,34 +160,39 @@ namespace SpaceGame
 			{
 				// Add a character to the universe.
 				OpeningSequence.NewCharacterHeader();
-
+			
 				string name;
 				do
 				{
-					Console.WriteLine("Whats your name?");
+					Console.WriteLine("    Whats your name?");
+					Console.Write("    ");
 					name = Console.ReadLine().ToUpper();
 				} while (name == "");
 
 				Gender gender = Gender.Alien;
-				int genderChoice = 4;
+				ConsoleKeyInfo genderChoice;
 				do
 				{
-					Console.WriteLine("Are you a boy(1), girl(2), or alien(3)?");
-					genderChoice = int.Parse(Console.ReadLine());
+					Console.WriteLine("    Are you a boy (1), girl (2), or an alien(3)?");
+					genderChoice = Console.ReadKey();
 
-					if (genderChoice == 1)
+					if (genderChoice.Key == ConsoleKey.D1)
 					{
 						gender = Gender.Male;
 					}
-					else if (genderChoice == 2)
+					else if (genderChoice.Key == ConsoleKey.D2)
 					{
 						gender = Gender.Female;
 					}
-					else if (genderChoice == 3)
+					else if (genderChoice.Key == ConsoleKey.D3)
 					{
 						gender = Gender.Alien;
 					}
-				} while (genderChoice != 1 && genderChoice != 2 && genderChoice != 3);
+				} while (genderChoice.Key != ConsoleKey.D1 && genderChoice.Key != ConsoleKey.D2 && genderChoice.Key != ConsoleKey.D3);
+				
+				Console.Clear();
+				//runs opening animation
+				OpeningSequence.Animation();
 
 				Character character = new Character(name, gender, new Coordinates(8, 12));
 

@@ -366,10 +366,9 @@ namespace SpaceGame
 		{
 			Console.Clear();
 
-			string deathScreen = @"                                                                   
-                           .AMMMMMMMMMMA.          
+            string deathScreen = @"			  .AMMMMMMMMMMA.          
       			.AV. :::.:.:.::MA.        
-      	  	   A' :..        : .:`A       
+      	  	      A' :..        : .:`A       
    		      A'..              . `A.                   YY   YY      A
    		     A' :.    :::::::::  : :`A                   YY YY      AAA
    		     M  .    :::.:.:.:::  . .M                    YYY      A   A
@@ -388,9 +387,6 @@ namespace SpaceGame
 		          V:  M:. M. :M .V                 D    DD    E         A     A   D     DD
 		          `V.:M.. M. :M.V'                 DDDDDD     EEEEEEE   A     A   DDDDDDD
                                                                    
-                                                                   
-
-
                                                                    ";
 
 			Console.WriteLine(deathScreen);
