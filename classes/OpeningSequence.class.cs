@@ -43,6 +43,7 @@ namespace SpaceGame
             ConsoleKeyInfo option = Console.ReadKey();
             while (option.Key != ConsoleKey.D1 && option.Key != ConsoleKey.D2 && option.Key != ConsoleKey.D3)
             {
+                Console.Clear();
                 Console.WriteLine(menu);
                 option = Console.ReadKey();
             }
