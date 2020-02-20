@@ -41,12 +41,12 @@ namespace SpaceGame
 					{
 						if (this.U.Character.InCollisionStar(celestialBody))
 						{
-							this.UserInterface.GameOver("  Stars are not good places to pass time.\n\n" +
+							this.UserInterface.GameOver("Stars are not good places to pass time.\n\n" +
 								"You are burnt to a crisp.");
 						}
 					}
 
-					this.UserInterface.GameOver("  You ran out of health and died.\n\n" +
+					this.UserInterface.GameOver("You ran out of health and died.\n\n" +
 						"It was a good run!");
 				}
 
@@ -58,13 +58,13 @@ namespace SpaceGame
 				{
 					if (this.U.Character.Spaceship.Fuel <= 0)
 					{
-						this.UserInterface.GameOver("  You ran out of fuel!\n\n" +
+						this.UserInterface.GameOver("You ran out of fuel!\n\n" +
 							"You drift off into space for a few more days, but ultimately die alone in the abyss.\n\n\n" +
 							"The space princess is never rescued.");
 					}
 					else
 					{
-						this.UserInterface.GameOver("  You drift off into space.\n\n" +
+						this.UserInterface.GameOver("You drift off into space.\n\n" +
 							"You get lost.\n\n" +
 							"You never find your way back, and you never save the princess.");
 					}
@@ -144,34 +144,38 @@ namespace SpaceGame
 			{
 				// Add a character to the universe.
 				OpeningSequence.NewCharacterHeader();
-
+			
 				string name;
 				do
 				{
-					Console.WriteLine("Whats your name?");
+					Console.WriteLine("    Whats your name?");
+					Console.Write("    ");
 					name = Console.ReadLine().ToUpper();
 				} while (name == "");
 
 				Gender gender = Gender.Alien;
-				int genderChoice = 4;
+				ConsoleKeyInfo genderChoice;
 				do
 				{
-					Console.WriteLine("Are you a boy(1), girl(2), or alien(3)?");
-					genderChoice = int.Parse(Console.ReadLine());
+					Console.WriteLine("    Are you a boy(1), girl(2), or alien(3)?");
+					genderChoice = Console.ReadKey();
 
-					if (genderChoice == 1)
+					if (genderChoice.Key == ConsoleKey.D1)
 					{
 						gender = Gender.Male;
 					}
-					else if (genderChoice == 2)
+					else if (genderChoice.Key == ConsoleKey.D2)
 					{
 						gender = Gender.Female;
 					}
-					else if (genderChoice == 3)
+					else if (genderChoice.Key == ConsoleKey.D3)
 					{
 						gender = Gender.Alien;
 					}
-						} while (genderChoice != 1 && genderChoice != 2 && genderChoice != 3);
+				} while (genderChoice.Key != ConsoleKey.D1 && genderChoice.Key != ConsoleKey.D2 && genderChoice.Key != ConsoleKey.D3);
+				Console.Clear();
+				//runs opening animation
+				OpeningSequence.Animation();
 
 				Character character = new Character(name, gender, new Coordinates(8, 12));
 				character.Spaceship.Fuel = 30; // Low fuel!
