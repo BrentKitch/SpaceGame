@@ -2,9 +2,19 @@
 {
     public enum ItemCategory
     {
-        Medical = 1,
-        Crafting = 2,
-        Military = 3,
-        Alcohol = 4
+        Alcohol,
+        Computers,
+        Crafting,
+        Creatures,
+        Dessert,
+        Elements,
+        Food,
+        Gems,
+        Junk,
+        Medical,
+        Robots,
+        Sacred,
+        Software,
+        Weapons,
     }
 }

@@ -6,8 +6,8 @@ using System.Linq;
 
 namespace SpaceGame
 {
-    public class UserInterface
-    {
+	public class UserInterface
+	{
 
         private Universe U
         {
@@ -334,6 +334,7 @@ namespace SpaceGame
             Console.SetCursorPosition(50, 32);
             Console.Write($"¤{U.Character.Starbucks} Starbucks");
             Console.SetCursorPosition(105, 32);
+            Console.Write($"Health {this.U.Character.Health}/100");
             Console.Write($"Fuel {this.U.Character.Spaceship.Fuel}/{this.U.Character.Spaceship.FuelCapacity}");
             Console.SetCursorPosition(5, 35);
             Console.Write("Location");
@@ -391,7 +392,7 @@ namespace SpaceGame
                 cursorTrack.Item2++;
             }
 
-        }
+		}
 
 		public void ShowStory()
 		{
@@ -403,7 +404,7 @@ namespace SpaceGame
 					$"Your body fails you.\n\n" +
 					$"Your vitals give way.\n\n" +
 					$"You die...\n\n\n" +
-                    $"...single.");
+					$"...single.");
 			}
 			else if (U.Character.Age == 768) // 64 years old.
 			{
@@ -476,12 +477,12 @@ namespace SpaceGame
 			}
 			else if (U.Character.Age == 372) // 31 years old.
 			{
-                this.RenderStory($"" +
-                $"  It has been a decade since your journey began.\n\n" +
-                $"  You only have ¤{U.Character.Starbucks} Starbucks.\n\n\n\n" +
-                $"  You still need another ¤{Universe.StarbucksToSavePrincess - U.Character.Starbucks} Starbucks to buy her freedom.\n\n\n\n" +
-                $"  Get it together. The princess, Kanna Endrick, needs your help.");
-            }
+				this.RenderStory($"" +
+				$"  It has been a decade since your journey began.\n\n" +
+				$"  You only have ¤{U.Character.Starbucks} Starbucks.\n\n\n\n" +
+				$"  You still need another ¤{Universe.StarbucksToSavePrincess - U.Character.Starbucks} Starbucks to buy her freedom.\n\n\n\n" +
+				$"  Get it together. The princess, Kanna Endrick, needs your help.");
+			}
 			else if (U.Character.Age == 252) // 21 years old.
 			{
 				this.RenderStory($"" +
@@ -491,14 +492,13 @@ namespace SpaceGame
 			}
 		}
 
-        public void GameOver(string message)
-        {
-            Console.Clear();
+		public void GameOver(string message)
+		{
+			Console.Clear();
 
-            string deathScreen = @"                                                                   
-                           .AMMMMMMMMMMA.          
+            string deathScreen = @"			  .AMMMMMMMMMMA.          
       			.AV. :::.:.:.::MA.        
-      	  	   A' :..        : .:`A       
+      	  	      A' :..        : .:`A       
    		      A'..              . `A.                   YY   YY      A
    		     A' :.    :::::::::  : :`A                   YY YY      AAA
    		     M  .    :::.:.:.:::  . .M                    YYY      A   A
@@ -517,54 +517,75 @@ namespace SpaceGame
 		          V:  M:. M. :M .V                 D    DD    E         A     A   D     DD
 		          `V.:M.. M. :M.V'                 DDDDDD     EEEEEEE   A     A   DDDDDDD
                                                                    
-                                                                   
-
-
                                                                    ";
 
-            Console.WriteLine(deathScreen);
-            Console.WriteLine("\n\n");
-            Console.WriteLine($"{message}");
-
-            // The screen should be displayed for a minimum of 3 seconds.
-            System.Threading.Thread.Sleep(3000);
-
-            // Take input and hide the screen.
-            Console.WriteLine("\n\n\n\n");
-            Console.Write("  Press any key to exit...  ");
-            while (Console.KeyAvailable)
-            {
-                Console.ReadKey(false);
-            }
-            Console.ReadKey(false);
-            Console.Clear();
-            Environment.Exit(0);
-        }
-
-        public void RenderStory(string message)
-		{
-            // Clear the input buffer.
-            while (Console.KeyAvailable)
-            {
-                Console.ReadKey(false);
-            }
-
-            // Clear the screen.
-            Console.Clear();
-
-            // Render the story message.
-            Console.WriteLine("\n\n\n");
-			Console.WriteLine("  +-------------------------------------------------------------+");
-			Console.WriteLine("  |                                                             |");
-			Console.WriteLine("  |                     THE STORY CONTINUES...                  |");
-			Console.WriteLine("  |                                                             |");
-			Console.WriteLine("  +-------------------------------------------------------------+");
-			Console.WriteLine("\n\n\n");
+			Console.WriteLine(deathScreen);
+			Console.WriteLine("\n\n");
 			Console.WriteLine($"{message}");
-			Console.WriteLine("\n\n\n\n\n\n");
 
-            // The screen should be displayed for a minimum of 3 seconds.
-            System.Threading.Thread.Sleep(3000);
+
+			// The screen should be displayed for a minimum of 3 seconds.
+			System.Threading.Thread.Sleep(3000);
+
+			// Take input and hide the screen.
+			Console.WriteLine("\n\n\n\n");
+			while (Console.KeyAvailable)
+			{
+				Console.ReadKey(false);
+			}
+
+			Console.Write("  Press any key to exit...  ");
+			Console.ReadKey(false);
+			Console.Clear();
+			Environment.Exit(0);
+		}
+
+		public void RenderStory(string message, bool randomEvent = false)
+		{
+			// Clear the input buffer.
+			while (Console.KeyAvailable)
+			{
+				Console.ReadKey(false);
+			}
+
+			// Clear the screen.
+			Console.Clear();
+
+			if (randomEvent)
+			{
+				// Render the random event message.
+				Console.ForegroundColor = ConsoleColor.Magenta;
+				Console.WriteLine("\n\n\n");
+				Console.WriteLine("  +-------------------------------------------------------------+");
+				Console.WriteLine("  |                                                             |");
+				Console.WriteLine("  |                             ALERT!                          |");
+				Console.WriteLine("  |                                                             |");
+				Console.WriteLine("  |=============================================================|");
+				Console.WriteLine("  |                                                             |");
+				Console.WriteLine("  |                     SOMETHING HAS HAPPENED!                 |");
+				Console.WriteLine("  |                                                             |");
+				Console.WriteLine("  +-------------------------------------------------------------+");
+				Console.WriteLine("\n\n\n");
+				Console.WriteLine($"{message}");
+				Console.WriteLine("\n\n\n\n\n\n");
+				Console.ResetColor();
+			}
+			else
+			{
+				// Render the story message.
+				Console.WriteLine("\n\n\n");
+				Console.WriteLine("  +-------------------------------------------------------------+");
+				Console.WriteLine("  |                                                             |");
+				Console.WriteLine("  |                     THE STORY CONTINUES...                  |");
+				Console.WriteLine("  |                                                             |");
+				Console.WriteLine("  +-------------------------------------------------------------+");
+				Console.WriteLine("\n\n\n");
+				Console.WriteLine($"{message}");
+				Console.WriteLine("\n\n\n\n\n\n");
+			}
+
+			// The screen should be displayed for a minimum of 3 seconds.
+			System.Threading.Thread.Sleep(3000);
 
             // Take input and hide the screen.
             Console.Write("  Press any key to continue...  ");

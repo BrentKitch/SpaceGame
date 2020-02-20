@@ -52,10 +52,13 @@ namespace SpaceGame
 		
 		public CelestialBody(string name, string description, ConsoleColor color, Coordinates coordinates)
 		{
+			this.Type = "celestial body";
 			this.Name = name;
 			this.Description = description;
 			this.Color = color;
 			this.Coordinates = coordinates;
+			this.Items = new List<Item>();
+			this.FavoredItemCategories = new List<ItemCategory>();
 		}
 
 		virtual public void AddItem(Item item)
