@@ -22,6 +22,10 @@ namespace SpaceGame
             this.U = u;
             this.Menu = menu;
         }
+        private CelestialBody collisionBody
+        {
+            get; set;
+        }
         List<(int, int)> xyPair = new List<(int, int)> { };
         public void RenderGame(Universe u, Menu menu)
         {
@@ -29,7 +33,7 @@ namespace SpaceGame
             this.Menu = menu;
             foreach (CelestialBody cb in this.U.CelestialBodies)
             {
-                xyPair.Add((cb.Coordinates.X,cb.Coordinates.Y));
+                    xyPair.Add((cb.Coordinates.X,cb.Coordinates.Y));
             }
             Console.Clear();
             
@@ -46,49 +50,118 @@ namespace SpaceGame
                 {  
                     if(U.Character.Coordinates.X == x && U.Character.Coordinates.Y == y)
                     {
-                        Console.ForegroundColor = this.U.Character.Spaceship.Color;
+                        //if(this.U.Character.Collision)
                         if (xyPair.Contains((x, y)))
                         {
                             Console.BackgroundColor = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Color;
-                            
-                            switch (this.U.Character.Direction)
+                            collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y)));
+                            if (U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Type == "star")
                             {
-                                case Direction.Up:
-                                    Console.Write("▲");
-                                    break;
-                                case Direction.Down:
-                                    Console.Write("▼");
-                                    break;
-                                case Direction.Left:
-                                    Console.Write("◄");
-                                    break;
-                                case Direction.Right:
-                                    Console.Write("►");
-                                    break;
+                                Console.ForegroundColor = ConsoleColor.Black;
+                                drawShip();
+                                Console.Write("\x2592");
+                                Console.Write("\x2592");
+                                Console.Write("\x2592");
+                                x += 3;
                             }
-                            Console.Write(" ");
-                            x++;
+                            else
+                            {
+                                drawShip();
+                                Console.Write(" ");
+                                x++;
+                            }
                             Console.ResetColor();
+                        }
+                        else if(xyPair.Contains((x, y - 1)) && U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y - 1))).Type == "star") // to prevent index out of bounds errors
+                        {
+                            Console.BackgroundColor = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).Color;
+                            collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1)));
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            if (U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y - 1))).Type == "star")
+                            {
+                                drawShip();
+                                Console.Write("\x2592");
+                                Console.Write("\x2592");
+                                Console.Write("\x2592");
+                                x += 3;
+                                Console.ResetColor();
+                            }
                         }
                         else
                         {
-                            switch (this.U.Character.Direction)
-                            {
-                                case Direction.Up:
-                                    Console.Write("▲");
-                                    break;
-                                case Direction.Down:
-                                    Console.Write("▼");
-                                    break;
-                                case Direction.Left:
-                                    Console.Write("◄");
-                                    break;
-                                case Direction.Right:
-                                    Console.Write("►");
-                                    break;
-                            }
+                            drawShip();
                             Console.ResetColor();
                         }
+                    }
+                    else if (xyPair.Contains((x, y)) && U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Type == "star")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.BackgroundColor = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Color;
+                        Console.Write("\x2592");
+                        if (this.U.Character.Coordinates.X == x + 1 && this.U.Character.Coordinates.Y == y)
+                        {
+                            collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y)));
+                            drawShip();
+                            Console.Write("\x2592");
+                            Console.Write("\x2592");
+                        }
+                        else if(this.U.Character.Coordinates.X == x + 2 && this.U.Character.Coordinates.Y == y)
+                        {
+                            collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y)));
+                            Console.Write("\x2592");
+                            drawShip();
+                            Console.Write("\x2592");
+                        }
+                        else if (this.U.Character.Coordinates.X == x + 3 && this.U.Character.Coordinates.Y == y)
+                        {
+                            collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y)));
+                            Console.Write("\x2592");
+                            Console.Write("\x2592");
+                            drawShip();
+                        }
+                        else
+                        {
+                            Console.Write("\x2592");
+                            Console.Write("\x2592");
+                            Console.Write("\x2592");
+                        }
+                        x+=3;
+                        Console.ResetColor();
+                    }
+                    else if (xyPair.Contains((x, y-1)) && U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).Type == "star")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.BackgroundColor = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).Color;
+                        Console.Write("\x2592");
+                        if (this.U.Character.Coordinates.X == x + 1 && this.U.Character.Coordinates.Y == y)
+                        {
+                            collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1)));
+                            drawShip();
+                            Console.Write("\x2592");
+                            Console.Write("\x2592");
+                        }
+                        else if (this.U.Character.Coordinates.X == x + 2 && this.U.Character.Coordinates.Y == y)
+                        {
+                            collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1)));
+                            Console.Write("\x2592");
+                            drawShip();
+                            Console.Write("\x2592");
+                        }
+                        else if (this.U.Character.Coordinates.X == x + 3 && this.U.Character.Coordinates.Y == y)
+                        {
+                            collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1)));
+                            Console.Write("\x2592");
+                            Console.Write("\x2592");
+                            drawShip();
+                        }
+                        else
+                        {
+                            Console.Write("\x2592");
+                            Console.Write("\x2592");
+                            Console.Write("\x2592");
+                        }
+                        x += 3;
+                        Console.ResetColor();
                     }
                     else if (xyPair.Contains((x, y)))
                     {
@@ -96,22 +169,8 @@ namespace SpaceGame
                         Console.Write(" ");
                         if (this.U.Character.Coordinates.X == x+1 && this.U.Character.Coordinates.Y == y)
                         {
-                            Console.ForegroundColor = this.U.Character.Spaceship.Color;
-                            switch (this.U.Character.Direction)
-                            {
-                                case Direction.Up:
-                                    Console.Write("▲");
-                                    break;
-                                case Direction.Down:
-                                    Console.Write("▼");
-                                    break;
-                                case Direction.Left:
-                                    Console.Write("◄");
-                                    break;
-                                case Direction.Right:
-                                    Console.Write("►");
-                                    break;
-                            }
+                            collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y)));
+                            drawShip();
                         }
                         else
                         {
@@ -189,7 +248,31 @@ namespace SpaceGame
                         Console.Write(" ");
                        
                     }
-                    else if((i != 0 || i != 19) && (a == 0 || a == 119))  // makes box for menu
+                    else if((i == 7 || i == 13) && a >= 5 && a <= 13)
+                    {
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Console.Write(" ");
+                    }
+                    else if(i > 7 && i < 13 && (a == 5 || a == 13))
+                    {
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Console.Write(" ");
+                    }
+                    else if(i >= 9 && i <= 11 && a >= 7 && a <= 11)
+                    {
+                        if (collisionBody != null)
+                        {
+                            Console.BackgroundColor = collisionBody.Color;
+                            Console.Write(" ");
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            Console.ResetColor();
+                            Console.Write(" ");
+                        }
+                    }
+                    else if((i != 0 || i != 16) && (a == 0 || a == 119))  // makes box for menu
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.Write(" ");
@@ -214,12 +297,16 @@ namespace SpaceGame
             }
             Console.ResetColor();
             DisplayInformation();
-            
+            collisionBody = null;
         }
 
         private void DisplayInformation() 
         {
-            
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.SetCursorPosition(2, 28);
+            Console.Write(this.U.Message);
+            Console.ResetColor();
             Console.SetCursorPosition(2, 32); 
             Console.Write(U.Character.Name);
             switch (U.Character.Gender.ToString())
@@ -248,13 +335,60 @@ namespace SpaceGame
             Console.Write($"¤{U.Character.Starbucks} Starbucks");
             Console.SetCursorPosition(105, 32);
             Console.Write($"Fuel {this.U.Character.Spaceship.Fuel}/{this.U.Character.Spaceship.FuelCapacity}");
+            Console.SetCursorPosition(5, 35);
+            Console.Write("Location");
+            Console.SetCursorPosition(4, 36);
+            Console.Write("Information");
+            Console.SetCursorPosition(5, 44);
+            Console.Write($"( {this.U.Character.Coordinates.X},{this.U.Character.Coordinates.Y} )");
+            Console.SetCursorPosition(20, 36);
+            (int, int) cursorTrack;
+            if (collisionBody != null)
+            {
+                Console.Write(collisionBody.Name);
+                Console.SetCursorPosition(17, 38);
+                if (collisionBody.Description.Length > 38)
+                {
+                    Console.Write(collisionBody.Description.Substring(0, 38));
+                    Console.SetCursorPosition(17, 39);
+                    Console.Write(collisionBody.Description.Substring(38));
 
-            (int, int) menuPosition = (85, 35);
+                }
+                else
+                {
+                    Console.Write(collisionBody.Description);
+                }
+                cursorTrack = (17, 41);
+                foreach(ItemCategory iC in collisionBody.FavoredItemCategories)
+                {
+                    Console.SetCursorPosition(cursorTrack.Item1, cursorTrack.Item2);
+                    Console.Write(iC);
+                    cursorTrack.Item2++;
+                }
+                   
+            }
+            else
+            {
+                Console.Write("Space");
+                Console.SetCursorPosition(17, 38);
+                Console.Write("The final frontier");
+            }
+
+            Console.SetCursorPosition(61, 35);
+            Console.Write($"Inventory: {this.U.Character.Inventory.Count}");
+            cursorTrack = (63, 36);
+            foreach(Item item in this.U.Character.Inventory)
+            {
+                Console.SetCursorPosition(cursorTrack.Item1, cursorTrack.Item2);
+                Console.Write(item.Name);
+                cursorTrack.Item2++;
+            }
+            cursorTrack = (85, 35);
             foreach( MenuItem menuItem in Menu.MenuItems)
             {
-                Console.SetCursorPosition(menuPosition.Item1, menuPosition.Item2);
+                Console.SetCursorPosition(cursorTrack.Item1, cursorTrack.Item2);
                 Console.Write($"{menuItem.Key}: {menuItem.Label}");
-                menuPosition.Item2++;
+                cursorTrack.Item2++;
             }
 
         }
@@ -441,5 +575,27 @@ namespace SpaceGame
             Console.ReadKey(false);
             Console.Clear();
         }
-	}
+        private void drawShip()
+        {
+            ConsoleColor previousColor = Console.ForegroundColor;
+            Console.ForegroundColor = this.U.Character.Spaceship.Color;
+            switch (this.U.Character.Direction)
+            {
+                case Direction.Up:
+                    Console.Write("▲");
+                    break;
+                case Direction.Down:
+                    Console.Write("▼");
+                    break;
+                case Direction.Left:
+                    Console.Write("◄");
+                    break;
+                case Direction.Right:
+                    Console.Write("►");
+                    break;
+            }
+            Console.ForegroundColor = previousColor;
+        }
+
+    }
 }

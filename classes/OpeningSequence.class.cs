@@ -832,7 +832,7 @@ namespace SpaceGame
             for (int i = 1; i < stf.Count; i++)
             {
                 Console.WriteLine(stf[i]);
-                Thread.Sleep(1);
+                Thread.Sleep(10);
                 Console.Clear();
             }
         }

@@ -88,6 +88,7 @@ namespace SpaceGame
 
 		public void Execute()
 		{
+			this.U.Message = "";
 			switch (this.Name)
 			{
 				case "Win":
@@ -175,7 +176,7 @@ namespace SpaceGame
 			this.U.Character.Direction = Direction.Up;
 			this.U.Character.Coordinates.X = this.CelestialBody.Coordinates.X;
 			this.U.Character.Coordinates.Y = this.CelestialBody.Coordinates.Y - 1;
-			this.U.Message = $"Now leaving {this.CelestialBody}.";
+			this.U.Message = $"Now leaving {this.CelestialBody.Name}.";
 		}
 
 		private void Buy()
