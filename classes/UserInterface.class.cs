@@ -257,7 +257,7 @@ namespace SpaceGame
                             collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y)));
                             if (U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Type == "star")
                             {
-                                Console.ForegroundColor = ConsoleColor.Black;
+                                Console.ForegroundColor = ConsoleColor.DarkGray;
                                 drawShip();
                                 Console.Write("\x2592");
                                 Console.Write("\x2592");
@@ -276,7 +276,7 @@ namespace SpaceGame
                         {
                             Console.BackgroundColor = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).Color;
                             collisionBody = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1)));
-                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
                             if (U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y - 1))).Type == "star")
                             {
                                 drawShip();
@@ -295,7 +295,7 @@ namespace SpaceGame
                     }
                     else if (xyPair.Contains((x, y)) && U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Type == "star")
                     {
-                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.BackgroundColor = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Color;
                         Console.Write("\x2592");
                         if (this.U.Character.Coordinates.X == x + 1 && this.U.Character.Coordinates.Y == y)
@@ -330,7 +330,7 @@ namespace SpaceGame
                     }
                     else if (xyPair.Contains((x, y-1)) && U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).Type == "star")
                     {
-                        Console.ForegroundColor = ConsoleColor.Black;
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
                         Console.BackgroundColor = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).Color;
                         Console.Write("\x2592");
                         if (this.U.Character.Coordinates.X == x + 1 && this.U.Character.Coordinates.Y == y)
@@ -753,11 +753,11 @@ namespace SpaceGame
 			Console.WriteLine("\n\n\n\n");
 			while (Console.KeyAvailable)
 			{
-				Console.ReadKey(true);
+				Console.ReadKey(false);
 			}
 
 			Console.Write("  Press any key to exit...  ");
-			Console.ReadKey(true);
+			Console.ReadKey(false);
 			Console.Clear();
 			Environment.Exit(0);
 		}
@@ -767,7 +767,7 @@ namespace SpaceGame
 			// Clear the input buffer.
 			while (Console.KeyAvailable)
 			{
-				Console.ReadKey(true);
+				Console.ReadKey(false);
 			}
 
 			// Clear the screen.
@@ -813,9 +813,9 @@ namespace SpaceGame
             Console.Write("  Press any key to continue...  ");
             while (Console.KeyAvailable)
             {
-                Console.ReadKey(true);
+                Console.ReadKey(false);
             }
-            Console.ReadKey(true);
+            Console.ReadKey(false);
             Console.Clear();
         }
         private void drawShip()

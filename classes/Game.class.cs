@@ -760,11 +760,16 @@ namespace SpaceGame
 				new Coordinates(64, 18),
 				'U');
 
+			CelestialBody blackHole = new Star("Black Hole", $"{this.U.Character.Name} + Black Hole = Spaghetti", ConsoleColor.Black,
+				new Coordinates(70, 8),
+				'B');
+
 			// Add the stars to the universe.
 			this.U.Add(sol);
 			this.U.Add(proximaCentauri);
 			this.U.Add(solaris);
 			this.U.Add(uyScuti);
+			this.U.Add(blackHole);
 		}
 
 		public void RandomEvent()
