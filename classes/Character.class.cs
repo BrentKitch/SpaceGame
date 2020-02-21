@@ -61,6 +61,10 @@ namespace SpaceGame
 		{
 			get; set;
 		}
+		public bool starMarker
+		{
+			get;set;
+		}
 		public Character(string name, Gender gender, Coordinates coordinates)
 		{
 			this.Name = name;
@@ -107,11 +111,9 @@ namespace SpaceGame
 					))
 				{
 					this.collisionBody = celestialBody;
-					this.Collision = true;
 					return true;
 				}
 			}
-			this.Collision = false;
 			return false;
 		}
 		public CelestialBody InCollision(CelestialBody celestialBody)

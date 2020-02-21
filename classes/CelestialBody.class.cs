@@ -38,8 +38,12 @@ namespace SpaceGame
 		{
 			get; set;
 		}
+		public char uniqueIdentifier
+		{
+			get; set;
+		}
 
-		public CelestialBody(string name, string description, ConsoleColor color, Coordinates coordinates, List<ItemCategory> favoredItemCategories)
+		public CelestialBody(string name, string description, ConsoleColor color, Coordinates coordinates, List<ItemCategory> favoredItemCategories, char uniqueIdentifier)
 		{
 			this.Type = "celestial body";
 			this.Name = name;
@@ -48,9 +52,10 @@ namespace SpaceGame
 			this.Coordinates = coordinates;
 			this.Items = new List<Item>();
 			this.FavoredItemCategories = favoredItemCategories;
+			this.uniqueIdentifier = uniqueIdentifier;
 		}
 		
-		public CelestialBody(string name, string description, ConsoleColor color, Coordinates coordinates)
+		public CelestialBody(string name, string description, ConsoleColor color, Coordinates coordinates, char uniqueIdentifier)
 		{
 			this.Type = "celestial body";
 			this.Name = name;
@@ -59,6 +64,7 @@ namespace SpaceGame
 			this.Coordinates = coordinates;
 			this.Items = new List<Item>();
 			this.FavoredItemCategories = new List<ItemCategory>();
+			this.uniqueIdentifier = uniqueIdentifier;
 		}
 
 		virtual public void AddItem(Item item)

@@ -10,8 +10,8 @@ namespace SpaceGame
 			get; set;
 		}
 
-		public Star(string name, string description, ConsoleColor color, Coordinates coordinates)
-			: base(name, description, color, coordinates)
+		public Star(string name, string description, ConsoleColor color, Coordinates coordinates, char uniqueIdentifier)
+			: base(name, description, color, coordinates, uniqueIdentifier)
 		{
 			this.Type = "star";
 		}

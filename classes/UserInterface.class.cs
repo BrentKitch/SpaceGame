@@ -26,19 +26,219 @@ namespace SpaceGame
         {
             get; set;
         }
-        List<(int, int)> xyPair = new List<(int, int)> { };
-        public void RenderGame(Universe u, Menu menu)
+        private (int,int) prevPosition
         {
+            get;set;
+        }
+        private Universe preUniverse
+        {
+            get; set;
+        }
+        private Menu preMenu
+        {
+            get; set;
+        }
+        private int messageLength
+        {
+            get; set;
+        }
+        private int starbuckLength
+        {
+            get; set;
+        }
+        private int healthLength
+        {
+            get; set;
+        }
+        private int fuelLength
+        {
+            get; set;
+        }
+        private int coordinateLength
+        {
+            get;set;
+        }
+        List<(int, int)> xyPair = new List<(int, int)> { };
+        char[,] map = new char[120,30];
+        List<char> uniqueIdentifierList = new List<char> { };
+        public void GenerateMap(Universe u, Menu menu)
+        {
+            xyPair.Clear();
             this.U = u;
             this.Menu = menu;
+            prevPosition = (this.U.Character.Coordinates.X, this.U.Character.Coordinates.Y);
+            messageLength = 0;
             foreach (CelestialBody cb in this.U.CelestialBodies)
             {
-                    xyPair.Add((cb.Coordinates.X,cb.Coordinates.Y));
+                xyPair.Add((cb.Coordinates.X, cb.Coordinates.Y));
             }
-            Console.Clear();
-            
-            RenderMap();
+            int starCounter = 0; // counts through the following for loop to give a star distribution
+            for (int y = 0; y < 30; y++)  //writes height(y)
+            {
+
+                for (int x = 0; x < 120; x++, starCounter++) // writes width(x)
+                {
+                    if (xyPair.Contains((x, y)))
+                    {
+                        if (U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).Type == "star")
+                        {
+                            map[x, y] = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).uniqueIdentifier;
+                            map[x + 1, y] = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).uniqueIdentifier;
+                            map[x + 2, y] = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).uniqueIdentifier;
+                            map[x + 3, y] = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).uniqueIdentifier;
+                            x += 3;
+                        }
+                        else 
+                        {
+                            map[x, y] = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).uniqueIdentifier;
+                            map[x + 1, y] = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y))).uniqueIdentifier;
+                            x++;
+                        }
+
+                    }
+                    else if (xyPair.Contains((x, y - 1)) && U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).Type == "star")
+                    {
+                        map[x, y] = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).uniqueIdentifier;
+                        map[x + 1, y] = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).uniqueIdentifier;
+                        map[x + 2, y] = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).uniqueIdentifier;
+                        map[x + 3, y] = U.CelestialBodies.ElementAt(xyPair.IndexOf((x, y-1))).uniqueIdentifier;
+                        x += 3;
+                    }
+                    else if ((y != 0 || y != 29) && (x == 0 || x == 119))        // makes box for map
+                    {
+                        map[x, y] = '+';
+                    }
+                    else if (y == 0 || y == 29)
+                    {
+                        map[x, y] = '+';
+                    }
+                    else
+                    {
+                        if (starCounter % 14 == 0 && starCounter % 5 == 0 || starCounter % 100 == 0) //distribution of stars 
+                        {
+                            if (starCounter % 14 == 0)                   //changes color of stars on based on mod properties to get a "random" look to the star display
+                            {
+                                //Console.ForegroundColor = ConsoleColor.DarkGray;
+                                //Console.Write(".");
+                                map[x, y] = '9';
+                            }
+                            else if (starCounter % 200 == 0)
+                            {
+                                //Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                //Console.Write(".");
+                                map[x, y] = '8';
+                            }
+                            else if (starCounter % 5 == 0)
+                            {
+                                //Console.ForegroundColor = ConsoleColor.Yellow;
+                                //Console.Write(".");
+                                map[x, y] = '7';
+                            }
+                            else
+                            {
+                                //Console.ResetColor();
+                                //Console.Write(".");
+                                map[x, y] = '6';
+                            }
+
+                        }
+                        else if (starCounter % 76 == 0)  // writes an '*' instead of a '.' as a star
+                        {
+                            //Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            //Console.Write("*");
+                            map[x, y] = '*';
+                        }
+                        else
+                        {
+                            map[x, y] = '0';
+                        }
+                    }
+                }
+            }
+            //displayMap();
+        }
+        public void displayMap()
+        {
+            foreach (CelestialBody cb in this.U.CelestialBodies)
+            {
+                uniqueIdentifierList.Add(cb.uniqueIdentifier);
+            }
+            for (int y = 0; y < 30; y++)
+            {
+                for (int x = 0; x < 120; x++)
+                {
+                    if (uniqueIdentifierList.Contains(map[x, y]))
+                    {
+                        Console.BackgroundColor = this.U.CelestialBodies.ElementAt(uniqueIdentifierList.IndexOf(map[x, y])).Color;
+                        if (this.U.CelestialBodies.ElementAt(uniqueIdentifierList.IndexOf(map[x, y])).Type == "star")
+                        {
+                            Console.ForegroundColor = ConsoleColor.Black;
+                            Console.Write("\x2592");
+                        }
+                        else
+                        {
+                            Console.Write(" ");
+                        }
+                        Console.ResetColor();
+                    }
+                    else if (map[x, y] == '9')
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkGray;
+                        Console.Write(".");
+                    }
+                    else if (map[x, y] == '8')
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.Write(".");
+                    }
+                    else if (map[x, y] == '7')
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write(".");
+                    }
+                    else if (map[x, y] == '6')
+                    {
+                        Console.ResetColor();
+                        Console.Write(".");
+                    }
+                    else if (map[x, y] == '*')
+                    {
+                        Console.Write("*");
+                    }
+                    else if (map[x,y] == '+')        // makes box for map
+                    {
+                        Console.BackgroundColor = ConsoleColor.DarkGray;
+                        Console.Write(" ");
+                        Console.ResetColor();
+                    }
+                    else
+                    {
+                        Console.Write(" ");
+                    }
+                }
+                Console.Write("\n");
+            }
             RenderMenu();
+
+        }
+
+        public void RenderGame(Universe u, Menu menu)
+        {
+           
+            this.U = u;
+            this.Menu = menu;
+            //foreach (CelestialBody cb in this.U.CelestialBodies)
+            //{
+            //        xyPair.Add((cb.Coordinates.X,cb.Coordinates.Y));
+            //}
+            //Console.Clear();
+            //GenerateMap();
+            //RenderMap();
+            //displayMap();
+            //RenderMenu();
+            drawShip();
+            DisplayInformation();
+            
         }
         void RenderMap()  
         {   
@@ -189,6 +389,7 @@ namespace SpaceGame
                     {
                         Console.BackgroundColor = ConsoleColor.DarkGray;
                         Console.Write(" ");
+                        Console.ResetColor();
                     }
                     else
                     {
@@ -237,7 +438,7 @@ namespace SpaceGame
         }
         void RenderMenu()
         {
-            
+            Console.SetCursorPosition(0, 30);
             for(int i = 0; i < 17; i++)
             {
                 for(int a = 0; a < 120; a++)
@@ -295,19 +496,17 @@ namespace SpaceGame
                     
                 }
             }
-            Console.ResetColor();
-            DisplayInformation();
-            collisionBody = null;
         }
 
         private void DisplayInformation() 
         {
+            Eraser(messageLength, 2, 28);
             Console.BackgroundColor = ConsoleColor.White;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.SetCursorPosition(2, 28);
             Console.Write(this.U.Message);
+            messageLength = this.U.Message.Length;
             Console.ResetColor();
-            Console.SetCursorPosition(2, 32); 
+            Console.SetCursorPosition(2, 32);
             Console.Write(U.Character.Name);
             switch (U.Character.Gender.ToString())
             {
@@ -331,36 +530,57 @@ namespace SpaceGame
             }
             Console.SetCursorPosition(25, 32);
             Console.Write($"Age: {this.U.Character.Age / 12}");
-            Console.SetCursorPosition(50, 32);
+            //Console.SetCursorPosition(50, 32);
+            Eraser(starbuckLength, 50, 32);
             Console.Write($"¤{U.Character.Starbucks} Starbucks");
-            Console.SetCursorPosition(105, 32);
+            starbuckLength = ($"¤{U.Character.Starbucks} Starbucks").Length;
+            //Console.SetCursorPosition(81, 32);
+            Eraser(healthLength, 81, 32);
             Console.Write($"Health {this.U.Character.Health}/100");
+            healthLength = ($"Health {this.U.Character.Health}/100").Length;
+            //Console.SetCursorPosition(105, 32);
+            Eraser(fuelLength, 105, 32);
             Console.Write($"Fuel {this.U.Character.Spaceship.Fuel}/{this.U.Character.Spaceship.FuelCapacity}");
+            fuelLength = ($"Fuel {this.U.Character.Spaceship.Fuel}/{this.U.Character.Spaceship.FuelCapacity}").Length;
             Console.SetCursorPosition(5, 35);
             Console.Write("Location");
             Console.SetCursorPosition(4, 36);
             Console.Write("Information");
-            Console.SetCursorPosition(5, 44);
+            //Console.SetCursorPosition(5, 44);
+            Eraser(coordinateLength, 5,44);
             Console.Write($"( {this.U.Character.Coordinates.X},{this.U.Character.Coordinates.Y} )");
+            coordinateLength = ($"( {this.U.Character.Coordinates.X},{this.U.Character.Coordinates.Y} )").Length;
             Console.SetCursorPosition(20, 36);
             (int, int) cursorTrack;
-            if (collisionBody != null)
+            if (this.U.Character.Collision || this.U.Character.starMarker)
             {
-                Console.Write(collisionBody.Name);
-                Console.SetCursorPosition(17, 38);
-                if (collisionBody.Description.Length > 38)
+                
+                
+                for (int i =0; i < 3; i++)
                 {
-                    Console.Write(collisionBody.Description.Substring(0, 38));
+                    Console.SetCursorPosition(7, 39+i);
+                    for (int a = 0; a <5; a++)
+                    {
+                        Console.BackgroundColor = this.U.Character.collisionBody.Color;
+                        Console.Write(" ");
+                    }
+                }
+                Console.ResetColor();
+                Console.Write(this.U.Character.collisionBody.Name);
+                Console.SetCursorPosition(17, 38);
+                if (this.U.Character.collisionBody.Description.Length > 38)
+                {
+                    Console.Write(this.U.Character.collisionBody.Description.Substring(0, 38));
                     Console.SetCursorPosition(17, 39);
-                    Console.Write(collisionBody.Description.Substring(38));
+                    Console.Write(this.U.Character.collisionBody.Description.Substring(38));
 
                 }
                 else
                 {
-                    Console.Write(collisionBody.Description);
+                    Console.Write(this.U.Character.collisionBody.Description);
                 }
                 cursorTrack = (17, 41);
-                foreach(ItemCategory iC in collisionBody.FavoredItemCategories)
+                foreach(ItemCategory iC in this.U.Character.collisionBody.FavoredItemCategories)
                 {
                     Console.SetCursorPosition(cursorTrack.Item1, cursorTrack.Item2);
                     Console.Write(iC);
@@ -375,7 +595,8 @@ namespace SpaceGame
                 Console.Write("The final frontier");
             }
 
-            Console.SetCursorPosition(61, 35);
+            //Console.SetCursorPosition(61, 35);
+            Eraser($"Inventory: {this.U.Character.Inventory.Count}".Length, 61, 35);
             Console.Write($"Inventory: {this.U.Character.Inventory.Count}");
             cursorTrack = (63, 36);
             foreach(Item item in this.U.Character.Inventory)
@@ -598,7 +819,17 @@ namespace SpaceGame
         }
         private void drawShip()
         {
-            ConsoleColor previousColor = Console.ForegroundColor;
+            Console.SetCursorPosition(prevPosition.Item1, prevPosition.Item2);
+            Draw(prevPosition.Item1, prevPosition.Item2);
+            Console.SetCursorPosition(this.U.Character.Coordinates.X, this.U.Character.Coordinates.Y);
+            if (this.U.Character.Collision)
+            {
+                Console.BackgroundColor = this.U.Character.collisionBody.Color;
+            }
+            else
+            {
+                Console.ResetColor();
+            }
             Console.ForegroundColor = this.U.Character.Spaceship.Color;
             switch (this.U.Character.Direction)
             {
@@ -615,7 +846,69 @@ namespace SpaceGame
                     Console.Write("►");
                     break;
             }
-            Console.ForegroundColor = previousColor;
+            Console.ResetColor();
+            prevPosition = (this.U.Character.Coordinates.X, this.U.Character.Coordinates.Y);
+        }
+        void Draw(int x, int y)
+        {
+            if (uniqueIdentifierList.Contains(map[x, y]))
+            {
+                Console.BackgroundColor = this.U.CelestialBodies.ElementAt(uniqueIdentifierList.IndexOf(map[x, y])).Color;
+                if (this.U.CelestialBodies.ElementAt(uniqueIdentifierList.IndexOf(map[x, y])).Type == "star")
+                {
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write("\x2592");
+                }
+                else
+                {
+                    Console.Write(" ");
+                }
+                Console.ResetColor();
+            }
+            else if (map[x, y] == '9')
+            {
+                Console.ForegroundColor = ConsoleColor.DarkGray;
+                Console.Write(".");
+            }
+            else if (map[x, y] == '8')
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write(".");
+            }
+            else if (map[x, y] == '7')
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(".");
+            }
+            else if (map[x, y] == '6')
+            {
+                Console.ResetColor();
+                Console.Write(".");
+            }
+            else if (map[x, y] == '*')
+            {
+                Console.Write("*");
+            }
+            else if (map[x, y] == '+')        // makes box for map
+            {
+                Console.BackgroundColor = ConsoleColor.DarkGray;
+                Console.Write(" ");
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.Write(" ");
+            }
+        }
+        void Eraser(int c, int x, int y )
+        {
+            Console.ResetColor();
+            Console.SetCursorPosition(x, y);
+            for(int i = 0; i < c; i++)
+            {
+                Console.Write(" ");
+            }
+            Console.SetCursorPosition(x, y);
         }
 
     }
