@@ -53,7 +53,18 @@ namespace SpaceGame
 		{
 			get; set;
 		}
-
+		public bool Collision
+		{
+			get; set;
+		}
+		public CelestialBody collisionBody
+		{
+			get; set;
+		}
+		public bool starMarker
+		{
+			get;set;
+		}
 		public Character(string name, Gender gender, Coordinates coordinates)
 		{
 			this.Name = name;
@@ -74,10 +85,12 @@ namespace SpaceGame
 				if ((this.Coordinates.X == celestialBody.Coordinates.X || this.Coordinates.X == celestialBody.Coordinates.X + 1)
 					&& this.Coordinates.Y == celestialBody.Coordinates.Y)
 				{
+					this.collisionBody = celestialBody;
+					this.Collision = true;
 					return true;
 				}
 			}
-
+			this.Collision = false;
 			return false;
 		}
 
@@ -97,11 +110,42 @@ namespace SpaceGame
 					|| this.Coordinates.Y == celestialBody.Coordinates.Y + 1
 					))
 				{
+					this.collisionBody = celestialBody;
 					return true;
 				}
 			}
-
 			return false;
+		}
+		public CelestialBody InCollision(CelestialBody celestialBody)
+		{
+			if (celestialBody.Type == "star")
+			{
+				if ((
+					this.Coordinates.X == celestialBody.Coordinates.X
+					|| this.Coordinates.X == celestialBody.Coordinates.X + 1
+					|| this.Coordinates.X == celestialBody.Coordinates.X + 2
+					|| this.Coordinates.X == celestialBody.Coordinates.X + 3
+					)
+					&&
+					(
+					this.Coordinates.Y == celestialBody.Coordinates.Y
+					|| this.Coordinates.Y == celestialBody.Coordinates.Y + 1
+					))
+				{
+					this.collisionBody = celestialBody;
+					return celestialBody;
+				}
+			}
+			if (celestialBody.Type == "planet")
+			{
+				if ((this.Coordinates.X == celestialBody.Coordinates.X || this.Coordinates.X == celestialBody.Coordinates.X + 1)
+					&& this.Coordinates.Y == celestialBody.Coordinates.Y)
+				{
+					this.collisionBody = celestialBody;
+					return celestialBody;
+				}
+			}
+			return null;
 		}
 	}
 }

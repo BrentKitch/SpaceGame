@@ -88,6 +88,7 @@ namespace SpaceGame
 
 		public void Execute()
 		{
+			this.U.Message = "";
 			switch (this.Name)
 			{
 				case "Win":
@@ -101,13 +102,13 @@ namespace SpaceGame
 				case "Buy":
 					this.Buy();
 					this.U.Game.BuildMenu();
-					this.U.Game.Menu.MenuItems[1].Execute(); // Select Buy again.
+					//this.U.Game.Menu.MenuItems[1].Execute(); // Select Buy again.
 					this.U.Game.Save();
 					break;
 				case "Sell":
 					this.Sell();
 					this.U.Game.BuildMenu();
-					this.U.Game.Menu.MenuItems[2].Execute(); // Select Sell again.
+					//this.U.Game.Menu.MenuItems[2].Execute(); // Select Sell again.
 					this.U.Game.Save();
 					break;
 				case "PaintSpaceship":
@@ -184,7 +185,7 @@ namespace SpaceGame
 			this.U.Character.Direction = Direction.Up;
 			this.U.Character.Coordinates.X = this.CelestialBody.Coordinates.X;
 			this.U.Character.Coordinates.Y = this.CelestialBody.Coordinates.Y - 1;
-			this.U.Message = $"Now leaving {this.CelestialBody}.";
+			this.U.Message = $"Now leaving {this.CelestialBody.Name}.";
 		}
 
 		private void Buy()
@@ -273,7 +274,7 @@ namespace SpaceGame
 			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.Y -= 1;
 			this.U.Character.Direction = Direction.Up;
-
+			bool collisionMarker = false;
 			// If the character is inside a star, hurt them.
 			foreach (CelestialBody celestialBody in this.U.CelestialBodies)
 			{
@@ -289,9 +290,11 @@ namespace SpaceGame
 					{
 						this.U.Character.Health -= 21;
 						this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+						collisionMarker = true;
 					}
 				}
 			}
+			this.U.Character.starMarker = collisionMarker;
 		}
 
 		private void MoveRight()
@@ -308,7 +311,7 @@ namespace SpaceGame
 			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.X += 1;
 			this.U.Character.Direction = Direction.Right;
-
+			bool collisionMarker = false;
 			// If the character is inside a star, hurt them.
 			foreach (CelestialBody celestialBody in this.U.CelestialBodies)
 			{
@@ -324,9 +327,11 @@ namespace SpaceGame
 					{
 						this.U.Character.Health -= 21;
 						this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+						collisionMarker = true;
 					}
 				}
 			}
+			this.U.Character.starMarker = collisionMarker;
 		}
 
 		private void MoveLeft()
@@ -343,7 +348,7 @@ namespace SpaceGame
 			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.X -= 1;
 			this.U.Character.Direction = Direction.Left;
-
+			bool collisionMarker = false;
 			// If the character is inside a star, hurt them.
 			foreach (CelestialBody celestialBody in this.U.CelestialBodies)
 			{
@@ -359,9 +364,11 @@ namespace SpaceGame
 					{
 						this.U.Character.Health -= 21;
 						this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+						collisionMarker = true;
 					}
 				}
 			}
+			this.U.Character.starMarker = collisionMarker;
 		}
 
 		private void MoveDown()
@@ -378,7 +385,7 @@ namespace SpaceGame
 			this.U.Character.Age += this.U.Character.Spaceship.Speed;
 			this.U.Character.Coordinates.Y += 1;
 			this.U.Character.Direction = Direction.Down;
-
+			bool collisionMarker = false;
 			// If the character is inside a star, hurt them.
 			foreach (CelestialBody celestialBody in this.U.CelestialBodies)
 			{
@@ -394,9 +401,11 @@ namespace SpaceGame
 					{
 						this.U.Character.Health -= 21;
 						this.U.Message = $"You're inside a star ({celestialBody.Name}) and are taking damage!!";
+						collisionMarker = true;
 					}
 				}
 			}
+			this.U.Character.starMarker = collisionMarker;
 		}
 	}
 }

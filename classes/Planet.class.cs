@@ -10,8 +10,8 @@ namespace SpaceGame
 			get; set;
 		}
 
-		public Planet(string name, string description, ConsoleColor color, Coordinates coordinates, List<ItemCategory> favoredItemCategories)
-			: base(name, description, color, coordinates, favoredItemCategories)
+		public Planet(string name, string description, ConsoleColor color, Coordinates coordinates, List<ItemCategory> favoredItemCategories, char uniqueIdentifier)
+			: base(name, description, color, coordinates, favoredItemCategories, uniqueIdentifier)
 		{
 			this.Type = "planet";
 		}
