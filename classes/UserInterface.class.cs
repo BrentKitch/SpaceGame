@@ -555,7 +555,7 @@ namespace SpaceGame
             if (this.U.Character.Collision || this.U.Character.starMarker)
             {
                 
-                
+                Console.Write(this.U.Character.collisionBody.Name);
                 for (int i =0; i < 3; i++)
                 {
                     Console.SetCursorPosition(7, 39+i);
@@ -566,11 +566,12 @@ namespace SpaceGame
                     }
                 }
                 Console.ResetColor();
-                Console.Write(this.U.Character.collisionBody.Name);
+                
                 Console.SetCursorPosition(17, 38);
                 if (this.U.Character.collisionBody.Description.Length > 38)
                 {
                     Console.Write(this.U.Character.collisionBody.Description.Substring(0, 38));
+                    Console.Write("-");
                     Console.SetCursorPosition(17, 39);
                     Console.Write(this.U.Character.collisionBody.Description.Substring(38));
 

@@ -642,7 +642,7 @@ namespace SpaceGame
 			CelestialBody tatooine = new Planet("Tatooine", "Home of the Ewoks and unjust war.", ConsoleColor.Green,
 				new Coordinates(100, 8),
 				new List<ItemCategory> { ItemCategory.Creatures, ItemCategory.Robots, ItemCategory.Gems },
-				'J');
+				'T');
 			tatooine.AddItem(item["Windows 3000"]);
 			tatooine.AddItem(item["OS XY FatPanda"]);
 			tatooine.AddItem(item["Linux"]);
