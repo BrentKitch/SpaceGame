@@ -194,7 +194,7 @@ namespace SpaceGame
 				//runs opening animation
 				OpeningSequence.Animation();
 
-				Character character = new Character(name, gender, new Coordinates(20, 22));
+				Character character = new Character(name, gender, new Coordinates(17, 22));
 
 				character.Inventory.Add(new Item("Space Gunk", "Looks like the poop emoji.", 5,
 					new List<ItemCategory> { ItemCategory.Junk }));
@@ -585,7 +585,7 @@ namespace SpaceGame
 			//////////////////////////////////////////////////////////////////////////
 
 			CelestialBody earth = new Planet("Sol-3", "Ground zero. Home base. Mi casita.", ConsoleColor.Blue,
-				new Coordinates(8, 26),
+				new Coordinates(18, 28),
 				new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Junk, ItemCategory.Weapons });
 			earth.AddItem(item["Ectoburger"]);
 			earth.AddItem(item["Xenoberry"]);
@@ -597,7 +597,7 @@ namespace SpaceGame
 			earth.AddItem(item["Recursive Jumbo"]);
 
 			CelestialBody venus = new Planet("Venus", "Really hot, but oddly beautiful.", ConsoleColor.White,
-				new Coordinates(8, 20),
+				new Coordinates(10, 22),
 				new List<ItemCategory> { ItemCategory.Crafting, ItemCategory.Medical });
 			venus.AddItem(item["Space Beer"]);
 			venus.AddItem(item["Hyperseltzer"]);
@@ -609,7 +609,7 @@ namespace SpaceGame
 			venus.AddItem(item["Superdrive"]);
 
 			CelestialBody mars = new Planet("Mars", "Fully terraformed, and still red!", ConsoleColor.Red,
-				new Coordinates(34, 26),
+				new Coordinates(12, 13),
 				new List<ItemCategory> { ItemCategory.Food, ItemCategory.Dessert });
 			mars.AddItem(item["Hydrogen"]);
 			mars.AddItem(item["Xenon"]);
@@ -620,7 +620,7 @@ namespace SpaceGame
 			mars.AddItem(item["Xenoberry Extract"]);
 
 			CelestialBody vulcan = new Planet("Vulcan", "Home to the Vulcans, surprisingly.", ConsoleColor.DarkRed,
-				new Coordinates(74, 16),
+				new Coordinates(50, 15),
 				new List<ItemCategory> { ItemCategory.Computers, ItemCategory.Software });
 			vulcan.AddItem(item["Android (female)"]);
 			vulcan.AddItem(item["Android (male)"]);
@@ -632,7 +632,7 @@ namespace SpaceGame
 			vulcan.AddItem(item["Disintegration Sauce"]);
 
 			CelestialBody tatooine = new Planet("Tatooine", "Home of the Ewoks and unjust war.", ConsoleColor.Green,
-				new Coordinates(100, 8),
+				new Coordinates(80, 18),
 				new List<ItemCategory> { ItemCategory.Creatures, ItemCategory.Robots, ItemCategory.Gems });
 			tatooine.AddItem(item["Windows 3000"]);
 			tatooine.AddItem(item["OS XY FatPanda"]);
@@ -644,7 +644,7 @@ namespace SpaceGame
 			tatooine.AddItem(item["Platinum Chunk"]);
 
 			CelestialBody proximaCentauriB = new Planet("Proxima Centauri b", "A close friend of our second nearest star.", ConsoleColor.DarkMagenta,
-				new Coordinates(115, 24),
+				new Coordinates(10, 2),
 				new List<ItemCategory> { ItemCategory.Crafting, ItemCategory.Elements });
 			proximaCentauriB.AddItem(item["Holy Water"]);
 			proximaCentauriB.AddItem(item["Consciousness Incarnate"]);
@@ -654,7 +654,7 @@ namespace SpaceGame
 			proximaCentauriB.AddItem(item["Broccoli"]);
 
 			CelestialBody camazotz = new Planet("Camazotz", "Home of extreme militant conformity and colorless food.", ConsoleColor.Gray,
-				new Coordinates(5, 8),
+				new Coordinates(90, 6),
 				new List<ItemCategory> { ItemCategory.Robots, ItemCategory.Weapons });
 			camazotz.AddItem(item["A.I. Chip"]);
 			camazotz.AddItem(item["V.R. Implant"]);
@@ -667,7 +667,7 @@ namespace SpaceGame
 			camazotz.AddItem(item["Xenon"]);
 
 			CelestialBody naboo = new Planet("Naboo", "Home of Darth Jar Jar.", ConsoleColor.DarkCyan,
-				new Coordinates(11, 11),
+				new Coordinates(34, 5),
 				new List<ItemCategory> { ItemCategory.Elements, ItemCategory.Medical, ItemCategory.Weapons });
 			naboo.AddItem(item["Space Gunk"]);
 			naboo.AddItem(item["Earwax"]);
@@ -680,7 +680,7 @@ namespace SpaceGame
 			naboo.AddItem(item["Artificial God"]);
 
 			CelestialBody jakku = new Planet("Jakku", "After a scientific disaster turned Arizona into a planet... we got Jakku.", ConsoleColor.DarkYellow,
-				new Coordinates(13, 17),
+				new Coordinates(41, 7),
 				new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Elements, ItemCategory.Robots, ItemCategory.Weapons });
 			jakku.AddItem(item["Space Claritin"]);
 			jakku.AddItem(item["Throxnard Pills"]);
@@ -692,7 +692,7 @@ namespace SpaceGame
 			jakku.AddItem(item["Galaxy Hammer"]);
 
 			CelestialBody marioWorld = new Planet("Mario World", "Lots of pipes and strange creatures can be found here.", ConsoleColor.DarkGreen,
-				new Coordinates(55, 15),
+				new Coordinates(100, 23),
 				new List<ItemCategory> { ItemCategory.Dessert, ItemCategory.Food, ItemCategory.Creatures });
 			marioWorld.AddItem(item["Tribble"]);
 			marioWorld.AddItem(item["Pet Droid"]);
@@ -700,7 +700,7 @@ namespace SpaceGame
 			marioWorld.AddItem(item["Fish"]);
 
 			CelestialBody asgard = new Planet("Asgard", "Full of scientific wonder and magic (i.e. scientific wonder).", ConsoleColor.Yellow,
-				new Coordinates(75, 5),
+				new Coordinates(95, 15),
 				new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Gems, ItemCategory.Sacred, ItemCategory.Weapons });
 			mars.AddItem(item["Galaxy Nails"]);
 			mars.AddItem(item["Galaxy Hammer"]);
@@ -731,13 +731,13 @@ namespace SpaceGame
 			//////////////////////////////////////////////////////////////////////////
 
 			CelestialBody sol = new Star("Sol", "Your birth star. There's no place like home.", ConsoleColor.Yellow,
-				new Coordinates(12, 24));
+				new Coordinates(26, 14));
 			CelestialBody proximaCentauri = new Star("Proxima Centauri", "The closest sun to the sun. Unremarkable in every other way.", ConsoleColor.Red,
-				new Coordinates(16, 21));
+				new Coordinates(4, 8));
 			CelestialBody solaris = new Star("Solaris", "Something feels... spooky about this place.", ConsoleColor.Magenta,
-				new Coordinates(5, 80));
+				new Coordinates(19, 72));
 			CelestialBody uyScuti = new Star("UY Scuti", "The biggest star that there be.", ConsoleColor.Blue,
-				new Coordinates(17, 120));
+				new Coordinates(64, 18));
 
 			// Add the stars to the universe.
 			this.U.Add(sol);
