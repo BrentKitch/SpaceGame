@@ -44,12 +44,12 @@ namespace SpaceGame
             string options = "      1.  Load Game				2.  New Game				3. Quit";
             Console.WriteLine(menu);
             Console.WriteLine(options);
-            ConsoleKeyInfo option = Console.ReadKey(false);
+            ConsoleKeyInfo option = Console.ReadKey(true);
             while (option.Key != ConsoleKey.D1 && option.Key != ConsoleKey.D2 && option.Key != ConsoleKey.D3)
             {
                 Console.Clear();
                 Console.WriteLine(menu);
-                option = Console.ReadKey(false);
+                option = Console.ReadKey(true);
             }
             return option;
         }

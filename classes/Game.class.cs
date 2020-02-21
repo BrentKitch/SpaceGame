@@ -97,7 +97,7 @@ namespace SpaceGame
 				this.UserInterface.RenderGame(this.U, this.Menu);
 				while (Console.KeyAvailable)
 				{
-					Console.ReadKey(false);
+					Console.ReadKey(true);
 				}
 				bool properKey = false;
 				do
@@ -168,17 +168,19 @@ namespace SpaceGame
 				string name;
 				do
 				{
-					Console.WriteLine("    Whats your name?");
+					Console.WriteLine("    What's your name?");
 					Console.Write("    ");
 					name = Console.ReadLine().ToUpper();
+					Console.WriteLine("\n\n");
 				} while (name == "");
 
 				Gender gender = Gender.Alien;
 				ConsoleKeyInfo genderChoice;
+				Console.WriteLine("    Are you a Boy (1), Girl (2), or Alien (3)?");
+				Console.Write("    ");
 				do
 				{
-					Console.WriteLine("    Are you a boy (1), girl (2), or an alien(3)?");
-					genderChoice = Console.ReadKey(false);
+					genderChoice = Console.ReadKey(true);
 
 					if (genderChoice.Key == ConsoleKey.D1)
 					{
@@ -589,7 +591,7 @@ namespace SpaceGame
 			//////////////////////////////////////////////////////////////////////////
 
 			CelestialBody earth = new Planet("Sol-3", "Ground zero. Home base. Mi casita.", ConsoleColor.Blue,
-				new Coordinates(18, 28),
+				new Coordinates(18, 26),
 				new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Junk, ItemCategory.Weapons },
 				'E');
 			earth.AddItem(item["Ectoburger"]);
@@ -615,7 +617,7 @@ namespace SpaceGame
 			venus.AddItem(item["Superdrive"]);
 
 			CelestialBody mars = new Planet("Mars", "Fully terraformed, and still red!", ConsoleColor.Red,
-				new Coordinates(12, 13),
+				new Coordinates(25, 18),
 				new List<ItemCategory> { ItemCategory.Food, ItemCategory.Dessert },
 				'M');
 			mars.AddItem(item["Hydrogen"]);
@@ -746,7 +748,7 @@ namespace SpaceGame
 			//////////////////////////////////////////////////////////////////////////
 
 			CelestialBody sol = new Star("Sol", "Your birth star. There's no place like home.", ConsoleColor.Yellow,
-				new Coordinates(26, 14),
+				new Coordinates(26, 20),
 				's');
 			CelestialBody proximaCentauri = new Star("Proxima Centauri", "The closest sun to the sun. Unremarkable in every other way.", ConsoleColor.Red,
 				new Coordinates(4, 8),

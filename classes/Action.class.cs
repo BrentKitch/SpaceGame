@@ -51,12 +51,13 @@ namespace SpaceGame
 			this.Name = name;
 		}
 
-		public Action(Universe u, string name, Item item, int itemCost)
+		public Action(Universe u, string name, Item item, int itemCost, CelestialBody celestialBody)
 		{
 			this.U = u;
 			this.Name = name;
 			this.Item = item;
 			this.ItemCost = itemCost;
+			this.CelestialBody = celestialBody;
 		}
 		public Action(Universe u, string name, ConsoleColor paintColor, int itemCost)
 		{
@@ -194,6 +195,7 @@ namespace SpaceGame
 			{
 				this.U.Character.Starbucks -= this.ItemCost;
 				this.U.Character.Inventory.Add(this.Item);
+				this.CelestialBody.Items.Remove(this.Item);
 				this.U.Message = $"You bought '{this.Item.Name}'! {this.Item.Description}";
 			}
 			else
@@ -206,6 +208,7 @@ namespace SpaceGame
 		{
 			this.U.Character.Starbucks += this.ItemCost;
 			this.U.Character.Inventory.Remove(this.Item);
+			this.CelestialBody.Items.Add(this.Item);
 			this.U.Message = $"You sold '{this.Item.Name}' for ¤{this.ItemCost}!";
 		}
 

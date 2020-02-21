@@ -753,11 +753,11 @@ namespace SpaceGame
 			Console.WriteLine("\n\n\n\n");
 			while (Console.KeyAvailable)
 			{
-				Console.ReadKey(false);
+				Console.ReadKey(true);
 			}
 
 			Console.Write("  Press any key to exit...  ");
-			Console.ReadKey(false);
+			Console.ReadKey(true);
 			Console.Clear();
 			Environment.Exit(0);
 		}
@@ -767,7 +767,7 @@ namespace SpaceGame
 			// Clear the input buffer.
 			while (Console.KeyAvailable)
 			{
-				Console.ReadKey(false);
+				Console.ReadKey(true);
 			}
 
 			// Clear the screen.
@@ -813,9 +813,9 @@ namespace SpaceGame
             Console.Write("  Press any key to continue...  ");
             while (Console.KeyAvailable)
             {
-                Console.ReadKey(false);
+                Console.ReadKey(true);
             }
-            Console.ReadKey(false);
+            Console.ReadKey(true);
             Console.Clear();
         }
         private void drawShip()

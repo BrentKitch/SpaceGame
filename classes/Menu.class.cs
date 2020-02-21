@@ -106,7 +106,11 @@ namespace SpaceGame
 
 			foreach (Item item in celestialBody.Items)
 			{
-				i++;
+				// Limit the number of items that can be displayed.
+				if (++i >= 10)
+				{
+					break;
+				}
 				int cost = item.BaseCost;
 
 				// Let's check if the celestial body favors this item.
@@ -127,7 +131,8 @@ namespace SpaceGame
 						this.U,
 						"Buy",
 						item,
-						cost
+						cost,
+						celestialBody
 						),
 					(ConsoleKey)(i + 48)
 					)
@@ -154,7 +159,12 @@ namespace SpaceGame
 
 			foreach (Item item in this.U.Character.Inventory)
 			{
-				i++;
+				// Limit the number of items that can be displayed.
+				if (++i >= 10)
+				{
+					break;
+				}
+
 				int cost = (int)(item.BaseCost * .3);
 
 				// Let's check if the celestial body favors this item.
@@ -164,7 +174,7 @@ namespace SpaceGame
 					// then we can buy and sell this item for a higher cost.
 					if (item.ItemCategories.Contains(favoredItemCategory))
 					{
-						cost = cost * 5;
+						cost = cost * 7;
 					}
 				}
 
@@ -175,7 +185,8 @@ namespace SpaceGame
 						this.U,
 						"Sell",
 						item,
-						cost
+						cost,
+						celestialBody
 						),
 					(ConsoleKey)(i + 48)
 					)

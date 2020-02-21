@@ -71,7 +71,7 @@ namespace SpaceGame
 			this.Gender = gender;
 			this.Coordinates = coordinates;
 			this.Age = 18 * 12; // Age, but in months.
-			this.Starbucks = 74;
+			this.Starbucks = 174;
 			this.Health = 100;
 			this.Direction = Direction.Up;
 			this.Spaceship = new Spaceship();
