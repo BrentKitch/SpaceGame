@@ -30,10 +30,6 @@ namespace SpaceGame
         {
             get;set;
         }
-        private Universe preUniverse
-        {
-            get; set;
-        }
         private Menu preMenu
         {
             get; set;
@@ -58,11 +54,21 @@ namespace SpaceGame
         {
             get;set;
         }
+        private int numItems
+        {
+            get;set;
+        }
+        private int numMenuOptions
+        {
+            get; set;
+        }
         List<(int, int)> xyPair = new List<(int, int)> { };
         char[,] map = new char[120,30];
         List<char> uniqueIdentifierList = new List<char> { };
         public void GenerateMap(Universe u, Menu menu)
         {
+            numItems = 0;
+            numMenuOptions = 0;
             xyPair.Clear();
             this.U = u;
             this.Menu = menu;
@@ -159,6 +165,7 @@ namespace SpaceGame
         }
         public void displayMap()
         {
+            uniqueIdentifierList.Clear();
             foreach (CelestialBody cb in this.U.CelestialBodies)
             {
                 uniqueIdentifierList.Add(cb.uniqueIdentifier);
@@ -170,11 +177,17 @@ namespace SpaceGame
                     if (uniqueIdentifierList.Contains(map[x, y]))
                     {
                         Console.BackgroundColor = this.U.CelestialBodies.ElementAt(uniqueIdentifierList.IndexOf(map[x, y])).Color;
-                        if (this.U.CelestialBodies.ElementAt(uniqueIdentifierList.IndexOf(map[x, y])).Type == "star")
+                        if(this.U.CelestialBodies.ElementAt(uniqueIdentifierList.IndexOf(map[x, y])).Type == "star" && 
+                            this.U.CelestialBodies.ElementAt(uniqueIdentifierList.IndexOf(map[x, y])).Name == "Black Hole")
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkGray;
+                            Console.Write("\x2592");
+                        }
+                        else if (this.U.CelestialBodies.ElementAt(uniqueIdentifierList.IndexOf(map[x, y])).Type == "star")
                         {
                             Console.ForegroundColor = ConsoleColor.Black;
                             Console.Write("\x2592");
-                        }
+                        } 
                         else
                         {
                             Console.Write(" ");
@@ -447,6 +460,7 @@ namespace SpaceGame
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.Write(" ");
+                        
                        
                     }
                     else if((i == 7 || i == 13) && a >= 5 && a <= 13)
@@ -482,6 +496,7 @@ namespace SpaceGame
                     {
                         Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.Write(" ");
+                        Console.ResetColor();
                     }
                     else
                     {
@@ -493,7 +508,7 @@ namespace SpaceGame
                     {
                         Console.Write("\n");
                     }
-                    
+                    Console.ResetColor();
                 }
             }
         }
@@ -550,7 +565,12 @@ namespace SpaceGame
             Eraser(coordinateLength, 5,44);
             Console.Write($"( {this.U.Character.Coordinates.X},{this.U.Character.Coordinates.Y} )");
             coordinateLength = ($"( {this.U.Character.Coordinates.X},{this.U.Character.Coordinates.Y} )").Length;
-            Console.SetCursorPosition(20, 36);
+            //Console.SetCursorPosition(20, 36);
+            Eraser(39, 17, 38);
+            Eraser(20, 17, 39);
+            Eraser(39, 17, 38);
+            Eraser(25, 17, 39);
+            Eraser(20, 20, 36);
             (int, int) cursorTrack;
             if (this.U.Character.Collision || this.U.Character.starMarker)
             {
@@ -600,20 +620,37 @@ namespace SpaceGame
             Eraser($"Inventory: {this.U.Character.Inventory.Count}".Length, 61, 35);
             Console.Write($"Inventory: {this.U.Character.Inventory.Count}");
             cursorTrack = (63, 36);
-            foreach(Item item in this.U.Character.Inventory)
+            for (int i = 0; i < numItems; i++)
+            {
+                Eraser(15, cursorTrack.Item1, cursorTrack.Item2);
+                cursorTrack.Item2++;
+            }
+            cursorTrack = (63, 36);
+            numItems = 0;
+            foreach (Item item in this.U.Character.Inventory)
             {
                 Console.SetCursorPosition(cursorTrack.Item1, cursorTrack.Item2);
                 Console.Write(item.Name);
                 cursorTrack.Item2++;
+                numItems++;
             }
             cursorTrack = (85, 35);
-            foreach( MenuItem menuItem in Menu.MenuItems)
+            for (int i = 0; i < numMenuOptions; i++)
+            {
+                Eraser(34, cursorTrack.Item1, cursorTrack.Item2);
+                cursorTrack.Item2++;
+            }
+            cursorTrack = (85, 35);
+            numMenuOptions = 0;
+            foreach ( MenuItem menuItem in Menu.MenuItems)
             {
                 Console.SetCursorPosition(cursorTrack.Item1, cursorTrack.Item2);
                 Console.Write($"{menuItem.Key}: {menuItem.Label}");
                 cursorTrack.Item2++;
+                numMenuOptions++;
             }
-
+            
+            
 		}
 
 		public void ShowStory()
@@ -712,7 +749,7 @@ namespace SpaceGame
 					$"  'Help me, {U.Character.Name}!'\n\n" +
 					$"  But sound doesn't travel in space.");
 			}
-		}
+        }
 
 		public void GameOver(string message)
 		{
@@ -817,6 +854,9 @@ namespace SpaceGame
             }
             Console.ReadKey(false);
             Console.Clear();
+            this.GenerateMap(this.U, this.Menu);
+            this.displayMap();
+            
         }
         private void drawShip()
         {

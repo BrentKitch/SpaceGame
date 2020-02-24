@@ -34,7 +34,7 @@ namespace SpaceGame
 			Console.Clear();
 			this.UserInterface.GenerateMap(this.U, this.Menu);
 			this.UserInterface.displayMap();
-			
+			Console.CursorVisible = false;
 			do
 			{
 				// Check if the character is dead.
