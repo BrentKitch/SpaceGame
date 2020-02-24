@@ -174,7 +174,7 @@ namespace SpaceGame
 					// then we can buy and sell this item for a higher cost.
 					if (item.ItemCategories.Contains(favoredItemCategory))
 					{
-						cost = cost * 7;
+						cost = cost * 50;
 					}
 				}
 

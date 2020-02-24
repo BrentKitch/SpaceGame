@@ -591,7 +591,7 @@ namespace SpaceGame
 			//////////////////////////////////////////////////////////////////////////
 
 			CelestialBody earth = new Planet("Sol-3", "Ground zero. Home base. Mi casita.", ConsoleColor.Blue,
-				new Coordinates(18, 26),
+				new Coordinates(1, 1),
 				new List<ItemCategory> { ItemCategory.Alcohol, ItemCategory.Junk, ItemCategory.Weapons },
 				'E');
 			earth.AddItem(item["Ectoburger"]);
