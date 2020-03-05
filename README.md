@@ -22,3 +22,7 @@ In order to rescue the princess, you need to save money. In order to save money,
 Planets also allow you to refuel your ship or to heal your character. Though you can drift through space in one direction without cost to fuel, it does cost fuel to change your trajectory. You are able to fly through stars if they are in your way, but your character will take damage. Plan your route accordingly.
 
 Random events occur throughout the game that can benefit or harm you, so be careful.
+
+## Important!
+
+If your screen size is too small to fit the map interface right click on the console application title bar and navigate to Properties > Font. Reduce the font size until both the map and menu are visible without scrolling. 
